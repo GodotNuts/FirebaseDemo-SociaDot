@@ -63,11 +63,11 @@ func set_received_messages(messages : int):
         $Header/Messages.set_text(messages as String)
 
 func _on_FriendButton_pressed():
-    if friend_document.doc_fields.chats.has(UserData.user_id):
-        pass
-    else:
-        friend.update_document()
-        yield(friend, "update_document")
+#    if friend_document.doc_fields.chats.has(UserData.user_id):
+#        pass
+#    else:
+#        friend.update_document()
+#        yield(friend, "update_document")
     ChatsManager.open_chat(friend_document)
 
 

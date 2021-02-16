@@ -18,7 +18,6 @@ func _ready():
     $UpdateProfile.hide()
     animate_SignContainer(true)
     yield(get_tree(), "idle_frame")
-#    return
     Firebase.Auth.load_auth()
     if not Firebase.Auth.auth.empty():
         Activities.loading( true)
@@ -36,8 +35,9 @@ func animate_SignContainer(show : bool):
 
 func animate_UpdateProfile(show : bool):
     if show:
+        $UpdateProfile.show()
         $Tween.interpolate_property($UpdateProfile, "rect_position", 
-        rect_size/2 - $UpdateProfile.rect_size/2 - Vector2(0, 40), rect_size/2 - $UpdateProfile.rect_size, 0.8, Tween.TRANS_QUAD, Tween.EASE_OUT)
+        rect_size/2 - $UpdateProfile.rect_size/2 - Vector2(0, 40), rect_size/2 - $UpdateProfile.rect_size/2, 0.8, Tween.TRANS_QUAD, Tween.EASE_OUT)
         $Tween.interpolate_property($UpdateProfile, "modulate", Color(1,1,1,0), Color(1,1,1,1), 0.8, Tween.TRANS_QUAD, Tween.EASE_OUT)
     else:
         $Tween.interpolate_property($UpdateProfile, "rect_position", 

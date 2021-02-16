@@ -114,10 +114,12 @@ size_flags_vertical = 3
 custom_styles/panel = SubResource( 3 )
 
 [node name="UpdateProfile" type="PanelContainer" parent="."]
-margin_left = 392.0
-margin_top = 133.0
-margin_right = 632.0
-margin_bottom = 466.0
+visible = false
+margin_left = 377.0
+margin_top = 286.0
+margin_right = 647.0
+margin_bottom = 314.0
+rect_min_size = Vector2( 270, 0 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 __meta__ = {
@@ -127,22 +129,22 @@ __meta__ = {
 [node name="VBox" type="VBoxContainer" parent="UpdateProfile"]
 margin_left = 14.0
 margin_top = 14.0
-margin_right = 226.0
+margin_right = 256.0
 margin_bottom = 319.0
 custom_constants/separation = 20
 alignment = 1
 
 [node name="Label" type="Label" parent="UpdateProfile/VBox"]
-margin_right = 212.0
+margin_right = 242.0
 margin_bottom = 25.0
 text = "Update your profile"
 align = 1
 
 [node name="UpdatePicture" type="TextureRect" parent="UpdateProfile/VBox"]
 material = ExtResource( 5 )
-margin_left = 41.0
+margin_left = 56.0
 margin_top = 45.0
-margin_right = 171.0
+margin_right = 186.0
 margin_bottom = 175.0
 rect_min_size = Vector2( 130, 130 )
 size_flags_horizontal = 4
@@ -169,7 +171,7 @@ __meta__ = {
 
 [node name="UpdateUsername" type="LineEdit" parent="UpdateProfile/VBox"]
 margin_top = 195.0
-margin_right = 212.0
+margin_right = 242.0
 margin_bottom = 240.0
 align = 1
 placeholder_text = "username"
@@ -177,16 +179,15 @@ caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="ConfirmBtn" parent="UpdateProfile/VBox" instance=ExtResource( 9 )]
-margin_left = 54.0
+margin_left = 69.0
 margin_top = 260.0
-margin_right = 158.0
+margin_right = 173.0
 margin_bottom = 305.0
 size_flags_horizontal = 4
 size_flags_vertical = 10
 text = "Confirm"
 
 [node name="ChosePicture" type="FileDialog" parent="."]
-visible = true
 margin_left = 212.0
 margin_top = 150.0
 margin_right = 812.0

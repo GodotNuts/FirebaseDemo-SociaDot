@@ -53,26 +53,30 @@ func set_user_name(user_name : String):
 func load_user_posts(user_posts : Array):
     $ScrollPost.hide()
     for post in post_container_box.get_children():
-        post.queue_free()
-    for post in user_posts:
-        if not post.has("document"):
-            continue
-        var post_info : FirestoreDocument = FirestoreDocument.new(post.document)
-        if PostsManager.has_post(post_info.doc_name):
-            if PostsManager.has_post_container(post_info.doc_name):
-                post_container_box.add_child(PostsManager.get_post_container_by_id(post_info.doc_name).duplicate())
+        if post is PostContainer: post.queue_free()
+    if ( user_posts.size() == 1 and not user_posts[0].has("document") ) or user_posts.empty():
+        print(user_posts)
+        $ScrollPost/PostContainer/Empty.show()
+    else:
+        for post in user_posts:
+            if not post.has("document"):
+                continue
+            var post_info : FirestoreDocument = FirestoreDocument.new(post.document)
+            if PostsManager.has_post(post_info.doc_name):
+                if PostsManager.has_post_container(post_info.doc_name):
+                    post_container_box.add_child(PostsManager.get_post_container_by_id(post_info.doc_name).duplicate())
+                else:
+                    var post_container : PostContainer = Activities.post_container_scene.instance()
+                    post_container.load_post(PostsManager.add_post_from_doc(post_info.doc_name, post_info))
+                    post_container_box.add_child(post_container)
             else:
+                var post_obj : PostsManager.Post = PostsManager.add_post_from_doc(
+                    post_info.doc_name, 
+                    post_info,
+                    Utilities.get_post_image(post_info.doc_fields.user_id, post_info.doc_name, post_info.doc_fields.image))
                 var post_container : PostContainer = Activities.post_container_scene.instance()
-                post_container.load_post(PostsManager.add_post_from_doc(post_info.doc_name, post_info))
+                post_container.load_post(post_obj)
                 post_container_box.add_child(post_container)
-        else:
-            var post_obj : PostsManager.Post = PostsManager.add_post_from_doc(
-                post_info.doc_name, 
-                post_info,
-                Utilities.get_post_image(post_info.doc_fields.user_id, post_info.doc_name, post_info.doc_fields.image))
-            var post_container : PostContainer = Activities.post_container_scene.instance()
-            post_container.load_post(post_obj)
-            post_container_box.add_child(post_container)
     $ScrollPost.show()
 
 func _on_ConnecBtn_pressed():

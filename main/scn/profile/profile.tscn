@@ -19,9 +19,8 @@ content_margin_top = 10.0
 content_margin_bottom = 10.0
 
 [node name="Profile" type="VBoxContainer"]
-margin_top = 302.0
-margin_right = 570.0
-margin_bottom = 600.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_min_size = Vector2( 550, 0 )
 size_flags_vertical = 3
 script = ExtResource( 6 )
@@ -30,16 +29,16 @@ __meta__ = {
 }
 
 [node name="Profile" type="Label" parent="."]
-margin_right = 570.0
+margin_right = 1024.0
 margin_bottom = 31.0
 custom_fonts/font = SubResource( 1 )
 text = "Profile"
 align = 1
 
 [node name="Header" type="HBoxContainer" parent="."]
-margin_top = 35.0
-margin_right = 570.0
-margin_bottom = 113.0
+margin_top = 39.0
+margin_right = 1024.0
+margin_bottom = 117.0
 rect_min_size = Vector2( 0, 78 )
 size_flags_vertical = 4
 __meta__ = {
@@ -58,17 +57,17 @@ expand = true
 stretch_mode = 1
 
 [node name="Name" type="Label" parent="Header"]
-margin_left = 64.0
-margin_top = 32.0
-margin_right = 92.0
-margin_bottom = 46.0
+margin_left = 68.0
+margin_top = 26.0
+margin_right = 116.0
+margin_bottom = 51.0
 text = "user"
 
 [node name="ConnecBtn" parent="Header" instance=ExtResource( 5 )]
-margin_left = 450.0
-margin_top = 24.0
-margin_right = 570.0
-margin_bottom = 54.0
+margin_left = 904.0
+margin_top = 20.0
+margin_right = 1024.0
+margin_bottom = 57.0
 rect_min_size = Vector2( 120, 30 )
 size_flags_horizontal = 14
 size_flags_vertical = 4
@@ -90,9 +89,9 @@ align = 1
 valign = 1
 
 [node name="ScrollPost" type="ScrollContainer" parent="."]
-margin_top = 117.0
-margin_right = 570.0
-margin_bottom = 298.0
+margin_top = 125.0
+margin_right = 1024.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/bg = SubResource( 2 )
@@ -101,10 +100,21 @@ scroll_horizontal_enabled = false
 [node name="PostContainer" type="VBoxContainer" parent="ScrollPost"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 560.0
-margin_bottom = 171.0
+margin_right = 1014.0
+margin_bottom = 465.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 30
+
+[node name="Empty" type="Label" parent="ScrollPost/PostContainer"]
+visible = false
+margin_right = 1004.0
+margin_bottom = 455.0
+size_flags_vertical = 7
+text = "This user has not shared anything yet.
+Try connecting to them and chat together!"
+align = 1
+valign = 1
+
 [connection signal="visibility_changed" from="." to="." method="_on_Profile_visibility_changed"]
 [connection signal="pressed" from="Header/ConnecBtn" to="." method="_on_ConnecBtn_pressed"]

@@ -11,7 +11,7 @@ func _ready():
     pass
 
 func get_all_users() -> FirestoreTask:
-    return Firebase.Firestore.list("users")
+    return Firebase.Firestore.list("sociadot/340b3IJqqSEK1kMijHCC/users")
 
 # Get the user Document by id
 func get_user(user_id : String) -> FirestoreTask:
@@ -27,7 +27,7 @@ func get_user_posts(user_id : String) -> FirestoreTask:
     return Firebase.Firestore.query(posts_query)
 
 func get_all_posts() -> FirestoreTask:
-    return Firebase.Firestore.list("posts")
+    return Firebase.Firestore.list("sociadot/340b3IJqqSEK1kMijHCC/posts")
 
 # Get user image from Storage by id ( image == id )
 func get_profile_picture(user_id : String) -> StorageTask:

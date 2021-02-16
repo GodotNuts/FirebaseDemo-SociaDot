@@ -1,12 +1,22 @@
 extends Control
 
+const version : String = "0.1"
+
 onready var activities : Control = $Main/Activities
 onready var topbar : HBoxContainer = $TopBar
 onready var loading : Control = $Main/Loading
 onready var error_lbl : Label = $Main/ERROR
 
+onready var user_id_lbl : Label = $Main/AppInfo/UserId
+onready var version_lbl : Label = $Main/AppInfo/Version
+
+func _title():
+    OS.set_window_title("socia.dot v%s"%version)
+    $TopBar/Name.set_text("socia.dot")
+    version_lbl.set_text("v%s"%version)
+
 func _ready():
-    OS.set_window_title("socia.dot")
+    _title()
     _connect_signals()
     get_tree().get_root().set_transparent_background(true)
     if OS.get_name() in ["Android", "iOS"]:
@@ -28,6 +38,7 @@ func _connect_signals():
     topbar.connect("moving_from_pos", self, "_on_TopBar_moving_from_pos")
 
 func _on_signin_completed():
+    user_id_lbl.set_text(UserData.user_id)
     Activities.signin.hide()
     loading.set_loading(false)
     Activities.home = Activities.home_scene.instance()
