@@ -1,0 +1,139 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://main/scn/header/interactive/interactive_header.tscn" type="PackedScene" id=1]
+[ext_resource path="res://main/scn/post/post_timestamp.tscn" type="PackedScene" id=2]
+[ext_resource path="res://main/scn/show_post/show_post.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0, 0, 0.784314 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 0.0
+content_margin_right = 0.0
+content_margin_top = 0.0
+content_margin_bottom = 0.0
+bg_color = Color( 0.235294, 0.235294, 0.235294, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 20
+shadow_color = Color( 0, 0, 0, 0.0784314 )
+shadow_size = 8
+shadow_offset = Vector2( 0, 4 )
+
+[sub_resource type="StyleBoxLine" id=2]
+color = Color( 0.317647, 0.317647, 0.317647, 1 )
+grow_begin = 2.0
+grow_end = 2.0
+thickness = 2
+
+[node name="ShowPost" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 3 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Post" type="PanelContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -416.0
+margin_top = -252.0
+margin_right = 416.0
+margin_bottom = 252.0
+rect_clip_content = true
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PostContainer" type="HBoxContainer" parent="Post"]
+margin_right = 832.0
+margin_bottom = 504.0
+
+[node name="Image" type="TextureRect" parent="Post/PostContainer"]
+margin_right = 512.0
+margin_bottom = 504.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+stretch_mode = 6
+
+[node name="VSeparator" type="VSeparator" parent="Post/PostContainer"]
+margin_left = 520.0
+margin_right = 528.0
+margin_bottom = 504.0
+
+[node name="Container" type="VBoxContainer" parent="Post/PostContainer"]
+margin_left = 536.0
+margin_right = 816.0
+margin_bottom = 504.0
+rect_min_size = Vector2( 280, 0 )
+custom_constants/separation = 5
+
+[node name="HSeparator" type="HSeparator" parent="Post/PostContainer/Container"]
+margin_right = 280.0
+custom_constants/separation = 0
+
+[node name="Header" parent="Post/PostContainer/Container" instance=ExtResource( 1 )]
+margin_top = 5.0
+margin_right = 280.0
+margin_bottom = 83.0
+
+[node name="Timestamp" parent="Post/PostContainer/Container" instance=ExtResource( 2 )]
+margin_left = 280.0
+margin_top = 88.0
+margin_right = 280.0
+margin_bottom = 113.0
+
+[node name="Description" type="Label" parent="Post/PostContainer/Container"]
+margin_top = 118.0
+margin_right = 280.0
+margin_bottom = 143.0
+autowrap = true
+
+[node name="HSeparator2" type="HSeparator" parent="Post/PostContainer/Container"]
+margin_top = 148.0
+margin_right = 280.0
+margin_bottom = 148.0
+custom_styles/separator = SubResource( 2 )
+custom_constants/separation = 0
+
+[node name="HSeparator3" type="HSeparator" parent="Post/PostContainer/Container"]
+margin_top = 153.0
+margin_right = 280.0
+margin_bottom = 153.0
+custom_constants/separation = 0
+
+[node name="VSeparator2" type="VSeparator" parent="Post/PostContainer"]
+margin_left = 824.0
+margin_right = 832.0
+margin_bottom = 504.0
+
+[node name="FileDialog" type="FileDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -275.0
+margin_top = -212.0
+margin_right = 275.0
+margin_bottom = 212.0
+window_title = "Open a File"
+mode = 0
+access = 2
+filters = PoolStringArray( "*.png", "*.jpg" )
+show_hidden_files = true
+current_dir = "/COMPUTER/GodotEngine/GDScript/FirebaseDemo"
+current_path = "/COMPUTER/GodotEngine/GDScript/FirebaseDemo/"
+
+[connection signal="gui_input" from="." to="." method="_on_ShowPost_gui_input"]

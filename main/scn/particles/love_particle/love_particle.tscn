@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://main/res/icons/favorite-24px.svg" type="Texture" id=1]
+[ext_resource path="res://main/scn/particles/love_particle/love_particle.gd" type="Script" id=2]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 1 ), 0.0, 0.866126, 0, 0, Vector2( 1, 0 ), 0.44079, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=2]
+colors = PoolColorArray( 1, 0, 0.351563, 1, 1, 1, 1, 0 )
+
+[node name="LoveParticle" type="CPUParticles2D"]
+emitting = false
+amount = 10
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 1.0
+local_coords = false
+draw_order = 1
+texture = ExtResource( 1 )
+emission_shape = 1
+emission_sphere_radius = 15.0
+direction = Vector2( 0, -1 )
+spread = 5.0
+initial_velocity = 130.0
+initial_velocity_random = 1.0
+angular_velocity = 57.27
+angular_velocity_random = 1.0
+linear_accel_random = 1.0
+angle = 10.0
+angle_random = 1.0
+scale_amount_random = 1.0
+scale_amount_curve = SubResource( 1 )
+color_ramp = SubResource( 2 )
+script = ExtResource( 2 )

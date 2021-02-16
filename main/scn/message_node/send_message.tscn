@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+bg_color = Color( 1, 1, 1, 0.196078 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 20
+shadow_color = Color( 0, 0, 0, 0.0784314 )
+shadow_size = 2
+shadow_offset = Vector2( 0, 2 )
+
+[node name="Message" type="Label"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -9.0
+margin_bottom = 22.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+custom_styles/normal = SubResource( 1 )
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}

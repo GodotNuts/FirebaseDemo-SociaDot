@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://main/res/shaders/round_avatar.tres" type="Material" id=1]
+[ext_resource path="res://main/res/imgs/Nuovo progetto.svg" type="Texture" id=2]
+[ext_resource path="res://main/scn/friend_button/friend_button.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 7.0
+content_margin_right = 7.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 1, 0.235294, 0.235294, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 20
+
+[node name="FriendButton" type="PanelContainer"]
+margin_right = 184.0
+margin_bottom = 88.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="HBoxContainer" parent="."]
+margin_left = 14.0
+margin_top = 14.0
+margin_right = 170.0
+margin_bottom = 74.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+custom_constants/separation = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Picture" type="TextureRect" parent="Header"]
+material = ExtResource( 1 )
+margin_right = 60.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 60, 60 )
+size_flags_vertical = 4
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 1
+
+[node name="Name" type="Label" parent="Header"]
+margin_left = 66.0
+margin_top = 17.0
+margin_right = 156.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 50, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "user"
+autowrap = true
+
+[node name="Messages" type="Label" parent="Header"]
+visible = false
+margin_left = 130.0
+margin_top = 13.0
+margin_right = 157.0
+margin_bottom = 46.0
+size_flags_horizontal = 4
+custom_styles/normal = SubResource( 1 )
+text = "0"
+
+[connection signal="gui_input" from="." to="." method="_on_FriendButton_gui_input"]
