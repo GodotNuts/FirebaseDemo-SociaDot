@@ -18,6 +18,7 @@ func _ready():
     $UpdateProfile.hide()
     animate_SignContainer(true)
     yield(get_tree(), "idle_frame")
+    return
     Firebase.Auth.load_auth()
     if not Firebase.Auth.auth.empty():
         Activities.loading( true)

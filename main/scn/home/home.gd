@@ -65,21 +65,6 @@ func sort_posts(post_a : FirestoreDocument, post_b : FirestoreDocument):
 func load_posts():
     if not UserData.friend_list.empty():
         posts_section.get_node("NoFriends").hide()
-        # Get a list of all user's friends' posts
-#        var temp_post_list : Array = yield(Utilities.get_friends_posts(), "result_query")
-#        if temp_post_list[0].has("error"):
-#            Activities.show_error(JSON.print(temp_post_list[0].error))
-
-#        for friend in UserData.friend_list:
-#            var post_task : FirestoreTask = Utilities.get_user_posts(friend)
-#            var posts : Array = yield(post_task, "result_query")
-#            if posts.empty():
-#                continue
-#            for post in posts:
-#                if not post.has("document"):
-#                    continue
-#                friend_posts.append(FirestoreDocument.new(post.document))
-
         var posts : Array = yield(Utilities.get_all_posts(), "listed_documents")
         for post in posts:
             if post.has("fields"):
@@ -92,26 +77,19 @@ func load_posts():
         if friend_posts.empty():
             pass
         else:
-            # For each post in the list (which is a document)
             for post in friend_posts.slice(0, 10):
-                # Create the actual FirestoreDocument
-#                var post_info : FirestoreDocument = FirestoreDocument.new(post.document)
-                # Make sure that the post is not already present in the dynamic DB PostsManager,
-                
                 if PostsManager.has_post(post.doc_name):
-                    # If this happens, check if a PostContainer linked to this post is already present in DB,
-                    # and eventually add it if not already added to the PostBox
                     if PostsManager.has_post_container(post.doc_name):
                         var post_container : PostContainer = PostsManager.get_post_container_by_id(post.doc_name)
                         add_post(post_container)
                 else:
-                    # Create a PostContainer object, and populate it
-                    # the PostContainer object will automatically add itself to the list in PostsManager
                     var post_container : PostContainer = Activities.post_container_scene.instance()
                     var post_obj : PostsManager.Post = PostsManager.add_post_from_doc(post.doc_name, post)
                     post_container.load_post(post_obj)
                     add_post(post_container)
     else:
+        for post in post_box.get_children():
+            if post is PostContainer: post.queue_free()
         posts_section.get_node("NoFriends").show()
 
 
@@ -128,8 +106,7 @@ func add_post(post : PostContainer):
 func add_shared_post(post_id : String, document : FirestoreDocument, image : ImageTexture):
     var post : PostContainer = Activities.post_container_scene.instance()
     add_post(post)
-    PostsManager.add_shared_post(post_id, document, image)
-    post.load_shared_post(post_id, document, image)
+    post.load_post(PostsManager.add_shared_post(post_id, document, image))
     post_box.move_child(post, 0)
 
 

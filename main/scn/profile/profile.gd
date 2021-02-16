@@ -16,7 +16,8 @@ func load_profile(_id : String, user_name : String):
     if UsersManager.has_user(_id): 
         var user : UsersManager.User = UsersManager.get_user_by_id(_id)
         self.user = user
-        user.connect("update_picture", self, "set_user_avatar")
+        if not user.is_connected("update_picture", self, "set_user_avatar"): 
+            user.connect("update_picture", self, "set_user_avatar")
         set_user_avatar(user.picture)
         set_user_name(user.username)
         var result = yield(Utilities.get_user_posts(user.id), "task_finished")
@@ -64,7 +65,9 @@ func load_user_posts(user_posts : Array):
             var post_info : FirestoreDocument = FirestoreDocument.new(post.document)
             if PostsManager.has_post(post_info.doc_name):
                 if PostsManager.has_post_container(post_info.doc_name):
-                    post_container_box.add_child(PostsManager.get_post_container_by_id(post_info.doc_name).duplicate())
+                    var post_container : PostContainer = PostsManager.get_post_container_by_id(post_info.doc_name).duplicate()
+                    post_container.set_post(PostsManager.get_post_by_id(post_info.doc_name))
+                    post_container_box.add_child(post_container)
                 else:
                     var post_container : PostContainer = Activities.post_container_scene.instance()
                     post_container.load_post(PostsManager.add_post_from_doc(post_info.doc_name, post_info))
@@ -77,6 +80,7 @@ func load_user_posts(user_posts : Array):
                 var post_container : PostContainer = Activities.post_container_scene.instance()
                 post_container.load_post(post_obj)
                 post_container_box.add_child(post_container)
+                
     $ScrollPost.show()
 
 func _on_ConnecBtn_pressed():

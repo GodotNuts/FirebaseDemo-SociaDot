@@ -15,7 +15,7 @@ var image : ImageTexture            setget set_image        # id + extension
 var timestamp : int                 setget set_timestamp
 var likes : Array = []              setget set_likes
 var comments : Dictionary = {}      setget set_comments
-var post : PostsManager.Post
+var post : PostsManager.Post        setget set_post
 
 var db_reference : FirebaseDatabaseReference
 
@@ -25,11 +25,12 @@ func _ready():
     $PostContainer/ActionButtons/CommentsBtn.connect("pressed", self, "_on_CommentsBtn_pressed")
     connect("open_post", Activities.home, "_on_open_post")
     
-
+func set_post(p) -> void:
+    post = p
+    post.connect("update_image", self, "set_image")
 
 func load_post(post) -> void:
-    self.post = post
-    post.connect("update_image", self, "set_image")
+    set_post(post)
     load_user_image(post.user_id)
     set_post_id(post.id)
     set_user(post.user)
@@ -37,27 +38,6 @@ func load_post(post) -> void:
     set_description(post.description)
     set_timestamp(post.timestamp)
     set_image(post.image)
-    PostsManager.add_post_scene(self)
-
-func load_post_from_doc(id : String, doc : Dictionary):
-    set_post_id(id)
-    set_user(doc.user)
-    load_image(doc.image)
-    load_user_image(doc.user_id)
-    set_user_id(doc.user_id)
-    set_description(doc.description)
-    set_timestamp(doc.timestamp)
-    PostsManager.add_post_scene(self)
-
-
-func load_shared_post(id : String, document : FirestoreDocument, image : ImageTexture):
-    set_post_id(id)
-    set_user(UserData.user_name)
-    set_user_id(UserData.user_id)
-    set_user_picture(UserData.user_picture)
-    set_description(document.doc_fields.description)
-    set_image(image)
-    set_timestamp(document.doc_fields.timestamp)
     PostsManager.add_post_scene(self)
 
 func set_post_id(p : String):
