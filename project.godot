@@ -201,13 +201,13 @@ enabled=PoolStringArray( "godot-firebase" )
 
 [firebase]
 
-environment_variables/apiKey="AIzaSyBdarlkNQO0rqZnDgv8P914R_dkSfp3S1c"
-environment_variables/authDomain="instadot.firebaseapp.com"
-environment_variables/databaseURL="https://instadot-default-rtdb.firebaseio.com"
-environment_variables/projectId="instadot"
-environment_variables/storageBucket="instadot.appspot.com"
-environment_variables/messagingSenderId="283726603535"
-environment_variables/appId="1:283726603535:web:14132220da1c119f62ca7a"
+environment_variables/apiKey=""
+environment_variables/authDomain=""
+environment_variables/databaseURL=""
+environment_variables/projectId=""
+environment_variables/storageBucket=""
+environment_variables/messagingSenderId=""
+environment_variables/appId=""
 environment_variables/measurementId=""
 environment_variables/clientId=""
 environment_variables/clientSecret=""
