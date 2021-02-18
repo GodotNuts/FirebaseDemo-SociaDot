@@ -24,6 +24,8 @@ var fr_posts : FirestoreCollection = Firebase.Firestore.collection("posts")
 
 var friend_posts : Array = []
 
+var posts_db_reference : FirebaseDatabaseReference 
+
 func _connect_signals():
     $ShareSomethingContainer.connect("share_post", self, "add_shared_post")
     users_list_section.connect("show_user_profile", self, "_on_show_user_profile")
@@ -40,7 +42,6 @@ func _ready():
     load_user()
     animate_Home(true)
     load_posts()
-#    suggested_users.suggest_user("fenix-hub")
     friend_list.load_friend_list()
 
 func load_user():
@@ -58,7 +59,7 @@ func animate_Home(display : bool):
     $Tween.start()
 
 func sort_posts(post_a : FirestoreDocument, post_b : FirestoreDocument):
-    if post_a.doc_fields.timestamp < post_b.doc_fields.timestamp:
+    if post_a.doc_fields.timestamp > post_b.doc_fields.timestamp:
         return true
     return false
 
@@ -69,7 +70,8 @@ func load_posts():
         for post in posts:
             if post.has("fields"):
                 if (post.fields.user_id.stringValue in UserData.friend_list) \
-                or (post.fields.user_id.stringValue == UserData.user_id):
+                or (post.fields.user_id.stringValue == UserData.user_id) \
+                and not post in friend_posts:
                     friend_posts.append(FirestoreDocument.new(post))
         
         friend_posts.sort_custom(self, "sort_posts")
@@ -77,21 +79,43 @@ func load_posts():
         if friend_posts.empty():
             pass
         else:
-            for post in friend_posts.slice(0, 10):
-                if PostsManager.has_post(post.doc_name):
-                    if PostsManager.has_post_container(post.doc_name):
-                        var post_container : PostContainer = PostsManager.get_post_container_by_id(post.doc_name)
+            for post_idx in range(0, friend_posts.size()):#.slice(0, 10):
+                var post_container : PostContainer
+                if PostsManager.has_post(friend_posts[post_idx].doc_name):
+                    if PostsManager.has_post_container(friend_posts[post_idx].doc_name):
+                        post_container = PostsManager.get_post_container_by_id(friend_posts[post_idx].doc_name)
                         add_post(post_container)
+                    else:
+                        post_container = Activities.post_container_scene.instance()
+                        add_post(post_container)
+                        post_container.load_post(PostsManager.get_post_by_id(friend_posts[post_idx].doc_name))
                 else:
-                    var post_container : PostContainer = Activities.post_container_scene.instance()
-                    var post_obj : PostsManager.Post = PostsManager.add_post_from_doc(post.doc_name, post)
-                    post_container.load_post(post_obj)
+                    post_container = Activities.post_container_scene.instance()
+                    var post_obj : PostsManager.Post = PostsManager.add_post_from_doc(friend_posts[post_idx].doc_name, friend_posts[post_idx])
                     add_post(post_container)
+                    post_container.load_post(post_obj)
+                post_box.move_child(post_container, post_idx)
     else:
         for post in post_box.get_children():
             if post is PostContainer: post.queue_free()
         posts_section.get_node("NoFriends").show()
+    
+    if posts_db_reference == null:
+        posts_db_reference = Firebase.Database.get_database_reference("sociadot/posts")
+        posts_db_reference.connect("new_data_update", self, "_on_new_post")
+    
+    
 
+func _on_new_post(post : FirebaseResource):
+    if post.data.user == UserData.user_id:
+        return
+    if PostsManager.has_post(post.key):
+        return
+    var post_container : PostContainer = Activities.post_container_scene.instance()
+    var post_doc : FirestoreDocument = yield(Utilities.get_post_doc(post.key), "get_document")
+    var post_obj : PostsManager.Post = PostsManager.add_post_from_doc(post.key, post_doc)
+    add_post(post_container)
+    post_container.load_post(post_obj)  
 
 func add_post(post : PostContainer):
     posts_section.get_node("NoFriends").hide()

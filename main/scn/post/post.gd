@@ -37,7 +37,8 @@ func load_post(post) -> void:
     set_user_id(post.user_id)
     set_description(post.description)
     set_timestamp(post.timestamp)
-    set_image(post.image)
+    if post.image_name == "":
+        set_image(null)
     PostsManager.add_post_scene(self)
 
 func set_post_id(p : String):
@@ -99,9 +100,15 @@ func set_description(d : String):
 
 
 func set_image(img : ImageTexture):
+    if not post_image:
+        return
     image = img
     if img == null:
+        post_image.material = null
+        post_image.hide()
         return
+    else:
+        post_image.show()
     post_image.set_texture(img)
     if img.get_size().y < 100:
         post_image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED

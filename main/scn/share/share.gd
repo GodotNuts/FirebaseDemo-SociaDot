@@ -6,7 +6,7 @@ onready var post_image : TextureRect = $ShareSomething/Container/Image
 onready var post_description : TextEdit = $ShareSomething/Container/Description
 
 var image_path : String
-var image : ImageTexture
+var image : ImageTexture = null
 
 var y_limit : int = 400
 var x_limit : int = 500
@@ -48,8 +48,9 @@ func _on_ShareBtn_pressed():
     Activities.loading(true)
     var share_task : FirestoreTask = Utilities.add_post_doc(post_description.get_text().c_escape(), image_path)
     var post_doc : FirestoreDocument = yield(share_task, "task_finished")
-    var image_task : StorageTask = Utilities.add_post_image(post_doc.doc_name, image_path, image.get_data().save_png_to_buffer())
-    yield(image_task, "task_finished")
+    if image != null:
+        var image_task : StorageTask = Utilities.add_post_image(post_doc.doc_name, image_path, image.get_data().save_png_to_buffer())
+        yield(image_task, "task_finished")
     emit_signal("share_post", post_doc.doc_name, post_doc, image)
     hide()
     clear()
@@ -87,6 +88,7 @@ func _on_ShareSomethingContainer_gui_input(event):
             hide()
 
 func clear():
+    image = null
     post_image.set_texture(null)
     post_image.hide()
     post_description.set_text("")

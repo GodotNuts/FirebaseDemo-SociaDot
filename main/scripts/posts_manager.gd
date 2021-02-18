@@ -20,14 +20,14 @@ class Post:
     signal update_post(post)
 
     func _init(id : String, doc_task : FirestoreTask = null, img_task : StorageTask = null):
-            self.id = id
-            if doc_task != null:
-                document_task = doc_task
-                document_task.connect("get_document", self, "_on_get_document")
-            if img_task != null:
-                image_task = img_task
-                image_task.connect("task_finished", self, "_on_image_received")
-
+        self.id = id
+        if doc_task != null:
+            document_task = doc_task
+            document_task.connect("get_document", self, "_on_get_document")
+        if img_task != null:
+            image_task = img_task
+            image_task.connect("task_finished", self, "_on_image_received")
+            
     func _on_get_document(doc : FirestoreDocument):
         emit_signal("update_document", doc)
         document = doc
@@ -35,8 +35,6 @@ class Post:
         user_id = doc.doc_fields.user_id
         description = doc.doc_fields.description
         timestamp = doc.doc_fields.timestamp
-#        likes = doc.doc_fields.likes
-#        comments = doc.doc_fields.comments
         image_name = doc.doc_fields.image
         emit_signal("update_post", self)
 
@@ -44,7 +42,10 @@ class Post:
         if typeof(image_task.data) == TYPE_RAW_ARRAY:
             image = Utilities.byte2image(image_task.data)
             emit_signal("update_image", image)
-
+        else:
+            if image_task.data.has("error") or image_name == "":
+                image = null
+                emit_signal("update_image", image)
 
 var posts : Array = []
 var post_containers : Array = []
@@ -58,9 +59,13 @@ func add_post(id : String, document_task : FirestoreTask = null, image_task : St
     return post
 
 func add_post_from_doc(id : String, doc : FirestoreDocument, image_task : StorageTask = null) -> Post:
+    var post : Post
     if image_task == null:
-        image_task = Utilities.get_post_image(doc.doc_fields.user_id, id, doc.doc_fields.image)
-    var post : Post = Post.new(id, null, image_task)
+        if doc.doc_fields.image != "":
+            image_task = Utilities.get_post_image(doc.doc_fields.user_id, id, doc.doc_fields.image)
+            post = Post.new(id, null, image_task)
+        else:
+            post = Post.new(id)
     post._on_get_document(doc)
     posts.append(post)
     return post

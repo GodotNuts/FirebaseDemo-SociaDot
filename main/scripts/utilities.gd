@@ -67,7 +67,9 @@ func update_friend_list(friend_id : String) -> FirestoreTask:
         friend_list = UserData.friend_list
         })
 
-
+# Get a single post document by ID
+func get_post_doc(post_id : String) -> FirestoreTask:
+    return posts_collection.get(post_id)
 
 # Get a post's Image from Storage
 func get_post_image(user_id : String, post_id : String, post_image : String) -> StorageTask:
@@ -75,13 +77,18 @@ func get_post_image(user_id : String, post_id : String, post_image : String) -> 
 
 # Add a new post Document
 func add_post_doc(description : String, image_path : String, timestamp : int = Utilities.get_time()) -> FirestoreTask:
-    return posts_collection.add("", {
+    var add_post_task : FirestoreTask = posts_collection.add("", {
         user = UserData.user_name,
         user_id = UserData.user_id,
         description = description,
         image = get_image_name(image_path),
         timestamp = timestamp
        })
+    add_post_task.connect("add_document", self, "_on_post_added")
+    return add_post_task
+
+func _on_post_added(post_doc : FirestoreDocument):
+    Firebase.Database.get_database_reference("sociadot/posts").update(post_doc.doc_name, { user = post_doc.doc_fields.user_id })
 
 # Add a post image to Storage
 func add_post_image(post_id : String, image_path : String, image : PoolByteArray) -> StorageTask:
