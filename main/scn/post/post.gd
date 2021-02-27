@@ -115,7 +115,7 @@ func set_user_id(id : String):
 
 func set_description(d : String):
     description = d
-    $PostContainer/Text.set_bbcode(d)
+    $PostContainer/Text.set_bbcode(Utilities.parse_content(description))
     $PostContainer/Text.show()
 
 

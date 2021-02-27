@@ -132,8 +132,8 @@ func set_text_color(_color : Color) -> void:
 
 func _gui_input(event : InputEvent):
     if not pressing:
-        $Container/Hover.global_position = event.global_position
-    if event is InputEventMouseButton:
+        $Container/Hover.global_position = event.position
+    if event is InputEventMouseButton or event is InputEventScreenTouch:
         if event.pressed:
             $Container/Hover.visible = true
             pressing = true

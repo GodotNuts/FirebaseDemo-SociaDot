@@ -1,7 +1,7 @@
 extends Panel
 
 onready var post_image : TextureRect = $Post/PostContainer/Image
-onready var post_description : Label = $Post/PostContainer/Content/Container/Description
+onready var post_description : RichTextLabel = $Post/PostContainer/Content/Container/Description
 onready var timestamp : Label = $Post/PostContainer/Content/Container/Header/Timestamp
 onready var header : InteractiveHeader = $Post/PostContainer/Content/Container/Header
 onready var comments_container : ScrollContainer = $Post/PostContainer/Content/Container/CommentsContainer
@@ -74,7 +74,7 @@ func set_description(desc : String):
     description = desc
     if desc == "":
         post_description.hide()
-    post_description.set_text(description)
+    post_description.set_bbcode(Utilities.parse_content(description))
 
 func set_user(usr):
     user = usr

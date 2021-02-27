@@ -28,6 +28,8 @@ func _ready():
 
 func _on_files_dropped(files : PoolStringArray, screen : int):
     for file_dropped in files:
+        if not file_dropped.get_extension() in ["png","jpg"]:
+            return
         set_texture(file_dropped)
         set_image(file_dropped)
 

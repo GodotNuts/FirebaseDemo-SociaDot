@@ -119,7 +119,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://main/scn/header/interactive/interactive_header.gd"
 }, {
-"base": "Reference",
+"base": "PanelContainer",
 "class": "PostContainer",
 "language": "GDScript",
 "path": "res://main/scn/post/post.gd"
@@ -204,7 +204,7 @@ window/stretch/aspect="keep_width"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "godot-firebase" )
+enabled=PoolStringArray( "res://addons/godot-firebase/plugin.cfg" )
 
 [gui]
 

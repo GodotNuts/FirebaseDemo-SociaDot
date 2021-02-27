@@ -23,7 +23,7 @@ func _ready():
     get_tree().get_root().set_transparent_background(true)
     if OS.get_name() in ["Android", "iOS"]:
         for child in topbar.get_children():
-            child.hide()
+            if child is Control: child.hide()
     if OS.get_name() in ["HTML5"]:
         topbar.hide()
     loading.set_loading(false)

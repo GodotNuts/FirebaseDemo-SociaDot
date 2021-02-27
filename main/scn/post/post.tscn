@@ -122,9 +122,7 @@ margin_right = 1024.0
 margin_bottom = 135.0
 custom_styles/normal = SubResource( 4 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
-text = "some
-text
-here"
+bbcode_enabled = true
 fit_content_height = true
 scroll_active = false
 

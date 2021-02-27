@@ -80,27 +80,28 @@ func get_post_image(user_id : String, post_id : String, post_image : String) -> 
     return Firebase.Storage.ref("sociadot/posts/{user_id}/{post_id}/{post_image}".format({user_id = user_id, post_id = post_id, post_image = post_image})).get_data()
 
 # Add a new post Document
-func add_post_doc(description : String, image_path : String, timestamp : int = RequestsManager.get_time()) -> FirestoreTask:
+func add_post_doc(description : String, image_path : String, timestamp : int = Utilities.get_time()) -> FirestoreTask:
     var add_post_task : FirestoreTask = posts_collection.add("", {
         user = UserData.user_name,
         user_id = UserData.user_id,
         description = description,
-        image = RequestsManager.get_image_name(image_path),
+        image = Utilities.get_image_name(image_path),
         timestamp = timestamp
        })
     add_post_task.connect("add_document", self, "_on_post_added")
     return add_post_task
-
-func _on_post_added(post_doc : FirestoreDocument):
-    Firebase.Database.get_database_reference("sociadot/posts").update(post_doc.doc_name, { user = post_doc.doc_fields.user_id })
 
 # Add a post image to Storage
 func add_post_image(post_id : String, image_path : String, image : PoolByteArray) -> StorageTask:
     return Firebase.Storage.ref("sociadot/posts/{user_id}/{post_id}/{image_path}".format({
         user_id = UserData.user_id, 
         post_id = post_id, 
-        image_path = RequestsManager.get_image_name(image_path)
+        image_path = Utilities.get_image_name(image_path)
         })).put_data(image)
+
+func _on_post_added(post_doc : FirestoreDocument):
+    Firebase.Database.get_database_reference("sociadot/posts").update(post_doc.doc_name, { user = post_doc.doc_fields.user_id })
+
 
 
 func update_post_likes(likes : Array, post_db : FirebaseDatabaseReference) -> void:
