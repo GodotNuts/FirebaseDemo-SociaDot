@@ -1,0 +1,117 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://main/res/fonts/roboto/Roboto-Black.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://main/res/imgs/avatar.svg" type="Texture" id=2]
+[ext_resource path="res://main/res/shaders/round_avatar.tres" type="Material" id=3]
+[ext_resource path="res://main/res/icons/032-add-user.svg" type="Texture" id=4]
+[ext_resource path="res://main/scn/buttons/normal_btn/button.tscn" type="PackedScene" id=5]
+[ext_resource path="res://main/scn/profile/profile.gd" type="Script" id=6]
+[ext_resource path="res://main/res/icons/015-user-1.svg" type="Texture" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 25
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=2]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[node name="Profile" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 550, 0 )
+size_flags_vertical = 3
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Profile" type="Label" parent="."]
+margin_right = 1024.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 1 )
+text = "Profile"
+align = 1
+
+[node name="Header" type="HBoxContainer" parent="."]
+margin_top = 39.0
+margin_right = 1024.0
+margin_bottom = 117.0
+rect_min_size = Vector2( 0, 78 )
+size_flags_vertical = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Picture" type="TextureRect" parent="Header"]
+material = ExtResource( 3 )
+margin_top = 9.0
+margin_right = 60.0
+margin_bottom = 69.0
+rect_min_size = Vector2( 60, 60 )
+size_flags_vertical = 4
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 1
+
+[node name="Name" type="Label" parent="Header"]
+margin_left = 68.0
+margin_top = 26.0
+margin_right = 116.0
+margin_bottom = 51.0
+text = "user"
+
+[node name="ConnecBtn" parent="Header" instance=ExtResource( 5 )]
+margin_left = 904.0
+margin_top = 20.0
+margin_right = 1024.0
+margin_bottom = 57.0
+rect_min_size = Vector2( 120, 30 )
+size_flags_horizontal = 14
+size_flags_vertical = 4
+text = "Connect"
+icon = ExtResource( 4 )
+texture_active = ExtResource( 8 )
+texture_inactive = ExtResource( 4 )
+color = Color( 0.164706, 0.352941, 1, 1 )
+
+[node name="NoContents" type="Label" parent="."]
+visible = false
+margin_top = 64.0
+margin_right = 550.0
+margin_bottom = 330.0
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0.74902, 0.74902, 0.74902, 1 )
+text = "This user hasn't shared any content yet."
+align = 1
+valign = 1
+
+[node name="ScrollPost" type="ScrollContainer" parent="."]
+margin_top = 125.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/bg = SubResource( 2 )
+scroll_horizontal_enabled = false
+
+[node name="PostContainer" type="VBoxContainer" parent="ScrollPost"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1014.0
+margin_bottom = 465.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 30
+
+[node name="Empty" type="Label" parent="ScrollPost/PostContainer"]
+visible = false
+margin_right = 1004.0
+margin_bottom = 455.0
+size_flags_vertical = 7
+text = "This user has not shared anything yet.
+Try connecting to them and chat together!"
+align = 1
+valign = 1

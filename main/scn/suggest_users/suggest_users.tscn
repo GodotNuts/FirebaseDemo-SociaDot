@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://main/res/shaders/round_avatar.tres" type="Material" id=1]
+[ext_resource path="res://main/res/imgs/avatar.svg" type="Texture" id=2]
+[ext_resource path="res://main/scn/buttons/normal_btn/button.tscn" type="PackedScene" id=3]
+[ext_resource path="res://main/res/icons/032-add-user.svg" type="Texture" id=4]
+[ext_resource path="res://main/res/icons/015-user-1.svg" type="Texture" id=5]
+[ext_resource path="res://main/scn/suggest_users/suggest_users.gd" type="Script" id=6]
+
+[node name="SuggestUsers" type="PanelContainer"]
+margin_right = 242.0
+margin_bottom = 110.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UsersBox" type="VBoxContainer" parent="."]
+margin_left = 14.0
+margin_top = 14.0
+margin_right = 262.0
+margin_bottom = 125.0
+
+[node name="Label" type="Label" parent="UsersBox"]
+margin_right = 248.0
+margin_bottom = 25.0
+text = "Suggested Users"
+align = 1
+
+[node name="UserHeader" type="HBoxContainer" parent="UsersBox"]
+margin_top = 33.0
+margin_right = 248.0
+margin_bottom = 111.0
+rect_min_size = Vector2( 0, 78 )
+size_flags_vertical = 4
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Picture" type="TextureRect" parent="UsersBox/UserHeader"]
+material = ExtResource( 1 )
+margin_top = 9.0
+margin_right = 60.0
+margin_bottom = 69.0
+rect_min_size = Vector2( 60, 60 )
+size_flags_vertical = 4
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 1
+
+[node name="Name" type="LinkButton" parent="UsersBox/UserHeader"]
+margin_left = 70.0
+margin_top = 26.0
+margin_right = 118.0
+margin_bottom = 51.0
+size_flags_vertical = 4
+text = "user"
+underline = 1
+
+[node name="ConnecBtn" parent="UsersBox/UserHeader" instance=ExtResource( 3 )]
+margin_left = 128.0
+margin_top = 20.0
+margin_right = 248.0
+margin_bottom = 57.0
+rect_min_size = Vector2( 120, 30 )
+size_flags_horizontal = 14
+size_flags_vertical = 4
+text = "Connect"
+icon = ExtResource( 4 )
+texture_active = ExtResource( 5 )
+texture_inactive = ExtResource( 4 )
+color = Color( 0.164706, 0.352941, 1, 1 )

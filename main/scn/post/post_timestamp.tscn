@@ -1,0 +1,10 @@
+[gd_scene format=2]
+
+[node name="Timestamp" type="Label"]
+modulate = Color( 1, 1, 1, 0.27451 )
+margin_left = 1009.0
+margin_top = 25.0
+margin_right = 1009.0
+margin_bottom = 39.0
+size_flags_horizontal = 10
+align = 2

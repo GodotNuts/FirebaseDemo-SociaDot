@@ -1,0 +1,185 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://main/res/fonts/roboto/Roboto-Black.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://main/scn/header/header.tscn" type="PackedScene" id=2]
+[ext_resource path="res://main/res/icons/add-24px.svg" type="Texture" id=3]
+[ext_resource path="res://main/scn/buttons/firebase_btn/button.tscn" type="PackedScene" id=6]
+[ext_resource path="res://main/scn/share/share.gd" type="Script" id=7]
+[ext_resource path="res://main/scn/buttons/normal_btn/button.tscn" type="PackedScene" id=9]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 0.784314 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 1, 0.796078, 0.168627, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 20
+shadow_color = Color( 0.960784, 0.509804, 0.0509804, 1 )
+shadow_size = 1
+shadow_offset = Vector2( 0, 6 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.960784, 0.509804, 0.0509804, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 20
+shadow_color = Color( 0.960784, 0.509804, 0.0509804, 1 )
+shadow_size = 1
+shadow_offset = Vector2( 0, 6 )
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxFlat" id=6]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 1, 0.65098, 0.0666667, 1 )
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0.960784, 0.509804, 0.0509804, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 20
+shadow_color = Color( 0.960784, 0.509804, 0.0509804, 1 )
+shadow_offset = Vector2( 0, 6 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 1, 0.65098, 0.0666667, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 20
+shadow_color = Color( 0.960784, 0.509804, 0.0509804, 1 )
+shadow_size = 2
+shadow_offset = Vector2( 0, 6 )
+
+[node name="ShareSomethingContainer" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShareSomething" type="PanelContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -224.0
+margin_top = -212.0
+margin_right = 224.0
+margin_bottom = 212.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container" type="VBoxContainer" parent="ShareSomething"]
+margin_left = 14.0
+margin_top = 14.0
+margin_right = 434.0
+margin_bottom = 410.0
+custom_constants/separation = 10
+
+[node name="Label" type="Label" parent="ShareSomething/Container"]
+margin_right = 420.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 2 )
+text = "Share Something"
+align = 1
+
+[node name="Header" parent="ShareSomething/Container" instance=ExtResource( 2 )]
+margin_top = 34.0
+margin_right = 420.0
+margin_bottom = 94.0
+
+[node name="Description" type="TextEdit" parent="ShareSomething/Container"]
+margin_top = 104.0
+margin_right = 420.0
+margin_bottom = 294.0
+rect_min_size = Vector2( 0, 70 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+caret_block_mode = true
+caret_blink = true
+
+[node name="Image" type="TextureRect" parent="ShareSomething/Container"]
+visible = false
+margin_top = 326.0
+margin_right = 434.0
+margin_bottom = 326.0
+size_flags_vertical = 3
+expand = true
+stretch_mode = 6
+
+[node name="AddImageBtn" parent="ShareSomething/Container" instance=ExtResource( 9 )]
+margin_left = 129.0
+margin_top = 304.0
+margin_right = 291.0
+margin_bottom = 341.0
+rect_min_size = Vector2( 150, 30 )
+size_flags_horizontal = 4
+text = "Add immage"
+icon = ExtResource( 3 )
+texture_active = ExtResource( 3 )
+color = Color( 0, 1, 0.486275, 1 )
+
+[node name="ShareBtn" parent="ShareSomething/Container" instance=ExtResource( 6 )]
+margin_top = 351.0
+margin_right = 420.0
+margin_bottom = 396.0
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+disabled = true
+text = "Share now!"
+
+[node name="FileDialog" type="FileDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -275.0
+margin_top = -212.0
+margin_right = 275.0
+margin_bottom = 212.0
+window_title = "Open a File"
+mode = 0
+access = 2
+filters = PoolStringArray( "*.png", "*.jpg" )
+show_hidden_files = true
+current_dir = "/COMPUTER/GodotEngine/GDScript/FirebaseDemo"
+current_path = "/COMPUTER/GodotEngine/GDScript/FirebaseDemo/"

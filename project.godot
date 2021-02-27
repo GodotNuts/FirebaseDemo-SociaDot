@@ -1,0 +1,219 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "PanelContainer",
+"class": "ChatNode",
+"language": "GDScript",
+"path": "res://main/scn/chat_node/chat_node.gd"
+}, {
+"base": "FirebaseContainer",
+"class": "CircularContainer",
+"language": "GDScript",
+"path": "res://firebase-ui/database_box_containers/base_boxcontainer/CircularContainer.gd"
+}, {
+"base": "Reference",
+"class": "CommentContainer",
+"language": "GDScript",
+"path": "res://main/scn/show_post/comment/comment.gd"
+}, {
+"base": "PanelContainer",
+"class": "CustomBaseButton",
+"language": "GDScript",
+"path": "res://firebase-ui/buttons/base_button/base_button.gd"
+}, {
+"base": "PanelContainer",
+"class": "FieldContainer",
+"language": "GDScript",
+"path": "res://firebase-ui/field_containers/base_field_container/field_container.gd"
+}, {
+"base": "HTTPRequest",
+"class": "FirebaseAuth",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/auth/auth.gd"
+}, {
+"base": "Control",
+"class": "FirebaseContainer",
+"language": "GDScript",
+"path": "res://firebase-ui/database_box_containers/base_boxcontainer/FirebaseContainer.gd"
+}, {
+"base": "Node",
+"class": "FirebaseDatabase",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/database/database.gd"
+}, {
+"base": "Node",
+"class": "FirebaseDatabaseReference",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/database/reference.gd"
+}, {
+"base": "Node",
+"class": "FirebaseDatabaseStore",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/database/database_store.gd"
+}, {
+"base": "Node",
+"class": "FirebaseDynamicLinks",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/dynamiclinks/dynamiclinks.gd"
+}, {
+"base": "Node",
+"class": "FirebaseFirestore",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/firestore/firestore.gd"
+}, {
+"base": "Resource",
+"class": "FirebaseResource",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/database/resource.gd"
+}, {
+"base": "Node",
+"class": "FirebaseStorage",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/storage/storage.gd"
+}, {
+"base": "Reference",
+"class": "FirebaseUserData",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/auth/user_data.gd"
+}, {
+"base": "Reference",
+"class": "FirestoreCollection",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/firestore/firestore_collection.gd"
+}, {
+"base": "Reference",
+"class": "FirestoreDocument",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/firestore/firestore_document.gd"
+}, {
+"base": "Reference",
+"class": "FirestoreQuery",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/firestore/firestore_query.gd"
+}, {
+"base": "Reference",
+"class": "FirestoreTask",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/firestore/firestore_task.gd"
+}, {
+"base": "TileMap",
+"class": "FirestoreTileMap",
+"language": "GDScript",
+"path": "res://firebase-ui/tilemaps/firestore_tilemap/firestore_tilemap.gd"
+}, {
+"base": "Reference",
+"class": "FriendButton",
+"language": "GDScript",
+"path": "res://main/scn/friend_button/friend_button.gd"
+}, {
+"base": "Reference",
+"class": "InteractiveHeader",
+"language": "GDScript",
+"path": "res://main/scn/header/interactive/interactive_header.gd"
+}, {
+"base": "Reference",
+"class": "PostContainer",
+"language": "GDScript",
+"path": "res://main/scn/post/post.gd"
+}, {
+"base": "Reference",
+"class": "StorageReference",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/storage/storage_reference.gd"
+}, {
+"base": "Reference",
+"class": "StorageTask",
+"language": "GDScript",
+"path": "res://addons/godot-firebase/storage/storage_task.gd"
+}, {
+"base": "HBoxContainer",
+"class": "TopBar",
+"language": "GDScript",
+"path": "res://main/scn/app/top_bar.gd"
+} ]
+_global_script_class_icons={
+"ChatNode": "",
+"CircularContainer": "",
+"CommentContainer": "",
+"CustomBaseButton": "",
+"FieldContainer": "",
+"FirebaseAuth": "",
+"FirebaseContainer": "",
+"FirebaseDatabase": "",
+"FirebaseDatabaseReference": "",
+"FirebaseDatabaseStore": "",
+"FirebaseDynamicLinks": "",
+"FirebaseFirestore": "",
+"FirebaseResource": "",
+"FirebaseStorage": "",
+"FirebaseUserData": "",
+"FirestoreCollection": "",
+"FirestoreDocument": "",
+"FirestoreQuery": "",
+"FirestoreTask": "",
+"FirestoreTileMap": "",
+"FriendButton": "",
+"InteractiveHeader": "",
+"PostContainer": "",
+"StorageReference": "",
+"StorageTask": "",
+"TopBar": ""
+}
+
+[application]
+
+config/name="FirebaseDemo-SociaDot"
+run/main_scene="res://main/scn/app/main.tscn"
+boot_splash/image="res://main/res/imgs/Splashscreen.png"
+boot_splash/fullsize=false
+boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 1 )
+config/icon="res://main/res/imgs/Godot_icon.svg"
+
+[autoload]
+
+Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
+AppSettings="*res://main/scripts/app_settings.gd"
+Activities="*res://main/scripts/activities.gd"
+UserData="*res://main/scripts/user_data.gd"
+Utilities="*res://main/scripts/utilities.gd"
+RequestsManager="*res://main/scripts/requests_manager.gd"
+PostsManager="*res://main/scripts/posts_manager.gd"
+ChatsManager="*res://main/scripts/chats_manager.gd"
+UsersManager="*res://main/scripts/users_manager.gd"
+
+[debug]
+
+gdscript/warnings/enable=false
+
+[display]
+
+window/size/borderless=true
+window/dpi/allow_hidpi=true
+window/per_pixel_transparency/allowed=true
+window/per_pixel_transparency/enabled=true
+window/handheld/orientation="sensor"
+window/stretch/aspect="keep_width"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "godot-firebase" )
+
+[gui]
+
+theme/use_hidpi=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_clear_color=Color( 0.14902, 0.14902, 0.14902, 0 )
+environment/default_environment="res://default_env.tres"

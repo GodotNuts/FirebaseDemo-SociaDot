@@ -1,0 +1,212 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://main/scn/post/ActionButtons.tscn" type="PackedScene" id=1]
+[ext_resource path="res://main/res/shaders/round_avatar.tres" type="Material" id=2]
+[ext_resource path="res://main/res/imgs/avatar.svg" type="Texture" id=3]
+[ext_resource path="res://main/res/themes/main.tres" type="Theme" id=4]
+[ext_resource path="res://main/scn/post/post.gd" type="Script" id=5]
+[ext_resource path="res://main/res/shaders/lerp_shader.tres" type="Material" id=6]
+[ext_resource path="res://main/res/imgs/bg.png" type="Texture" id=7]
+[ext_resource path="res://main/scn/post/post_timestamp.tscn" type="PackedScene" id=11]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.211765, 0.211765, 0.211765, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 20
+shadow_color = Color( 0, 0, 0, 0.0705882 )
+shadow_size = 10
+shadow_offset = Vector2( 0, 4 )
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+content_margin_left = 20.0
+content_margin_right = 20.0
+
+[sub_resource type="StyleBoxEmpty" id=5]
+content_margin_left = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxLine" id=6]
+content_margin_left = 10.0
+content_margin_right = 10.0
+color = Color( 0.32549, 0.32549, 0.32549, 1 )
+thickness = 3
+
+[node name="Post" type="PanelContainer"]
+anchor_right = 1.0
+margin_bottom = 224.0
+size_flags_horizontal = 3
+theme = ExtResource( 4 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PostContainer" type="VBoxContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 224.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator4" type="HSeparator" parent="PostContainer"]
+margin_right = 1024.0
+margin_bottom = 5.0
+custom_styles/separator = SubResource( 2 )
+custom_constants/separation = 5
+
+[node name="Header" type="HBoxContainer" parent="PostContainer"]
+margin_top = 10.0
+margin_right = 1024.0
+margin_bottom = 75.0
+custom_constants/separation = 15
+
+[node name="VSeparator" type="VSeparator" parent="PostContainer/Header"]
+margin_bottom = 65.0
+custom_styles/separator = SubResource( 3 )
+custom_constants/separation = 0
+
+[node name="Avatar" type="TextureButton" parent="PostContainer/Header"]
+material = ExtResource( 2 )
+margin_left = 15.0
+margin_right = 80.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 65, 65 )
+texture_normal = ExtResource( 3 )
+expand = true
+
+[node name="Username" type="LinkButton" parent="PostContainer/Header"]
+margin_left = 95.0
+margin_top = 23.0
+margin_right = 126.0
+margin_bottom = 42.0
+size_flags_vertical = 4
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "user"
+underline = 1
+
+[node name="Timestamp" parent="PostContainer/Header" instance=ExtResource( 11 )]
+margin_left = 1001.0
+margin_top = 19.0
+margin_bottom = 46.0
+
+[node name="VSeparator2" type="VSeparator" parent="PostContainer/Header"]
+margin_left = 1024.0
+margin_right = 1024.0
+margin_bottom = 65.0
+custom_styles/separator = SubResource( 3 )
+custom_constants/separation = 0
+
+[node name="HSeparator6" type="HSeparator" parent="PostContainer"]
+margin_top = 80.0
+margin_right = 1024.0
+margin_bottom = 85.0
+custom_styles/separator = SubResource( 2 )
+custom_constants/separation = 5
+
+[node name="Text" type="RichTextLabel" parent="PostContainer"]
+visible = false
+margin_top = 90.0
+margin_right = 1024.0
+margin_bottom = 135.0
+custom_styles/normal = SubResource( 4 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+text = "some
+text
+here"
+fit_content_height = true
+scroll_active = false
+
+[node name="HSeparator7" type="HSeparator" parent="PostContainer"]
+margin_top = 90.0
+margin_right = 1024.0
+margin_bottom = 95.0
+custom_styles/separator = SubResource( 2 )
+custom_constants/separation = 5
+
+[node name="Image" type="TextureRect" parent="PostContainer"]
+material = ExtResource( 6 )
+margin_top = 100.0
+margin_right = 1024.0
+margin_bottom = 184.0
+rect_min_size = Vector2( 64, 64 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 7
+size_flags_vertical = 3
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 7
+
+[node name="ActionButtons" parent="PostContainer" instance=ExtResource( 1 )]
+margin_top = 189.0
+margin_bottom = 224.0
+
+[node name="Container" type="PanelContainer" parent="PostContainer"]
+visible = false
+margin_top = 209.0
+margin_right = 1024.0
+margin_bottom = 304.0
+custom_styles/panel = SubResource( 5 )
+
+[node name="CommentsContainer" type="VBoxContainer" parent="PostContainer/Container"]
+margin_left = 20.0
+margin_right = 1004.0
+margin_bottom = 85.0
+custom_constants/separation = 10
+
+[node name="HSeparator3" type="HSeparator" parent="PostContainer/Container/CommentsContainer"]
+margin_right = 984.0
+margin_bottom = 4.0
+custom_styles/separator = SubResource( 6 )
+
+[node name="Comment" type="HBoxContainer" parent="PostContainer/Container/CommentsContainer"]
+margin_top = 8.0
+margin_right = 984.0
+margin_bottom = 58.0
+custom_constants/separation = 10
+
+[node name="Avatar" type="TextureRect" parent="PostContainer/Container/CommentsContainer/Comment"]
+material = ExtResource( 2 )
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 1
+
+[node name="CommentText" type="LineEdit" parent="PostContainer/Container/CommentsContainer/Comment"]
+margin_left = 54.0
+margin_top = 11.0
+margin_right = 984.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "add a comment"
+placeholder_alpha = 0.4
+
+[node name="CommentsList" type="VBoxContainer" parent="PostContainer/Container/CommentsContainer"]
+margin_top = 62.0
+margin_right = 984.0
+margin_bottom = 62.0
+custom_constants/separation = 10
+
+[node name="LoadOtherComments" type="LinkButton" parent="PostContainer/Container/CommentsContainer"]
+margin_left = 414.0
+margin_top = 66.0
+margin_right = 570.0
+margin_bottom = 85.0
+size_flags_horizontal = 4
+custom_colors/font_color = Color( 1, 1, 1, 0.392157 )
+text = "Load other comments"
+underline = 1

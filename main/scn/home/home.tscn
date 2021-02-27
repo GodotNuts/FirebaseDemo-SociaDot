@@ -1,0 +1,271 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://main/scn/home/home.gd" type="Script" id=1]
+[ext_resource path="res://main/res/fonts/roboto/Roboto-Black.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://main/scn/share/share.tscn" type="PackedScene" id=3]
+[ext_resource path="res://main/res/imgs/avatar.svg" type="Texture" id=4]
+[ext_resource path="res://main/res/shaders/round_avatar.tres" type="Material" id=5]
+[ext_resource path="res://main/res/icons/history_edu-24px.svg" type="Texture" id=6]
+[ext_resource path="res://main/res/themes/main.tres" type="Theme" id=7]
+[ext_resource path="res://main/res/icons/home-24px.svg" type="Texture" id=8]
+[ext_resource path="res://main/scn/users_list/users_list.gd" type="Script" id=9]
+[ext_resource path="res://main/scn/buttons/normal_btn/button.tscn" type="PackedScene" id=10]
+[ext_resource path="res://main/scn/profile/profile.tscn" type="PackedScene" id=11]
+[ext_resource path="res://main/res/icons/015-user-1.svg" type="Texture" id=12]
+[ext_resource path="res://main/scn/show_post/show_post.tscn" type="PackedScene" id=13]
+[ext_resource path="res://main/scn/friend_list/friend_list.tscn" type="PackedScene" id=14]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="DynamicFont" id=3]
+size = 25
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxEmpty" id=4]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[node name="Home" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 7 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HomeContainer" type="HBoxContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="VBoxContainer" parent="HomeContainer"]
+margin_right = 210.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 210, 0 )
+custom_constants/separation = 15
+
+[node name="Header" type="HBoxContainer" parent="HomeContainer/Menu"]
+margin_right = 210.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+custom_constants/separation = 10
+alignment = 1
+
+[node name="Picture" type="TextureRect" parent="HomeContainer/Menu/Header"]
+material = ExtResource( 5 )
+margin_left = 54.0
+margin_top = 10.0
+margin_right = 114.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 60, 60 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 1
+
+[node name="Name" type="LinkButton" parent="HomeContainer/Menu/Header"]
+margin_left = 124.0
+margin_top = 30.0
+margin_right = 155.0
+margin_bottom = 49.0
+size_flags_vertical = 4
+text = "user"
+underline = 1
+
+[node name="HomeBtn" parent="HomeContainer/Menu" instance=ExtResource( 10 )]
+margin_left = 65.0
+margin_top = 95.0
+margin_right = 145.0
+margin_bottom = 130.0
+size_flags_horizontal = 4
+text = "Home"
+icon = ExtResource( 8 )
+texture_active = ExtResource( 8 )
+texture_inactive = ExtResource( 8 )
+color = Color( 1, 0.627451, 0.294118, 1 )
+
+[node name="ShareBtn" parent="HomeContainer/Menu" instance=ExtResource( 10 )]
+margin_left = 15.0
+margin_top = 145.0
+margin_right = 195.0
+margin_bottom = 180.0
+rect_min_size = Vector2( 180, 30 )
+size_flags_horizontal = 4
+text = "Share something"
+icon = ExtResource( 6 )
+texture_active = ExtResource( 6 )
+texture_inactive = ExtResource( 6 )
+color = Color( 1, 0.627451, 0.294118, 1 )
+
+[node name="UsersListBtn" parent="HomeContainer/Menu" instance=ExtResource( 10 )]
+margin_left = 15.0
+margin_top = 195.0
+margin_right = 195.0
+margin_bottom = 230.0
+rect_min_size = Vector2( 180, 30 )
+size_flags_horizontal = 4
+text = "Users List"
+icon = ExtResource( 12 )
+texture_active = ExtResource( 12 )
+texture_inactive = ExtResource( 12 )
+color = Color( 1, 0.627451, 0.294118, 1 )
+
+[node name="HSeparator2" type="HSeparator" parent="HomeContainer/Menu"]
+margin_top = 245.0
+margin_right = 210.0
+margin_bottom = 255.0
+custom_styles/separator = SubResource( 2 )
+custom_constants/separation = 10
+
+[node name="Sections" type="VBoxContainer" parent="HomeContainer"]
+margin_left = 214.0
+margin_right = 790.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 420, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Posts" type="VBoxContainer" parent="HomeContainer/Sections"]
+margin_right = 576.0
+margin_bottom = 298.0
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Home" type="Label" parent="HomeContainer/Sections/Posts"]
+margin_right = 576.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 3 )
+text = "Home"
+align = 1
+
+[node name="NoFriends" type="Label" parent="HomeContainer/Sections/Posts"]
+visible = false
+margin_top = 35.0
+margin_right = 656.0
+margin_bottom = 600.0
+size_flags_vertical = 3
+custom_colors/font_color = Color( 0.74902, 0.74902, 0.74902, 1 )
+text = "You have no friends at the moment.
+Make some friends to see their posts here!"
+align = 1
+valign = 1
+
+[node name="ScrollPost" type="ScrollContainer" parent="HomeContainer/Sections/Posts"]
+margin_top = 43.0
+margin_right = 576.0
+margin_bottom = 298.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/bg = SubResource( 4 )
+scroll_horizontal_enabled = false
+
+[node name="PostContainer" type="VBoxContainer" parent="HomeContainer/Sections/Posts/ScrollPost"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 566.0
+margin_bottom = 245.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 30
+
+[node name="Profile" parent="HomeContainer/Sections" instance=ExtResource( 11 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 302.0
+margin_right = 576.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 0, 0 )
+
+[node name="UsersList" type="VBoxContainer" parent="HomeContainer/Sections"]
+visible = false
+margin_top = 402.0
+margin_right = 570.0
+margin_bottom = 600.0
+size_flags_vertical = 3
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Home" type="Label" parent="HomeContainer/Sections/UsersList"]
+margin_right = 570.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 3 )
+text = "Users List"
+align = 1
+
+[node name="ScrollUsers" type="ScrollContainer" parent="HomeContainer/Sections/UsersList"]
+margin_top = 43.0
+margin_right = 570.0
+margin_bottom = 198.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/bg = SubResource( 4 )
+scroll_horizontal_enabled = false
+
+[node name="UsersList" type="VBoxContainer" parent="HomeContainer/Sections/UsersList/ScrollUsers"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 560.0
+margin_bottom = 145.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 30
+
+[node name="SideBar" type="VBoxContainer" parent="HomeContainer"]
+margin_left = 794.0
+margin_right = 1024.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 230, 0 )
+
+[node name="FriendList" parent="HomeContainer/SideBar" instance=ExtResource( 14 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 230.0
+margin_bottom = 600.0
+
+[node name="ShareSomethingContainer" parent="." instance=ExtResource( 3 )]
+visible = false
+
+[node name="ShowPost" parent="." instance=ExtResource( 13 )]
+visible = false
+margin_left = 0.0
+margin_right = 0.0
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+margin_top = 600.0
+margin_right = 1024.0
+margin_bottom = 600.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 8
+alignment_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChatContainer" type="GridContainer" parent="AspectRatioContainer"]
+margin_left = 512.0
+margin_right = 512.0
+size_flags_horizontal = 3
+size_flags_vertical = 10
+columns = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}

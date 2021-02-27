@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://main/res/imgs/avatar.svg" type="Texture" id=1]
+[ext_resource path="res://main/res/shaders/round_avatar.tres" type="Material" id=2]
+[ext_resource path="res://main/scn/show_post/comment/comment.gd" type="Script" id=3]
+[ext_resource path="res://main/res/themes/main.tres" type="Theme" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 0.305882, 0.305882, 0.305882, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 20
+shadow_color = Color( 0, 0, 0, 0.0196078 )
+shadow_size = 8
+shadow_offset = Vector2( 0, 4 )
+
+[node name="CommentContainer" type="HBoxContainer"]
+margin_right = 71.0
+margin_bottom = 66.0
+mouse_filter = 2
+theme = ExtResource( 4 )
+custom_constants/separation = 10
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Avatar" type="TextureRect" parent="."]
+material = ExtResource( 2 )
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+size_flags_vertical = 0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 1
+
+[node name="ContentContainer" type="PanelContainer" parent="."]
+margin_left = 50.0
+margin_right = 71.0
+margin_bottom = 66.0
+mouse_filter = 2
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 1 )
+
+[node name="Box" type="VBoxContainer" parent="ContentContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 13.0
+margin_bottom = 58.0
+mouse_filter = 2
+custom_constants/separation = 0
+
+[node name="Username" type="LinkButton" parent="ContentContainer/Box"]
+margin_bottom = 19.0
+size_flags_horizontal = 0
+custom_colors/font_color = Color( 1, 1, 1, 0.509804 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 0.745098 )
+underline = 1
+
+[node name="Content" type="RichTextLabel" parent="ContentContainer/Box"]
+margin_top = 19.0
+margin_right = 5.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+bbcode_enabled = true
+fit_content_height = true
