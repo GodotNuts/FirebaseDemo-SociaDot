@@ -1,6 +1,6 @@
 extends Control
 
-const version : String = "0.1"
+const version : String = "1.1"
 
 onready var activities : Control = $Main/Activities
 onready var topbar : HBoxContainer = $TopBar
