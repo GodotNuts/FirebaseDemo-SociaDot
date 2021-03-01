@@ -119,6 +119,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://main/scn/header/interactive/interactive_header.gd"
 }, {
+"base": "Label",
+"class": "Message",
+"language": "GDScript",
+"path": "res://main/scn/message_node/message.gd"
+}, {
 "base": "PanelContainer",
 "class": "PostContainer",
 "language": "GDScript",
@@ -162,6 +167,7 @@ _global_script_class_icons={
 "FirestoreTileMap": "",
 "FriendButton": "",
 "InteractiveHeader": "",
+"Message": "",
 "PostContainer": "",
 "StorageReference": "",
 "StorageTask": "",

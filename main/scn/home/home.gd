@@ -19,6 +19,8 @@ onready var chat_container : GridContainer = $AspectRatioContainer/ChatContainer
 
 onready var show_post : Control = $ShowPost
 
+onready var notification_lbl : Label = $HomeContainer/Menu/NotificationsBtn/Notification
+
 var fr_posts : FirestoreCollection = Firebase.Firestore.collection("posts")
 
 var friend_posts : Array = []
@@ -35,6 +37,7 @@ func _connect_signals():
     $HomeContainer/Menu/HomeBtn.connect("pressed", self, "_on_HomeBtn_pressed")
     $HomeContainer/Menu/ShareBtn.connect("pressed", self, "_on_ShareBtn_pressed")
     $HomeContainer/Menu/UsersListBtn.connect("pressed", self, "_on_UsersListBtn_pressed")
+    $HomeContainer/Menu/NotificationsBtn.connect("pressed", self, "_on_NotificationsBtn_pressed")
 
 func _ready():
     _connect_signals()
@@ -226,7 +229,8 @@ func _on_Name_pressed():
 func _on_open_post(post : PostsManager.Post):
     show_post.show_post(post, UsersManager.get_user_by_id(post.user_id))
     
-
+func _on_NotificationsBtn_pressed():
+    pass
 
 func _on_Home_item_rect_changed():
     if chat_container == null:

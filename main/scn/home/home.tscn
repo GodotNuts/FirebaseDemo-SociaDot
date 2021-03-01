@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://main/scn/home/home.gd" type="Script" id=1]
 [ext_resource path="res://main/res/fonts/roboto/Roboto-Black.ttf" type="DynamicFontData" id=2]
@@ -14,8 +14,19 @@
 [ext_resource path="res://main/res/icons/015-user-1.svg" type="Texture" id=12]
 [ext_resource path="res://main/scn/show_post/show_post.tscn" type="PackedScene" id=13]
 [ext_resource path="res://main/scn/friend_list/friend_list.tscn" type="PackedScene" id=14]
+[ext_resource path="res://main/res/icons/055-notification.svg" type="Texture" id=15]
 
 [sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 1, 0.352941, 0.247059, 1 )
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+corner_detail = 20
+
+[sub_resource type="DynamicFont" id=6]
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
@@ -122,10 +133,37 @@ texture_active = ExtResource( 12 )
 texture_inactive = ExtResource( 12 )
 color = Color( 1, 0.627451, 0.294118, 1 )
 
-[node name="HSeparator2" type="HSeparator" parent="HomeContainer/Menu"]
+[node name="NotificationsBtn" parent="HomeContainer/Menu" instance=ExtResource( 10 )]
+margin_left = 15.0
 margin_top = 245.0
+margin_right = 195.0
+margin_bottom = 280.0
+rect_min_size = Vector2( 180, 30 )
+size_flags_horizontal = 4
+text = "Notifications"
+icon = ExtResource( 15 )
+texture_active = ExtResource( 15 )
+texture_inactive = ExtResource( 15 )
+color = Color( 1, 0.627451, 0.294118, 1 )
+
+[node name="Notification" type="Label" parent="HomeContainer/Menu/NotificationsBtn"]
+visible = false
+margin_right = 10.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator2" type="HSeparator" parent="HomeContainer/Menu"]
+margin_top = 295.0
 margin_right = 210.0
-margin_bottom = 255.0
+margin_bottom = 305.0
 custom_styles/separator = SubResource( 2 )
 custom_constants/separation = 10
 

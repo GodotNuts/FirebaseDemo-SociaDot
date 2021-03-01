@@ -11,6 +11,7 @@ var send_message_scene : PackedScene = preload("res://main/scn/message_node/send
 
 var chat_id : String
 
+var user : UsersManager.User
 var user_id : String
 var user_name : String
 var user_avatar : ImageTexture
@@ -49,7 +50,10 @@ func _ready():
 func create_chat(document : FirestoreDocument):
     set_user_id(document.doc_name)
     set_user_name(document.doc_fields.username)
-    set_user_avatar(UsersManager.get_user_by_id(document.doc_name).picture)
+    user = UsersManager.get_user_by_id(document.doc_name)
+    if not user.is_connected("update_picture", self, "set_user_avatar"):
+        user.connect("update_picture", self, "set_user_avatar")
+    set_user_avatar(user.picture)
     # If friend doesn't have a chat with me and 
     if not document.doc_fields.chats.has(UserData.user_id):
         # If I don't have a chat with friend
@@ -91,9 +95,13 @@ func add_message(key : String, message : Dictionary) -> Label:
         lbl = send_message_scene.instance()
     else:
         lbl = received_message_scene.instance()
-    lbl.set_text(message.content)
     history_messages.add_child(lbl)
+    lbl.set_text(message.content)
     lbl.set_name(key)
+    yield(get_tree(), "idle_frame")
+    lbl.show()
+    yield(get_tree(), "idle_frame")
+    $ChatContainer/History.scroll_vertical = $ChatContainer/History.get_v_scrollbar().max_value
     return lbl
 
 func _on_db_data(resource : FirebaseResource):
@@ -108,8 +116,6 @@ func _on_db_data(resource : FirebaseResource):
             else:
                 RequestsManager.read_message(resource, db_reference)
     add_message(resource.key, resource.data.message)
-    yield(get_tree(), "idle_frame")
-    $ChatContainer/History.scroll_vertical = $ChatContainer/History.get_v_scrollbar().max_value
 
 
 func _on_CloseBtn_pressed():

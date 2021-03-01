@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://main/scn/buttons/normal_btn/button.gd" type="Script" id=1]
 [ext_resource path="res://main/res/icons/050-cancel.svg" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://main/res/icons/settings-24px.svg" type="Texture" id=4]
 [ext_resource path="res://main/res/themes/main.tres" type="Theme" id=5]
 [ext_resource path="res://main/res/shaders/round_avatar.tres" type="Material" id=6]
+[ext_resource path="res://main/res/imgs/avatar.svg" type="Texture" id=7]
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 10.0
@@ -39,7 +40,7 @@ bg_color = Color( 0, 0, 0, 0.588235 )
 
 [node name="ChatNode" type="PanelContainer"]
 margin_right = 300.0
-margin_bottom = 322.0
+margin_bottom = 302.0
 rect_min_size = Vector2( 300, 0 )
 size_flags_horizontal = 8
 size_flags_vertical = 10
@@ -54,7 +55,7 @@ __meta__ = {
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 290.0
-margin_bottom = 312.0
+margin_bottom = 292.0
 custom_constants/separation = 10
 
 [node name="Header" type="HBoxContainer" parent="ChatContainer"]
@@ -66,6 +67,7 @@ material = ExtResource( 6 )
 margin_right = 35.0
 margin_bottom = 35.0
 rect_min_size = Vector2( 35, 35 )
+texture = ExtResource( 7 )
 expand = true
 stretch_mode = 1
 
@@ -117,9 +119,8 @@ color = Color( 0.913725, 0.0980392, 0.286275, 1 )
 [node name="History" type="ScrollContainer" parent="ChatContainer"]
 margin_top = 45.0
 margin_right = 280.0
-margin_bottom = 265.0
+margin_bottom = 245.0
 rect_min_size = Vector2( 0, 200 )
-size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/bg = SubResource( 2 )
 scroll_horizontal_enabled = false
@@ -128,15 +129,15 @@ scroll_horizontal_enabled = false
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 275.0
-margin_bottom = 215.0
+margin_bottom = 195.0
 size_flags_horizontal = 3
 size_flags_vertical = 11
 custom_constants/separation = 6
 
 [node name="Box" type="LineEdit" parent="ChatContainer"]
-margin_top = 275.0
+margin_top = 255.0
 margin_right = 280.0
-margin_bottom = 302.0
+margin_bottom = 282.0
 
 [node name="Settings" type="VBoxContainer" parent="."]
 visible = false

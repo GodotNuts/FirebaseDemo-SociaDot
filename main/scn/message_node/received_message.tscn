@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://main/scn/message_node/message.gd" type="Script" id=1]
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 6.0
@@ -16,9 +18,10 @@ shadow_offset = Vector2( 0, 2 )
 
 [node name="Message" type="Label"]
 margin_right = 13.0
-margin_bottom = 26.0
+margin_bottom = 37.0
 size_flags_horizontal = 0
 custom_styles/normal = SubResource( 1 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -56,7 +56,7 @@ func _on_AddImageBtn_pressed():
 
 func _on_ShareBtn_pressed():
     Activities.loading(true)
-    var share_task : FirestoreTask = RequestsManager.add_post_doc(post_description.get_text().c_escape(), image_path)
+    var share_task : FirestoreTask = RequestsManager.add_post_doc(post_description.get_text(), image_path)
     var post_doc : FirestoreDocument = yield(share_task, "task_finished")
     if image != null:
         var image_task : StorageTask = RequestsManager.add_post_image(post_doc.doc_name, image_path, image.get_data().save_png_to_buffer())
