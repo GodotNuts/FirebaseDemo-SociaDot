@@ -8,7 +8,7 @@ To run this project locally, please install and configure [GodotFirebase](https:
 This demo also uses some UI components provided by [GodotFirebase-UI](https://github.com/GodotNuts/GodotFirebase-UI), a library containing drag-n-drop components to speed up the development of UI components for Firebase.  
 
 ## Live Demo
-Some live demos hosted by our team are available here:
-- [Windows demo]()
+Some live demos hosted by our team are available here in each release.  
+You can [find them here](https://github.com/GodotNuts/FirebaseDemo-SociaDot/releases)!
 
 ![home](./env/screenshots/home.png)

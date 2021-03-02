@@ -18,7 +18,7 @@
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 1, 0.352941, 0.247059, 1 )
 corner_radius_top_left = 40
 corner_radius_top_right = 40
@@ -26,15 +26,15 @@ corner_radius_bottom_right = 40
 corner_radius_bottom_left = 40
 corner_detail = 20
 
-[sub_resource type="DynamicFont" id=6]
-
-[sub_resource type="StyleBoxEmpty" id=2]
-
 [sub_resource type="DynamicFont" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="DynamicFont" id=5]
 size = 25
 font_data = ExtResource( 2 )
 
-[sub_resource type="StyleBoxEmpty" id=4]
+[sub_resource type="StyleBoxEmpty" id=6]
 content_margin_left = 10.0
 content_margin_right = 10.0
 content_margin_top = 10.0
@@ -153,8 +153,8 @@ margin_bottom = 10.0
 rect_min_size = Vector2( 10, 10 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-custom_styles/normal = SubResource( 5 )
-custom_fonts/font = SubResource( 6 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -164,7 +164,7 @@ __meta__ = {
 margin_top = 295.0
 margin_right = 210.0
 margin_bottom = 305.0
-custom_styles/separator = SubResource( 2 )
+custom_styles/separator = SubResource( 4 )
 custom_constants/separation = 10
 
 [node name="Sections" type="VBoxContainer" parent="HomeContainer"]
@@ -186,7 +186,7 @@ __meta__ = {
 [node name="Home" type="Label" parent="HomeContainer/Sections/Posts"]
 margin_right = 576.0
 margin_bottom = 39.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "Home"
 align = 1
 
@@ -208,7 +208,7 @@ margin_right = 576.0
 margin_bottom = 298.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/bg = SubResource( 4 )
+custom_styles/bg = SubResource( 6 )
 scroll_horizontal_enabled = false
 
 [node name="PostContainer" type="VBoxContainer" parent="HomeContainer/Sections/Posts/ScrollPost"]
@@ -242,7 +242,7 @@ __meta__ = {
 [node name="Home" type="Label" parent="HomeContainer/Sections/UsersList"]
 margin_right = 570.0
 margin_bottom = 39.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "Users List"
 align = 1
 
@@ -252,7 +252,7 @@ margin_right = 570.0
 margin_bottom = 198.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/bg = SubResource( 4 )
+custom_styles/bg = SubResource( 6 )
 scroll_horizontal_enabled = false
 
 [node name="UsersList" type="VBoxContainer" parent="HomeContainer/Sections/UsersList/ScrollUsers"]
@@ -290,7 +290,7 @@ margin_right = 0.0
 margin_top = 600.0
 margin_right = 1024.0
 margin_bottom = 600.0
-mouse_filter = 1
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
 alignment_vertical = 2
@@ -301,6 +301,7 @@ __meta__ = {
 [node name="ChatContainer" type="GridContainer" parent="AspectRatioContainer"]
 margin_left = 512.0
 margin_right = 512.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 10
 columns = 3
