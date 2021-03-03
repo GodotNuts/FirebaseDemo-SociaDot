@@ -21,6 +21,9 @@ func load_users_list():
         if user_document.doc_name == UserData.user_id:
             continue
         if user_document.doc_name in users_list:
+            var user_header : InteractiveHeader = find_user(user_document.doc_name)
+            if user_header != null:
+                user_header.check_friend()
             continue
         if UsersManager.has_user(user_document.doc_name):
             var user_header : InteractiveHeader = user_header_scene.instance()
@@ -35,6 +38,12 @@ func load_users_list():
             user_header.connect("show_user_profile", self, "_on_show_user_profile")
         users_list.append(user_document.doc_name)
     list_container.show()
+        
+func find_user(user_id : String) -> InteractiveHeader:
+    for header in list_container.get_children():
+        if header.user_id == user_id :
+            return header
+    return null
 
 func _on_show_user_profile(user_id : String, user_name : String):
     emit_signal("show_user_profile", user_id, user_name)

@@ -53,8 +53,9 @@ func _ready():
     friend_list.load_friend_list()
 
 func load_user():
-    $HomeContainer/Menu/Header/Picture.set_texture(UserData.user_picture)
     $HomeContainer/Menu/Header/Name.set_text(UserData.user_name)
+    if UserData.user_picture != null :
+        $HomeContainer/Menu/Header/Picture.set_texture(UserData.user_picture)
 
 
 func animate_Home(display : bool):

@@ -112,15 +112,12 @@ margin_bottom = 372.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 3 )
-automatic_signup = true
-anonymous_signup = false
 
 [node name="UpdateProfile" type="PanelContainer" parent="."]
-visible = false
 margin_left = 377.0
-margin_top = 286.0
+margin_top = 133.0
 margin_right = 647.0
-margin_bottom = 314.0
+margin_bottom = 466.0
 rect_min_size = Vector2( 270, 0 )
 size_flags_horizontal = 4
 size_flags_vertical = 4

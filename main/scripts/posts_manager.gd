@@ -71,7 +71,7 @@ func add_post(id : String, document_task : FirestoreTask = null, image_task : St
 func add_post_from_doc(id : String, doc : FirestoreDocument, image_task : StorageTask = null) -> Post:
     var post : Post
     if image_task == null:
-        if doc.doc_fields.image != "":
+        if not doc.doc_fields.image in ["", " "]:
             image_task = RequestsManager.get_post_image(doc.doc_fields.user_id, id, doc.doc_fields.image)
             post = Post.new(id, null, image_task)
         else:

@@ -114,7 +114,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://main/scn/friend_button/friend_button.gd"
 }, {
-"base": "Reference",
+"base": "HBoxContainer",
 "class": "InteractiveHeader",
 "language": "GDScript",
 "path": "res://main/scn/header/interactive/interactive_header.gd"

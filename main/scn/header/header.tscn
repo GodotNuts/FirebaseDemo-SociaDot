@@ -4,7 +4,7 @@
 [ext_resource path="res://main/res/shaders/round_avatar.tres" type="Material" id=2]
 
 [node name="Header" type="HBoxContainer"]
-margin_right = 116.0
+margin_right = 168.0
 margin_bottom = 60.0
 size_flags_vertical = 4
 __meta__ = {
@@ -24,6 +24,8 @@ stretch_mode = 1
 [node name="Name" type="Label" parent="."]
 margin_left = 68.0
 margin_top = 17.0
-margin_right = 116.0
+margin_right = 168.0
 margin_bottom = 42.0
+rect_min_size = Vector2( 100, 0 )
 text = "user"
+autowrap = true

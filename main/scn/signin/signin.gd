@@ -72,15 +72,17 @@ func _on_SignContainer_logged(login):
         Firebase.Auth.save_auth(login)
         UserData.user_id = login.localid
         UserData.user_email = login.email
-        Activities.loading( false)
+        Activities.loading(false)
         animate_SignContainer(false)
         animate_UpdateProfile(true)
         $UpdateProfile.show()
         return
     var picture_task : StorageTask = RequestsManager.get_profile_picture(user_doc.doc_name)
     yield(picture_task,"task_finished")
-    var user_picture : ImageTexture = Utilities.task2image(picture_task)
-    Activities.loading( false)
+    var user_picture : ImageTexture = null
+    if picture_task.data.size() > 0:
+        user_picture = Utilities.task2image(picture_task)
+    Activities.loading(false)
     UserData.map_user(user_doc, user_picture)
     emit_signal("sign_in")
 

@@ -38,8 +38,9 @@ class User:
         emit_signal("update_user", self)
 
     func _on_picture_received():
-        picture = Utilities.task2image(picture_task)
-        emit_signal("update_picture", picture)
+        if picture_task.data.size() > 0 :
+            picture = Utilities.task2image(picture_task)
+            emit_signal("update_picture", picture)
 
 var users : Array = []
 
