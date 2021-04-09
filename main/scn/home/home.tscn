@@ -19,9 +19,9 @@
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="StyleBoxEmpty" id=4]
+[sub_resource type="StyleBoxEmpty" id=2]
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 1, 0.352941, 0.247059, 1 )
 corner_radius_top_left = 40
 corner_radius_top_right = 40
@@ -29,7 +29,7 @@ corner_radius_bottom_right = 40
 corner_radius_bottom_left = 40
 corner_detail = 20
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=4]
 
 [sub_resource type="DynamicFont" id=5]
 size = 25
@@ -69,7 +69,7 @@ custom_constants/separation = 15
 
 [node name="HSeparator3" type="HSeparator" parent="HomeContainer/Menu"]
 margin_right = 210.0
-custom_styles/separator = SubResource( 4 )
+custom_styles/separator = SubResource( 2 )
 custom_constants/separation = 0
 
 [node name="Header" parent="HomeContainer/Menu" instance=ExtResource( 4 )]
@@ -136,8 +136,8 @@ margin_bottom = 10.0
 rect_min_size = Vector2( 10, 10 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-custom_styles/normal = SubResource( 2 )
-custom_fonts/font = SubResource( 3 )
+custom_styles/normal = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -160,7 +160,7 @@ color = Color( 1, 0.627451, 0.294118, 1 )
 margin_top = 340.0
 margin_right = 210.0
 margin_bottom = 350.0
-custom_styles/separator = SubResource( 4 )
+custom_styles/separator = SubResource( 2 )
 custom_constants/separation = 10
 
 [node name="Sections" type="VBoxContainer" parent="HomeContainer"]
