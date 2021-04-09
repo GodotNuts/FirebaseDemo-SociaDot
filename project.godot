@@ -260,20 +260,6 @@ window/stretch/aspect="keep_width"
 
 enabled=PoolStringArray( "godot-firebase" )
 
-[firebase]
-
-environment_variables/apiKey="AIzaSyCgrmTwdsjR0zY0hHR_WyuSX4cJri1wiBo"
-environment_variables/authDomain="roundtable-5c241.firebaseapp.com"
-environment_variables/databaseURL="https://roundtable-5c241.firebaseio.com"
-environment_variables/projectId="roundtable-5c241"
-environment_variables/storageBucket="roundtable-5c241.appspot.com"
-environment_variables/messagingSenderId="567850593967"
-environment_variables/appId="1:567850593967:web:5395b274d9da6a919f2e5a"
-environment_variables/measurementId=""
-environment_variables/clientId=""
-environment_variables/clientSecret=""
-environment_variables/domainUriPrefix=""
-
 [gui]
 
 theme/use_hidpi=true
