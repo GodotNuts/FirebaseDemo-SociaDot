@@ -1,0 +1,209 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://main/res/fonts/roboto/Roboto-Black.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://main/scn/settings/settings.gd" type="Script" id=2]
+[ext_resource path="res://main/scn/settings/update_picture.tscn" type="PackedScene" id=3]
+[ext_resource path="res://main/res/imgs/avatar.svg" type="Texture" id=4]
+[ext_resource path="res://main/scn/settings/ChosePicture.tscn" type="PackedScene" id=5]
+[ext_resource path="res://main/scn/buttons/firebase_btn/button.tscn" type="PackedScene" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 25
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=2]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="DynamicFont" id=4]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxLine" id=8]
+color = Color( 1, 1, 1, 0.313726 )
+
+[sub_resource type="VisualShaderNodeTexture" id=9]
+texture = ExtResource( 4 )
+
+[sub_resource type="VisualShaderNodeTexture" id=10]
+source = 2
+
+[sub_resource type="VisualShader" id=3]
+code = "shader_type canvas_item;
+uniform sampler2D tex_frg_2;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Texture:3
+	vec3 n_out3p0;
+	float n_out3p1;
+	{
+		vec4 _tex_read = texture(TEXTURE , UV.xy);
+		n_out3p0 = _tex_read.rgb;
+		n_out3p1 = _tex_read.a;
+	}
+
+// Texture:2
+	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
+	vec3 n_out2p0 = tex_frg_2_read.rgb;
+	float n_out2p1 = tex_frg_2_read.a;
+
+// Output:0
+	COLOR.rgb = n_out3p0;
+	COLOR.a = n_out2p1;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -441, 170 )
+mode = 1
+flags/light_only = false
+nodes/fragment/2/node = SubResource( 9 )
+nodes/fragment/2/position = Vector2( -80, 300 )
+nodes/fragment/3/node = SubResource( 10 )
+nodes/fragment/3/position = Vector2( 20, 120 )
+nodes/fragment/connections = PoolIntArray( 2, 1, 0, 1, 3, 0, 0, 0 )
+
+[sub_resource type="ShaderMaterial" id=7]
+resource_local_to_scene = true
+shader = SubResource( 3 )
+
+[node name="Settings" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 3
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Home" type="Label" parent="."]
+margin_right = 1024.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 1 )
+text = "Settings"
+align = 1
+
+[node name="ScrollSettings" type="ScrollContainer" parent="."]
+margin_top = 39.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/bg = SubResource( 2 )
+scroll_horizontal_enabled = false
+
+[node name="SettingsList" type="VBoxContainer" parent="ScrollSettings"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 990.0
+margin_bottom = 564.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 30
+
+[node name="Profile" type="VBoxContainer" parent="ScrollSettings/SettingsList"]
+margin_right = 980.0
+margin_bottom = 479.0
+custom_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollSettings/SettingsList/Profile"]
+margin_right = 980.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 4 )
+text = "Profile"
+
+[node name="HSeparator" type="HSeparator" parent="ScrollSettings/SettingsList/Profile"]
+margin_top = 34.0
+margin_right = 980.0
+margin_bottom = 42.0
+custom_styles/separator = SubResource( 8 )
+
+[node name="Id" type="VBoxContainer" parent="ScrollSettings/SettingsList/Profile"]
+margin_top = 52.0
+margin_right = 980.0
+margin_bottom = 130.0
+
+[node name="Label" type="Label" parent="ScrollSettings/SettingsList/Profile/Id"]
+margin_right = 980.0
+margin_bottom = 25.0
+text = "Id"
+
+[node name="IdEdit" type="LineEdit" parent="ScrollSettings/SettingsList/Profile/Id"]
+margin_top = 33.0
+margin_right = 980.0
+margin_bottom = 78.0
+text = "{id}"
+editable = false
+
+[node name="Email" type="VBoxContainer" parent="ScrollSettings/SettingsList/Profile"]
+margin_top = 140.0
+margin_right = 980.0
+margin_bottom = 218.0
+
+[node name="Label" type="Label" parent="ScrollSettings/SettingsList/Profile/Email"]
+margin_right = 980.0
+margin_bottom = 25.0
+text = "Email"
+
+[node name="EmailEdit" type="LineEdit" parent="ScrollSettings/SettingsList/Profile/Email"]
+margin_top = 33.0
+margin_right = 980.0
+margin_bottom = 78.0
+text = "{email}"
+editable = false
+
+[node name="Name" type="VBoxContainer" parent="ScrollSettings/SettingsList/Profile"]
+margin_top = 228.0
+margin_right = 980.0
+margin_bottom = 306.0
+
+[node name="Label" type="Label" parent="ScrollSettings/SettingsList/Profile/Name"]
+margin_right = 980.0
+margin_bottom = 25.0
+text = "Name"
+
+[node name="NameEdit" type="LineEdit" parent="ScrollSettings/SettingsList/Profile/Name"]
+margin_top = 33.0
+margin_right = 980.0
+margin_bottom = 78.0
+text = "{user}"
+
+[node name="Avatar" type="VBoxContainer" parent="ScrollSettings/SettingsList/Profile"]
+margin_top = 316.0
+margin_right = 980.0
+margin_bottom = 479.0
+
+[node name="Label" type="Label" parent="ScrollSettings/SettingsList/Profile/Avatar"]
+margin_right = 980.0
+margin_bottom = 25.0
+text = "Avatar"
+
+[node name="UpdatePicture" parent="ScrollSettings/SettingsList/Profile/Avatar" instance=ExtResource( 3 )]
+material = SubResource( 7 )
+margin_left = 425.0
+margin_top = 33.0
+margin_right = 555.0
+margin_bottom = 163.0
+
+[node name="ChosePicture" parent="ScrollSettings/SettingsList/Profile" instance=ExtResource( 5 )]
+
+[node name="SaveSettingsBtn" parent="ScrollSettings/SettingsList" instance=ExtResource( 6 )]
+margin_left = 410.0
+margin_top = 509.0
+margin_right = 569.0
+margin_bottom = 554.0
+size_flags_horizontal = 4
+text = "Save Settings"

@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://main/scn/buttons/normal_btn/button.gd" type="Script" id=2]
+
+[node name="Menu" type="MenuButton"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+focus_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+expand_icon = true
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]

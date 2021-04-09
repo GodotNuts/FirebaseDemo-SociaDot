@@ -1,0 +1,19 @@
+[gd_scene format=2]
+
+[node name="ChosePicture" type="FileDialog"]
+margin_left = 212.0
+margin_top = 150.0
+margin_right = 812.0
+margin_bottom = 450.0
+rect_min_size = Vector2( 600, 300 )
+window_title = "Open a File"
+resizable = true
+mode = 0
+access = 2
+filters = PoolStringArray( "*.png", "*.jpg" )
+show_hidden_files = true
+current_dir = "/COMPUTER/GodotEngine/GDScript/FirebaseDemo-SociaDot"
+current_path = "/COMPUTER/GodotEngine/GDScript/FirebaseDemo-SociaDot/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
