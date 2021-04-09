@@ -25,9 +25,13 @@ class User:
                 picture_task.connect("task_finished", self, "_on_picture_received")
 
     func update_document():
-        document_task = Utilities.get_user(id)
+        document_task = RequestsManager.get_user(id)
 #        document_task.connect("get_document", self, "_on_get_document")
 
+    func update_picture(new_picture : ImageTexture) -> void:
+        picture = new_picture
+        emit_signal("update_picture", new_picture)
+    
     func _on_get_document(doc : FirestoreDocument):
         emit_signal("update_document", doc)
         document = doc
@@ -38,8 +42,8 @@ class User:
         emit_signal("update_user", self)
 
     func _on_picture_received():
-        if typeof(picture_task.data) == TYPE_RAW_ARRAY:
-            picture = Utilities.byte2image(picture_task.data)
+        if picture_task.data.size() > 0 :
+            picture = Utilities.task2image(picture_task)
             emit_signal("update_picture", picture)
 
 var users : Array = []
@@ -57,6 +61,14 @@ func add_user_doc(id : String, document : FirestoreDocument, picture_task : Stor
     user._on_get_document(document)
     users.append(user)
     return user
+
+func update_user(id : String, document : FirestoreDocument = null, picture : ImageTexture = null) -> void:
+    var user : User = get_user_by_id(id)
+    if document != null:
+        user._on_get_document(document)
+    if picture != null:
+        user.update_picture(picture)
+    
 
 func has_user(id : String) -> bool:
     for user in users:

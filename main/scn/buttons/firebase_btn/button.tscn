@@ -30,7 +30,7 @@ shadow_color = Color( 0.960784, 0.509804, 0.0509804, 1 )
 shadow_size = 1
 shadow_offset = Vector2( 0, 6 )
 
-[sub_resource type="StyleBoxEmpty" id=6]
+[sub_resource type="StyleBoxEmpty" id=3]
 
 [sub_resource type="StyleBoxFlat" id=4]
 content_margin_left = 8.0
@@ -73,7 +73,7 @@ margin_bottom = 34.0
 rect_min_size = Vector2( 100, 0 )
 custom_styles/hover = SubResource( 1 )
 custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 6 )
+custom_styles/focus = SubResource( 3 )
 custom_styles/disabled = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
 custom_colors/font_color = Color( 0.956863, 0.956863, 0.956863, 1 )

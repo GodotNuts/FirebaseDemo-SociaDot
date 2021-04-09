@@ -6,13 +6,16 @@ var user_id : String
 var user_name : String
 var user_picture : ImageTexture
 
-# Called when the node enters the scene tree for the first time.
+func _connect_signals():
+    $UsersBox/UserHeader/Name.connect("pressed", self, "_on_Name_pressed")
+    $UsersBox/UserHeader/ConnecBtn.connect("pressed", self, "_on_ConnectBtn_pressed")
+
 func _ready():
-    pass
+    _connect_signals()
 
 
 func suggest_user(user : String):
-    var query : FirestoreTask = Utilities.get_user_by_username(user)
+    var query : FirestoreTask = RequestsManager.get_user_by_username(user)
     var result : Array = yield(query, "query_result")
     if result[0].has("error"):
         Activities.show_error(JSON.print(result[0].error))
@@ -25,12 +28,12 @@ func suggest_user(user : String):
             if user_picture != null:
                 $UsersBox/UserHeader/Picture.set_texture(user_picture)
             else:
-                var profile_task : StorageTask = Utilities.get_profile_picture(user_doc.doc_name)
+                var profile_task : StorageTask = RequestsManager.get_profile_picture(user_doc.doc_name)
                 PostsManager.add_profile(profile_task)
                 yield(profile_task, "task_finished")
                 if typeof(profile_task.data) != TYPE_RAW_ARRAY:
                     print(profile_task.data)
-                $UsersBox/UserHeader/Picture.set_texture(Utilities.byte2image(profile_task.data))
+                $UsersBox/UserHeader/Picture.set_texture(Utilities.task2image(profile_task))
             $UsersBox/UserHeader/Name.set_text(user_name)
             check_friend(user_id)
 
@@ -45,5 +48,5 @@ func _on_Name_pressed():
 
 
 func _on_ConnecBtn_pressed():
-    Utilities.update_friend_list(user_id)
+    RequestsManager.update_friend_list(user_id)
     check_friend(user_id)

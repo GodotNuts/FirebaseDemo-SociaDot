@@ -1,20 +1,58 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://main/res/fonts/roboto/Roboto-Black.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://main/scn/header/header.tscn" type="PackedScene" id=2]
 [ext_resource path="res://main/res/icons/add-24px.svg" type="Texture" id=3]
+[ext_resource path="res://main/res/icons/047-cancel-1.svg" type="Texture" id=4]
 [ext_resource path="res://main/scn/buttons/firebase_btn/button.tscn" type="PackedScene" id=6]
 [ext_resource path="res://main/scn/share/share.gd" type="Script" id=7]
 [ext_resource path="res://main/scn/buttons/normal_btn/button.tscn" type="PackedScene" id=9]
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 0.784314 )
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 20
 font_data = ExtResource( 1 )
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="GDScript" id=3]
+script/source = "tool
+extends Button
+
+export (StreamTexture) var texture_active : StreamTexture
+export (StreamTexture) var texture_inactive : StreamTexture
+export (Color) var color : Color = Color.white
+
+var activated : bool = false        setget set_activated
+
+func _connect_signals():
+    connect(\"mouse_entered\", self, \"_on_LikeBtn_mouse_entered\")
+    connect(\"mouse_exited\", self, \"_on_LikeBtn_mouse_exited\")
+
+func _ready():
+    _connect_signals()
+
+func _on_LikeBtn_mouse_entered():
+    if not activated:
+        $Tween.interpolate_property(self, \"modulate\", Color.white, color, 0.1, Tween.TRANS_QUAD, Tween.EASE_OUT)
+        $Tween.start()
+
+func _on_LikeBtn_mouse_exited():
+    if not activated:
+        $Tween.interpolate_property(self, \"modulate\", color, Color.white, 0.1, Tween.TRANS_QUAD, Tween.EASE_OUT)
+        $Tween.start()
+
+func set_activated(active : bool):
+    activated = active
+    if activated:
+        modulate = color
+        icon = texture_active
+    else:
+        modulate = Color.white
+        icon = texture_inactive
+"
+
+[sub_resource type="StyleBoxFlat" id=4]
 content_margin_left = 8.0
 content_margin_right = 8.0
 content_margin_top = 10.0
@@ -29,7 +67,7 @@ shadow_color = Color( 0.960784, 0.509804, 0.0509804, 1 )
 shadow_size = 1
 shadow_offset = Vector2( 0, 6 )
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=5]
 content_margin_left = 10.0
 content_margin_right = 10.0
 content_margin_top = 10.0
@@ -44,9 +82,9 @@ shadow_color = Color( 0.960784, 0.509804, 0.0509804, 1 )
 shadow_size = 1
 shadow_offset = Vector2( 0, 6 )
 
-[sub_resource type="StyleBoxEmpty" id=4]
+[sub_resource type="StyleBoxEmpty" id=6]
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=7]
 content_margin_left = 8.0
 content_margin_right = 8.0
 content_margin_top = 10.0
@@ -66,7 +104,7 @@ corner_detail = 20
 shadow_color = Color( 0.960784, 0.509804, 0.0509804, 1 )
 shadow_offset = Vector2( 0, 6 )
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=8]
 content_margin_left = 8.0
 content_margin_right = 8.0
 content_margin_top = 10.0
@@ -86,7 +124,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 1 )
 script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -110,12 +148,14 @@ margin_left = 14.0
 margin_top = 14.0
 margin_right = 434.0
 margin_bottom = 410.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/separation = 10
 
 [node name="Label" type="Label" parent="ShareSomething/Container"]
 margin_right = 420.0
 margin_bottom = 24.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Share Something"
 align = 1
 
@@ -136,21 +176,35 @@ caret_blink = true
 
 [node name="Image" type="TextureRect" parent="ShareSomething/Container"]
 visible = false
-margin_top = 326.0
-margin_right = 434.0
-margin_bottom = 326.0
+margin_top = 204.0
+margin_right = 420.0
+margin_bottom = 294.0
 size_flags_vertical = 3
 expand = true
 stretch_mode = 6
 
+[node name="Cancel" parent="ShareSomething/Container/Image" instance=ExtResource( 9 )]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -34.0
+margin_right = 1.0
+margin_bottom = 37.0
+rect_min_size = Vector2( 35, 35 )
+text = ""
+icon = ExtResource( 4 )
+script = SubResource( 3 )
+texture_active = ExtResource( 4 )
+texture_inactive = ExtResource( 4 )
+color = Color( 1, 0, 0, 1 )
+
 [node name="AddImageBtn" parent="ShareSomething/Container" instance=ExtResource( 9 )]
-margin_left = 129.0
+margin_left = 135.0
 margin_top = 304.0
-margin_right = 291.0
+margin_right = 285.0
 margin_bottom = 341.0
 rect_min_size = Vector2( 150, 30 )
 size_flags_horizontal = 4
-text = "Add immage"
+text = "Add image"
 icon = ExtResource( 3 )
 texture_active = ExtResource( 3 )
 color = Color( 0, 1, 0.486275, 1 )
@@ -159,11 +213,12 @@ color = Color( 0, 1, 0.486275, 1 )
 margin_top = 351.0
 margin_right = 420.0
 margin_bottom = 396.0
-custom_styles/hover = SubResource( 2 )
-custom_styles/pressed = SubResource( 3 )
-custom_styles/focus = SubResource( 4 )
-custom_styles/disabled = SubResource( 5 )
-custom_styles/normal = SubResource( 6 )
+size_flags_vertical = 9
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
 disabled = true
 text = "Share now!"
 
@@ -181,11 +236,5 @@ mode = 0
 access = 2
 filters = PoolStringArray( "*.png", "*.jpg" )
 show_hidden_files = true
-current_dir = "/COMPUTER/GodotEngine/GDScript/FirebaseDemo"
-current_path = "/COMPUTER/GodotEngine/GDScript/FirebaseDemo/"
-
-[connection signal="gui_input" from="." to="." method="_on_ShareSomethingContainer_gui_input"]
-[connection signal="text_changed" from="ShareSomething/Container/Description" to="." method="_on_Description_text_changed"]
-[connection signal="pressed" from="ShareSomething/Container/AddImageBtn" to="." method="_on_AddImageBtn_pressed"]
-[connection signal="pressed" from="ShareSomething/Container/ShareBtn" to="." method="_on_ShareBtn_pressed"]
-[connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]
+current_dir = "/COMPUTER/GodotEngine/GDScript/FirebaseDemo-SociaDot"
+current_path = "/COMPUTER/GodotEngine/GDScript/FirebaseDemo-SociaDot/"

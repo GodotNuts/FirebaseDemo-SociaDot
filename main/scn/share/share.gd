@@ -11,7 +11,16 @@ var image : ImageTexture = null
 var y_limit : int = 400
 var x_limit : int = 500
 
+func _connect_signals():
+    connect("gui_input", self, "_on_ShareSomethingContainer_gui_input")
+    post_description.connect("text_changed", self, "_on_Description_text_changed")
+    $ShareSomething/Container/AddImageBtn.connect("pressed", self, "_on_AddImageBtn_pressed")
+    $ShareSomething/Container/ShareBtn.connect("pressed", self, "_on_ShareBtn_pressed")
+    $FileDialog.connect("file_selected", self, "_on_FileDialog_file_selected")
+    $ShareSomething/Container/Image/Cancel.connect("pressed", self, "_on_cancel_pressed")
+
 func _ready():
+    _connect_signals()
     $ShareSomething/Container/Header/Picture.set_texture(UserData.user_picture)
     $ShareSomething/Container/Header/Name.set_text(UserData.user_name)
     get_tree().connect("files_dropped", self, "_on_files_dropped")
@@ -20,6 +29,8 @@ func _ready():
 
 func _on_files_dropped(files : PoolStringArray, screen : int):
     for file_dropped in files:
+        if not file_dropped.get_extension() in ["png","jpg"]:
+            return
         set_texture(file_dropped)
         set_image(file_dropped)
 
@@ -46,10 +57,10 @@ func _on_AddImageBtn_pressed():
 
 func _on_ShareBtn_pressed():
     Activities.loading(true)
-    var share_task : FirestoreTask = Utilities.add_post_doc(post_description.get_text().c_escape(), image_path)
+    var share_task : FirestoreTask = RequestsManager.add_post_doc(post_description.get_text(), image_path)
     var post_doc : FirestoreDocument = yield(share_task, "task_finished")
     if image != null:
-        var image_task : StorageTask = Utilities.add_post_image(post_doc.doc_name, image_path, image.get_data().save_png_to_buffer())
+        var image_task : StorageTask = RequestsManager.add_post_image(post_doc.doc_name, image_path, image.get_data().save_png_to_buffer())
         yield(image_task, "task_finished")
     emit_signal("share_post", post_doc.doc_name, post_doc, image)
     hide()
@@ -88,12 +99,13 @@ func _on_ShareSomethingContainer_gui_input(event):
             hide()
 
 func clear():
+    _on_cancel_pressed()
+    post_description.set_text("")
+    $ShareSomething/Container/ShareBtn.disabled = true
+
+func _on_cancel_pressed():
     image = null
     post_image.set_texture(null)
     post_image.hide()
-    post_description.set_text("")
     $ShareSomething/Container/AddImageBtn.show()
-    $ShareSomething/Container/ShareBtn.disabled = true
-
-
-
+    post_description.size_flags_vertical = SIZE_EXPAND_FILL

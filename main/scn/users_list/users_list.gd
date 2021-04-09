@@ -15,13 +15,15 @@ func _ready():
 
 func load_users_list():
     list_container.hide()
-    var all_users_task : FirestoreTask = Utilities.get_all_users()
+    var all_users_task : FirestoreTask = RequestsManager.get_all_users()
     var list : Array = yield(all_users_task, "listed_documents")
-    for user in list:
-        var user_document : FirestoreDocument = FirestoreDocument.new(user)
+    for user_document in list:
         if user_document.doc_name == UserData.user_id:
             continue
         if user_document.doc_name in users_list:
+            var user_header : InteractiveHeader = find_user(user_document.doc_name)
+            if user_header != null:
+                user_header.check_friend()
             continue
         if UsersManager.has_user(user_document.doc_name):
             var user_header : InteractiveHeader = user_header_scene.instance()
@@ -29,13 +31,19 @@ func load_users_list():
             list_container.add_child(user_header)
             user_header.connect("show_user_profile", self, "_on_show_user_profile")
         else:
-            var user_obj : UsersManager.User = UsersManager.add_user_doc(user_document.doc_name, user_document, Utilities.get_profile_picture(user_document.doc_name))
+            var user_obj : UsersManager.User = UsersManager.add_user_doc(user_document.doc_name, user_document, RequestsManager.get_profile_picture(user_document.doc_name))
             var user_header : InteractiveHeader = user_header_scene.instance()
             user_header.load_from_user(user_obj)
             list_container.add_child(user_header)
             user_header.connect("show_user_profile", self, "_on_show_user_profile")
         users_list.append(user_document.doc_name)
     list_container.show()
+        
+func find_user(user_id : String) -> InteractiveHeader:
+    for header in list_container.get_children():
+        if header.user_id == user_id :
+            return header
+    return null
 
 func _on_show_user_profile(user_id : String, user_name : String):
     emit_signal("show_user_profile", user_id, user_name)

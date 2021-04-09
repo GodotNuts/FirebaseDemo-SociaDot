@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://main/res/shaders/round_avatar.tres" type="Material" id=1]
-[ext_resource path="res://main/res/imgs/Nuovo progetto.svg" type="Texture" id=2]
+[ext_resource path="res://main/res/imgs/avatar.svg" type="Texture" id=2]
 [ext_resource path="res://main/scn/friend_button/friend_button.gd" type="Script" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -20,7 +20,7 @@ corner_detail = 20
 margin_right = 184.0
 margin_bottom = 88.0
 mouse_default_cursor_shape = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 7
 size_flags_vertical = 0
 script = ExtResource( 3 )
 __meta__ = {
@@ -69,5 +69,3 @@ margin_bottom = 46.0
 size_flags_horizontal = 4
 custom_styles/normal = SubResource( 1 )
 text = "0"
-
-[connection signal="gui_input" from="." to="." method="_on_FriendButton_gui_input"]

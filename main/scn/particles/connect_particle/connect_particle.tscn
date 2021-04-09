@@ -3,15 +3,15 @@
 [ext_resource path="res://main/scn/particles/connect_particle/connect_particle.gd" type="Script" id=1]
 [ext_resource path="res://main/res/icons/015-user-1.svg" type="Texture" id=2]
 
-[sub_resource type="Curve" id=3]
+[sub_resource type="Curve" id=1]
 max_value = 170.0
 _data = [ Vector2( 0, 1 ), 0.0, 461.503, 0, 0, Vector2( 1, 170 ), 156.813, 0.0, 0, 0 ]
 
-[sub_resource type="Curve" id=1]
+[sub_resource type="Curve" id=2]
 min_value = -1.0
 _data = [ Vector2( 0, 0.356305 ), 0.0, 0.866126, 0, 0, Vector2( 1, -1 ), -4.73798, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0.397476, 0.996845, 1 )
 colors = PoolColorArray( 0, 0.302734, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0 )
 
@@ -36,10 +36,10 @@ initial_velocity_random = 0.3
 angular_velocity_random = 1.0
 linear_accel_random = 1.0
 damping = 30.0
-damping_curve = SubResource( 3 )
+damping_curve = SubResource( 1 )
 angle = 10.0
 angle_random = 1.0
 scale_amount_random = 1.0
-scale_amount_curve = SubResource( 1 )
-color_ramp = SubResource( 2 )
+scale_amount_curve = SubResource( 2 )
+color_ramp = SubResource( 3 )
 script = ExtResource( 1 )

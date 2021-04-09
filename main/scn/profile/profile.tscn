@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://main/res/fonts/roboto/Roboto-Black.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://main/res/imgs/Nuovo progetto.svg" type="Texture" id=2]
+[ext_resource path="res://main/res/imgs/avatar.svg" type="Texture" id=2]
 [ext_resource path="res://main/res/shaders/round_avatar.tres" type="Material" id=3]
 [ext_resource path="res://main/res/icons/032-add-user.svg" type="Texture" id=4]
 [ext_resource path="res://main/scn/buttons/normal_btn/button.tscn" type="PackedScene" id=5]
@@ -115,6 +115,3 @@ text = "This user has not shared anything yet.
 Try connecting to them and chat together!"
 align = 1
 valign = 1
-
-[connection signal="visibility_changed" from="." to="." method="_on_Profile_visibility_changed"]
-[connection signal="pressed" from="Header/ConnecBtn" to="." method="_on_ConnecBtn_pressed"]

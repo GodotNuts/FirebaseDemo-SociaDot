@@ -1,16 +1,15 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://main/res/shaders/round_avatar.tres" type="Material" id=1]
-[ext_resource path="res://main/res/imgs/Nuovo progetto.svg" type="Texture" id=2]
+[ext_resource path="res://main/res/imgs/avatar.svg" type="Texture" id=2]
 [ext_resource path="res://main/scn/header/interactive/interactive_header.gd" type="Script" id=3]
 [ext_resource path="res://main/scn/buttons/normal_btn/button.tscn" type="PackedScene" id=4]
-[ext_resource path="res://main/res/icons/032-add-user.svg" type="Texture" id=5]
-[ext_resource path="res://main/res/icons/015-user-1.svg" type="Texture" id=6]
+[ext_resource path="res://main/res/icons/group_add_white_24dp.svg" type="Texture" id=5]
+[ext_resource path="res://main/res/icons/people_white_24dp.svg" type="Texture" id=6]
 
 [node name="Header" type="HBoxContainer"]
 margin_right = 550.0
-margin_bottom = 78.0
-rect_min_size = Vector2( 0, 78 )
+margin_bottom = 60.0
 size_flags_vertical = 4
 custom_constants/separation = 10
 script = ExtResource( 3 )
@@ -20,9 +19,8 @@ __meta__ = {
 
 [node name="Picture" type="TextureRect" parent="."]
 material = ExtResource( 1 )
-margin_top = 9.0
 margin_right = 60.0
-margin_bottom = 69.0
+margin_bottom = 60.0
 rect_min_size = Vector2( 60, 60 )
 size_flags_vertical = 4
 texture = ExtResource( 2 )
@@ -31,26 +29,24 @@ stretch_mode = 1
 
 [node name="Name" type="LinkButton" parent="."]
 margin_left = 70.0
-margin_top = 32.0
-margin_right = 98.0
-margin_bottom = 46.0
+margin_top = 17.0
+margin_right = 420.0
+margin_bottom = 42.0
+size_flags_horizontal = 3
 size_flags_vertical = 4
 text = "user"
 underline = 1
 
 [node name="ConnecBtn" parent="." instance=ExtResource( 4 )]
 margin_left = 430.0
-margin_top = 24.0
+margin_top = 11.0
 margin_right = 550.0
-margin_bottom = 54.0
+margin_bottom = 48.0
 rect_min_size = Vector2( 120, 30 )
-size_flags_horizontal = 14
+size_flags_horizontal = 8
 size_flags_vertical = 4
 text = "Connect"
 icon = ExtResource( 5 )
 texture_active = ExtResource( 6 )
 texture_inactive = ExtResource( 5 )
 color = Color( 0.164706, 0.352941, 1, 1 )
-
-[connection signal="pressed" from="Name" to="." method="_on_Name_pressed"]
-[connection signal="pressed" from="ConnecBtn" to="." method="_on_ConnecBtn_pressed"]

@@ -12,13 +12,15 @@ onready var profile_post_container : VBoxContainer = profile_section.get_node("S
 onready var menu : VBoxContainer = $HomeContainer/Menu
 onready var side_bar : VBoxContainer = $HomeContainer/SideBar
 onready var friend_list : VBoxContainer = side_bar.get_node("FriendList")
-#onready var suggested_users : PanelContainer = side_bar.get_node("SuggestUsers")
 
 onready var users_list_section : VBoxContainer = $HomeContainer/Sections/UsersList
+onready var settings_section : VBoxContainer = $HomeContainer/Sections/Settings
 
 onready var chat_container : GridContainer = $AspectRatioContainer/ChatContainer
 
 onready var show_post : Control = $ShowPost
+
+onready var notification_lbl : Label = $HomeContainer/Menu/NotificationsBtn/Notification
 
 var fr_posts : FirestoreCollection = Firebase.Firestore.collection("posts")
 
@@ -27,9 +29,17 @@ var friend_posts : Array = []
 var posts_db_reference : FirebaseDatabaseReference 
 
 func _connect_signals():
+    connect("item_rect_changed", self, "_on_Home_item_rect_changed")
     $ShareSomethingContainer.connect("share_post", self, "add_shared_post")
     users_list_section.connect("show_user_profile", self, "_on_show_user_profile")
     ChatsManager.connect("show_chat", self, "_on_show_chat")
+    
+    $HomeContainer/Menu/Header/Name.connect("pressed", self, "_on_Name_pressed")
+    $HomeContainer/Menu/HomeBtn.connect("pressed", self, "_on_HomeBtn_pressed")
+    $HomeContainer/Menu/ShareBtn.connect("pressed", self, "_on_ShareBtn_pressed")
+    $HomeContainer/Menu/UsersListBtn.connect("pressed", self, "_on_UsersListBtn_pressed")
+    $HomeContainer/Menu/NotificationsBtn.connect("pressed", self, "_on_NotificationsBtn_pressed")
+    $HomeContainer/Menu/SettingsBtn.connect("pressed", self, "_on_SettingsBtn_pressed")
 
 func _ready():
     _connect_signals()
@@ -38,15 +48,13 @@ func _ready():
         side_bar.hide()
     profile_section.hide()
     users_list_section.hide()
+    settings_section.hide()
     rect_position = Vector2(-rect_size.x, 0)
-    load_user()
+    $HomeContainer/Menu/Header.load_main_user()
     animate_Home(true)
     load_posts()
     friend_list.load_friend_list()
 
-func load_user():
-    $HomeContainer/Menu/Header/Picture.set_texture(UserData.user_picture)
-    $HomeContainer/Menu/Header/Name.set_text(UserData.user_name)
 
 
 func animate_Home(display : bool):
@@ -66,34 +74,19 @@ func sort_posts(post_a : FirestoreDocument, post_b : FirestoreDocument):
 func load_posts():
     if not UserData.friend_list.empty():
         posts_section.get_node("NoFriends").hide()
-        var posts : Array = yield(Utilities.get_all_posts(), "listed_documents")
-        for post in posts:
-            if post.has("fields"):
-                if (post.fields.user_id.stringValue in UserData.friend_list) \
-                or (post.fields.user_id.stringValue == UserData.user_id) \
-                and not post in friend_posts:
-                    friend_posts.append(FirestoreDocument.new(post))
+        var posts : Array = yield(RequestsManager.get_all_posts(), "listed_documents")
+        for post_doc in posts:
+            if post_doc.doc_fields.user_id in (UserData.friend_list + [UserData.user_id]) \
+            and not check_friend_posts_list(post_doc):
+                friend_posts.append(post_doc)
         
         friend_posts.sort_custom(self, "sort_posts")
         
         if friend_posts.empty():
             pass
         else:
-            for post_idx in range(0, friend_posts.size()):#.slice(0, 10):
-                var post_container : PostContainer
-                if PostsManager.has_post(friend_posts[post_idx].doc_name):
-                    if PostsManager.has_post_container(friend_posts[post_idx].doc_name):
-                        post_container = PostsManager.get_post_container_by_id(friend_posts[post_idx].doc_name)
-                        add_post(post_container)
-                    else:
-                        post_container = Activities.post_container_scene.instance()
-                        add_post(post_container)
-                        post_container.load_post(PostsManager.get_post_by_id(friend_posts[post_idx].doc_name))
-                else:
-                    post_container = Activities.post_container_scene.instance()
-                    var post_obj : PostsManager.Post = PostsManager.add_post_from_doc(friend_posts[post_idx].doc_name, friend_posts[post_idx])
-                    add_post(post_container)
-                    post_container.load_post(post_obj)
+            for post_idx in range(0, friend_posts.size()):
+                var post_container : PostContainer = check_post_routine(friend_posts[post_idx])
                 post_box.move_child(post_container, post_idx)
     else:
         for post in post_box.get_children():
@@ -104,30 +97,64 @@ func load_posts():
         posts_db_reference = Firebase.Database.get_database_reference("sociadot/posts")
         posts_db_reference.connect("new_data_update", self, "_on_new_post")
     
-    
+
+func check_friend_posts_list(post_doc : FirestoreDocument) -> bool:
+    for post in friend_posts:
+        if post.doc_name == post_doc.doc_name:
+            return true
+    return false
+
+func check_post_routine(post_doc : FirestoreDocument) -> PostContainer:
+    var post_container : PostContainer
+    if PostsManager.has_post(post_doc.doc_name):
+        if PostsManager.has_post_container(post_doc.doc_name):
+            post_container = PostsManager.get_post_container_by_id(post_doc.doc_name)
+            add_post(post_container)
+        else:
+            post_container = Activities.post_container_scene.instance()
+            add_post(post_container)
+            post_container.load_post(PostsManager.get_post_by_id(post_doc.doc_name))
+    else:
+        post_container = Activities.post_container_scene.instance()
+        var post_obj : PostsManager.Post = PostsManager.add_post_from_doc(post_doc.doc_name, post_doc)
+        add_post(post_container)
+        post_container.load_post(post_obj)
+    return post_container
+
 
 func _on_new_post(post : FirebaseResource):
-    if post.data.user == UserData.user_id:
+    if not post.data.user in UserData.friend_list:
         return
     if PostsManager.has_post(post.key):
         return
-    var post_container : PostContainer = Activities.post_container_scene.instance()
-    var post_doc : FirestoreDocument = yield(Utilities.get_post_doc(post.key), "get_document")
-    var post_obj : PostsManager.Post = PostsManager.add_post_from_doc(post.key, post_doc)
-    add_post(post_container)
-    post_container.load_post(post_obj)  
+    var post_doc : FirestoreDocument = yield(RequestsManager.get_post_doc(post.key), "get_document")
+    check_post_routine(post_doc)
+
+func remove_post(post : PostContainer):
+    post_box.remove_child(post)
+
+func remove_posts_from_user(user : UsersManager.User):
+    for post in friend_posts:
+        if post.doc_fields.user_id == user.id:
+            friend_posts.erase(post)
+    for post in post_box.get_children():
+        if post.user_id == user.id:
+            remove_post(post)
 
 func add_post(post : PostContainer):
     posts_section.get_node("NoFriends").hide()
+    post_box.show()
     # Check if @post is not already been added to the PostBox
     for post_child in post_box.get_children():
         if post.id == post_child.id:
             return
     post_box.add_child(post)
-    post.connect("show_user_profile", self, "_on_show_user_profile")
+    if not post.is_connected("show_user_profile", self, "_on_show_user_profile"):
+        post.connect("show_user_profile", self, "_on_show_user_profile")
 
 
 func add_shared_post(post_id : String, document : FirestoreDocument, image : ImageTexture):
+    friend_posts.append(document)
     var post : PostContainer = Activities.post_container_scene.instance()
     add_post(post)
     post.load_post(PostsManager.add_shared_post(post_id, document, image))
@@ -143,8 +170,7 @@ func _on_show_user_profile(user_id : String, user_name : String):
     if user_id == profile_section.user_id:
         return
     emit_signal("loading", true)
-    posts_section.hide()
-    users_list_section.hide()
+    show_section(profile_section)
     profile_section.load_profile(user_id, user_name)
     emit_signal("loading", false)
     
@@ -157,10 +183,8 @@ func _on_ShareBtn_pressed():
 
 
 func _on_HomeBtn_pressed():
-    posts_section.show()
-    profile_section.hide()
-    users_list_section.hide()
     load_posts()
+    show_section(posts_section)
 
 
 func _on_FriendList_open_chat(friend_id, friend_name):
@@ -176,14 +200,18 @@ func _on_show_chat(chat_node : ChatNode):
         chat_node.set_visible(false)
     
 
+func show_section(section : Control) -> void:
+    for _section in $HomeContainer/Sections.get_children():
+        _section.hide()
+    section.show()
 
-
+func _on_SettingsBtn_pressed() -> void:
+    settings_section.load_user_data()
+    show_section(settings_section)
 
 func _on_UsersListBtn_pressed():
     users_list_section.load_users_list()
-    users_list_section.show()
-    posts_section.hide()
-    profile_section.hide()
+    show_section(users_list_section)
 
 
 func _on_new_connection(user : UsersManager.User, button : Button):
@@ -193,7 +221,7 @@ func _on_new_connection(user : UsersManager.User, button : Button):
 
 func _on_removed_connection(user : UsersManager.User):
     friend_list.remove_friend(user)
-
+    remove_posts_from_user(user)
 
 
 func _on_Name_pressed():
@@ -202,7 +230,8 @@ func _on_Name_pressed():
 func _on_open_post(post : PostsManager.Post):
     show_post.show_post(post, UsersManager.get_user_by_id(post.user_id))
     
-
+func _on_NotificationsBtn_pressed():
+    pass
 
 func _on_Home_item_rect_changed():
     if chat_container == null:

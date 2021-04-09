@@ -1,6 +1,6 @@
 extends Control
 
-const version : String = "0.1"
+const version : String = "1.3"
 
 onready var activities : Control = $Main/Activities
 onready var topbar : HBoxContainer = $TopBar
@@ -9,6 +9,8 @@ onready var error_lbl : Label = $Main/ERROR
 
 onready var user_id_lbl : Label = $Main/AppInfo/UserId
 onready var version_lbl : Label = $Main/AppInfo/Version
+
+onready var animator : Tween = $Main/Tween
 
 func _title():
     OS.set_window_title("socia.dot v%s"%version)
@@ -21,7 +23,7 @@ func _ready():
     get_tree().get_root().set_transparent_background(true)
     if OS.get_name() in ["Android", "iOS"]:
         for child in topbar.get_children():
-            child.hide()
+            if child is Control: child.hide()
     if OS.get_name() in ["HTML5"]:
         topbar.hide()
     loading.set_loading(false)
@@ -32,10 +34,10 @@ func _ready():
     Activities.connect("show_error", self, "_on_show_error")
 
 func _connect_signals():
-    topbar.connect("close", self, "_on_TopBar_close")
-    topbar.connect("minimize", self, "_on_TopBar_minimize")
-    topbar.connect("resize", self, "_on_TopBar_resize")
-    topbar.connect("moving_from_pos", self, "_on_TopBar_moving_from_pos")
+    topbar.connect("close", self, "_on_TopBar_close",[],CONNECT_DEFERRED)
+    topbar.connect("minimize", self, "_on_TopBar_minimize",[],CONNECT_DEFERRED)
+    topbar.connect("resize", self, "_on_TopBar_resize",[],CONNECT_DEFERRED)
+    topbar.connect("moving_from_pos", self, "_on_TopBar_moving_from_pos",[],CONNECT_DEFERRED)
 
 func _on_signin_completed():
     user_id_lbl.set_text(UserData.user_id)
@@ -45,20 +47,19 @@ func _on_signin_completed():
     activities.add_child(Activities.home)
 
 func _on_show_error(error : String):
-    print(error)
     error_lbl.set_text(error)
     error_lbl.rect_size = error_lbl.rect_min_size
-    $Tween.interpolate_property(error_lbl, "rect_position", 
-    error_lbl.rect_position, 
-    Vector2($Loading.rect_size.x/2 - error_lbl.rect_size.x/2 , activities.rect_size.y - error_lbl.rect_size.y - 55),
+    animator.interpolate_property(error_lbl, "rect_position", 
+    Vector2(rect_size.x/2 - error_lbl.rect_size.x/2, rect_size.y + 10), 
+    Vector2(rect_size.x/2 - error_lbl.rect_size.x/2, rect_size.y - error_lbl.rect_size.y - 50), 
     0.3, Tween.TRANS_QUAD, Tween.EASE_OUT)
-    $Tween.start()
+    animator.start()
     yield(get_tree().create_timer(8), "timeout")
-    $Tween.interpolate_property(error_lbl, "rect_position", 
-    error_lbl.rect_position,
-    Vector2($Loading.rect_size.x/2 - error_lbl.rect_size.x/2, activities.rect_size.y + error_lbl.rect_size.y), 
+    animator.interpolate_property(error_lbl, "rect_position", 
+    error_lbl.rect_position, 
+    Vector2(rect_size.x/2 - error_lbl.rect_size.x/2, rect_size.y + 10), 
     0.3, Tween.TRANS_QUAD, Tween.EASE_OUT)
-    $Tween.start()
+    animator.start()
 
 # ..... top bar signals
 func _on_TopBar_close():

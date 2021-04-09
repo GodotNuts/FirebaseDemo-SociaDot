@@ -11,12 +11,16 @@ signal moving_from_pos(event_pos, offset)
 var offset : Vector2 
 var dragging : bool = false
 
-func _ready():
+func _connect_signals():
+    name_lbl.connect("gui_input", self, "_on_Name_gui_input")
     connect("mouse_entered", self, "_on_TopBar_mouse_entered")
     connect("mouse_exited", self, "_on_TopBar_mouse_exited")
     $MinimizeBtn.connect("pressed", self, "_on_minimize_pressed")
     $ResizeBtn.connect("pressed", self, "_on_resize_pressed")
     $ExitBtn.connect("pressed", self, "_on_close_pressed")
+
+func _ready():
+    _connect_signals()
     _on_TopBar_mouse_exited()
 
 func set_window_name(_name : String):
@@ -34,14 +38,16 @@ func _on_resize_pressed():
     _on_TopBar_mouse_exited()
     emit_signal("resize")
 
-func _on_Name_gui_input(event):
+func _on_Name_gui_input(event : InputEvent):
     if event is InputEventMouseButton:
         if event.pressed:
             offset = get_global_mouse_position()
         else:
             offset = Vector2()
     if event is InputEventMouseMotion and offset != Vector2():
-        emit_signal("moving_from_pos", get_global_mouse_position(), offset)
+        if OS.get_window_size().x > 1024:
+            OS.set_window_size(Vector2(1024, 600))
+        OS.set_window_position(OS.get_window_position() + event.get_global_position() - offset)
 
 
 func _on_TopBar_mouse_entered():

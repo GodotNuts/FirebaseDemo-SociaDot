@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://main/res/shaders/round_avatar.tres" type="Material" id=1]
-[ext_resource path="res://main/res/imgs/Nuovo progetto.svg" type="Texture" id=2]
+[ext_resource path="res://main/res/imgs/avatar.svg" type="Texture" id=2]
 [ext_resource path="res://main/scn/buttons/normal_btn/button.tscn" type="PackedScene" id=3]
 [ext_resource path="res://main/res/icons/032-add-user.svg" type="Texture" id=4]
 [ext_resource path="res://main/res/icons/015-user-1.svg" type="Texture" id=5]
@@ -16,21 +16,21 @@ __meta__ = {
 }
 
 [node name="UsersBox" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 235.0
-margin_bottom = 103.0
+margin_left = 14.0
+margin_top = 14.0
+margin_right = 262.0
+margin_bottom = 125.0
 
 [node name="Label" type="Label" parent="UsersBox"]
-margin_right = 228.0
-margin_bottom = 14.0
+margin_right = 248.0
+margin_bottom = 25.0
 text = "Suggested Users"
 align = 1
 
 [node name="UserHeader" type="HBoxContainer" parent="UsersBox"]
-margin_top = 18.0
-margin_right = 228.0
-margin_bottom = 96.0
+margin_top = 33.0
+margin_right = 248.0
+margin_bottom = 111.0
 rect_min_size = Vector2( 0, 78 )
 size_flags_vertical = 4
 custom_constants/separation = 10
@@ -51,18 +51,18 @@ stretch_mode = 1
 
 [node name="Name" type="LinkButton" parent="UsersBox/UserHeader"]
 margin_left = 70.0
-margin_top = 32.0
-margin_right = 98.0
-margin_bottom = 46.0
+margin_top = 26.0
+margin_right = 118.0
+margin_bottom = 51.0
 size_flags_vertical = 4
 text = "user"
 underline = 1
 
 [node name="ConnecBtn" parent="UsersBox/UserHeader" instance=ExtResource( 3 )]
-margin_left = 108.0
-margin_top = 24.0
-margin_right = 228.0
-margin_bottom = 54.0
+margin_left = 128.0
+margin_top = 20.0
+margin_right = 248.0
+margin_bottom = 57.0
 rect_min_size = Vector2( 120, 30 )
 size_flags_horizontal = 14
 size_flags_vertical = 4
@@ -71,5 +71,3 @@ icon = ExtResource( 4 )
 texture_active = ExtResource( 5 )
 texture_inactive = ExtResource( 4 )
 color = Color( 0.164706, 0.352941, 1, 1 )
-[connection signal="pressed" from="UsersBox/UserHeader/Name" to="." method="_on_Name_pressed"]
-[connection signal="pressed" from="UsersBox/UserHeader/ConnecBtn" to="." method="_on_ConnecBtn_pressed"]

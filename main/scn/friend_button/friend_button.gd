@@ -8,8 +8,13 @@ var friend_name : String                    setget set_friend_name
 var friend_picture : ImageTexture           setget set_friend_picture
 var friend_document : FirestoreDocument     setget set_friend_document
 
+
+func _connect_signals():
+    connect("gui_input", self, "_on_FriendButton_gui_input")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+    _connect_signals()
     hide()
 
 

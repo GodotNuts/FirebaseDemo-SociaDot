@@ -1,32 +1,87 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://main/scn/header/interactive/interactive_header.tscn" type="PackedScene" id=1]
 [ext_resource path="res://main/scn/post/post_timestamp.tscn" type="PackedScene" id=2]
 [ext_resource path="res://main/scn/show_post/show_post.gd" type="Script" id=3]
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0, 0, 0, 0.784314 )
+[ext_resource path="res://main/res/imgs/bg.png" type="Texture" id=4]
+[ext_resource path="res://main/res/shaders/lerp_shader.tres" type="Material" id=5]
+[ext_resource path="res://main/res/themes/main.tres" type="Theme" id=6]
+[ext_resource path="res://main/scn/post/ActionButtons.tscn" type="PackedScene" id=7]
+[ext_resource path="res://main/res/imgs/avatar.svg" type="Texture" id=8]
 
 [sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 0.0
-content_margin_right = 0.0
-content_margin_top = 0.0
-content_margin_bottom = 0.0
-bg_color = Color( 0.235294, 0.235294, 0.235294, 1 )
+bg_color = Color( 0, 0, 0, 0.823529 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 0.588235 )
+draw_center = false
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 corner_detail = 20
-shadow_color = Color( 0, 0, 0, 0.0784314 )
-shadow_size = 8
-shadow_offset = Vector2( 0, 4 )
 
-[sub_resource type="StyleBoxLine" id=2]
-color = Color( 0.317647, 0.317647, 0.317647, 1 )
-grow_begin = 2.0
-grow_end = 2.0
-thickness = 2
+[sub_resource type="VisualShaderNodeTexture" id=9]
+texture = ExtResource( 8 )
+
+[sub_resource type="VisualShaderNodeTexture" id=10]
+source = 2
+
+[sub_resource type="VisualShader" id=3]
+code = "shader_type canvas_item;
+uniform sampler2D tex_frg_2;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Texture:3
+	vec3 n_out3p0;
+	float n_out3p1;
+	{
+		vec4 _tex_read = texture(TEXTURE , UV.xy);
+		n_out3p0 = _tex_read.rgb;
+		n_out3p1 = _tex_read.a;
+	}
+
+// Texture:2
+	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
+	vec3 n_out2p0 = tex_frg_2_read.rgb;
+	float n_out2p1 = tex_frg_2_read.a;
+
+// Output:0
+	COLOR.rgb = n_out3p0;
+	COLOR.a = n_out2p1;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -441, 170 )
+mode = 1
+flags/light_only = false
+nodes/fragment/2/node = SubResource( 9 )
+nodes/fragment/2/position = Vector2( -80, 300 )
+nodes/fragment/3/node = SubResource( 10 )
+nodes/fragment/3/position = Vector2( 20, 120 )
+nodes/fragment/connections = PoolIntArray( 2, 1, 0, 1, 3, 0, 0, 0 )
+
+[sub_resource type="ShaderMaterial" id=8]
+resource_local_to_scene = true
+shader = SubResource( 3 )
+
+[sub_resource type="StyleBoxLine" id=7]
+color = Color( 1, 1, 1, 0.156863 )
+grow_begin = 3.0
+grow_end = 3.0
+thickness = 3
 
 [node name="ShowPost" type="Panel"]
 anchor_right = 1.0
@@ -35,7 +90,8 @@ margin_left = 1.0
 margin_right = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/panel = SubResource( 3 )
+theme = ExtResource( 6 )
+custom_styles/panel = SubResource( 1 )
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -46,94 +102,132 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -416.0
+margin_left = -446.0
 margin_top = -252.0
-margin_right = 416.0
+margin_right = 446.0
 margin_bottom = 252.0
+grow_horizontal = 2
 rect_clip_content = true
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="PostContainer" type="HBoxContainer" parent="Post"]
-margin_right = 832.0
+margin_right = 892.0
 margin_bottom = 504.0
+rect_clip_content = true
+custom_constants/separation = 0
 
 [node name="Image" type="TextureRect" parent="Post/PostContainer"]
-margin_right = 512.0
+show_behind_parent = true
+material = ExtResource( 5 )
+margin_right = 582.0
 margin_bottom = 504.0
-size_flags_horizontal = 3
+size_flags_horizontal = 7
 size_flags_vertical = 3
+texture = ExtResource( 4 )
 expand = true
-stretch_mode = 6
 
-[node name="VSeparator" type="VSeparator" parent="Post/PostContainer"]
-margin_left = 520.0
-margin_right = 528.0
+[node name="Content" type="PanelContainer" parent="Post/PostContainer"]
+margin_left = 582.0
+margin_right = 892.0
 margin_bottom = 504.0
 
-[node name="Container" type="VBoxContainer" parent="Post/PostContainer"]
-margin_left = 536.0
-margin_right = 816.0
-margin_bottom = 504.0
+[node name="Container" type="VBoxContainer" parent="Post/PostContainer/Content"]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 295.0
+margin_bottom = 489.0
 rect_min_size = Vector2( 280, 0 )
+size_flags_horizontal = 8
 custom_constants/separation = 5
 
-[node name="HSeparator" type="HSeparator" parent="Post/PostContainer/Container"]
+[node name="Header" parent="Post/PostContainer/Content/Container" instance=ExtResource( 1 )]
 margin_right = 280.0
-custom_constants/separation = 0
 
-[node name="Header" parent="Post/PostContainer/Container" instance=ExtResource( 1 )]
-margin_top = 5.0
+[node name="Picture" parent="Post/PostContainer/Content/Container/Header" index="0"]
+material = SubResource( 8 )
+
+[node name="Name" parent="Post/PostContainer/Content/Container/Header" index="1"]
+margin_top = 20.0
+margin_right = 170.0
+margin_bottom = 39.0
+
+[node name="ConnecBtn" parent="Post/PostContainer/Content/Container/Header" index="2"]
+visible = false
+margin_left = 160.0
+margin_top = 12.0
 margin_right = 280.0
-margin_bottom = 83.0
+margin_bottom = 47.0
 
-[node name="Timestamp" parent="Post/PostContainer/Container" instance=ExtResource( 2 )]
-margin_left = 280.0
-margin_top = 88.0
+[node name="Timestamp" parent="Post/PostContainer/Content/Container/Header" instance=ExtResource( 2 )]
+margin_left = 180.0
+margin_top = 0.0
 margin_right = 280.0
-margin_bottom = 113.0
+margin_bottom = 60.0
+size_flags_horizontal = 11
+size_flags_vertical = 5
 
-[node name="Description" type="Label" parent="Post/PostContainer/Container"]
-margin_top = 118.0
+[node name="Description" type="RichTextLabel" parent="Post/PostContainer/Content/Container"]
+margin_top = 65.0
+margin_right = 280.0
+margin_bottom = 85.0
+bbcode_enabled = true
+fit_content_height = true
+scroll_active = false
+
+[node name="ActionButtons" parent="Post/PostContainer/Content/Container" instance=ExtResource( 7 )]
+margin_top = 90.0
+margin_right = 280.0
+margin_bottom = 125.0
+
+[node name="LikeBtn" parent="Post/PostContainer/Content/Container/ActionButtons" index="0"]
+margin_left = 55.0
+margin_right = 135.0
+margin_bottom = 35.0
+
+[node name="CommentsBtn" parent="Post/PostContainer/Content/Container/ActionButtons" index="1"]
+margin_left = 145.0
+margin_right = 225.0
+margin_bottom = 35.0
+
+[node name="HSeparator3" type="HSeparator" parent="Post/PostContainer/Content/Container"]
+margin_top = 130.0
 margin_right = 280.0
 margin_bottom = 143.0
-autowrap = true
+rect_min_size = Vector2( 0, 13 )
+size_flags_vertical = 4
+custom_styles/separator = SubResource( 7 )
+custom_constants/separation = 0
 
-[node name="HSeparator2" type="HSeparator" parent="Post/PostContainer/Container"]
+[node name="CommentsContainer" type="ScrollContainer" parent="Post/PostContainer/Content/Container"]
 margin_top = 148.0
 margin_right = 280.0
-margin_bottom = 148.0
-custom_styles/separator = SubResource( 2 )
-custom_constants/separation = 0
+margin_bottom = 474.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
 
-[node name="HSeparator3" type="HSeparator" parent="Post/PostContainer/Container"]
-margin_top = 153.0
+[node name="CommentsList" type="VBoxContainer" parent="Post/PostContainer/Content/Container/CommentsContainer"]
 margin_right = 280.0
-margin_bottom = 153.0
-custom_constants/separation = 0
+margin_bottom = 326.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
 
-[node name="VSeparator2" type="VSeparator" parent="Post/PostContainer"]
-margin_left = 824.0
-margin_right = 832.0
-margin_bottom = 504.0
+[node name="NewCommentContainer" type="HBoxContainer" parent="Post/PostContainer/Content/Container"]
+visible = false
+margin_top = 447.0
+margin_right = 280.0
+margin_bottom = 474.0
 
-[node name="FileDialog" type="FileDialog" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -275.0
-margin_top = -212.0
-margin_right = 275.0
-margin_bottom = 212.0
-window_title = "Open a File"
-mode = 0
-access = 2
-filters = PoolStringArray( "*.png", "*.jpg" )
-show_hidden_files = true
-current_dir = "/COMPUTER/GodotEngine/GDScript/FirebaseDemo"
-current_path = "/COMPUTER/GodotEngine/GDScript/FirebaseDemo/"
+[node name="Comment" type="LineEdit" parent="Post/PostContainer/Content/Container/NewCommentContainer"]
+margin_right = 280.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+placeholder_text = "add a comment"
+placeholder_alpha = 0.4
 
-[connection signal="gui_input" from="." to="." method="_on_ShowPost_gui_input"]
+[editable path="Post/PostContainer/Content/Container/Header"]
+[editable path="Post/PostContainer/Content/Container/ActionButtons"]

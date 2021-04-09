@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "DocItem",
+"class": "ArgumentDocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/argument_doc_item.gd"
+}, {
 "base": "PanelContainer",
 "class": "ChatNode",
 "language": "GDScript",
@@ -19,10 +24,35 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://firebase-ui/database_box_containers/base_boxcontainer/CircularContainer.gd"
 }, {
+"base": "DocItem",
+"class": "ClassDocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/class_doc_item.gd"
+}, {
+"base": "HBoxContainer",
+"class": "CommentContainer",
+"language": "GDScript",
+"path": "res://main/scn/show_post/comment/comment.gd"
+}, {
+"base": "DocItem",
+"class": "ConstantDocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/constant_doc_item.gd"
+}, {
 "base": "PanelContainer",
 "class": "CustomBaseButton",
 "language": "GDScript",
 "path": "res://firebase-ui/buttons/base_button/base_button.gd"
+}, {
+"base": "Reference",
+"class": "DocExporter",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_exporter/doc_exporter.gd"
+}, {
+"base": "Reference",
+"class": "DocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/doc_item.gd"
 }, {
 "base": "PanelContainer",
 "class": "FieldContainer",
@@ -79,12 +109,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot-firebase/auth/user_data.gd"
 }, {
-"base": "Node",
+"base": "Reference",
 "class": "FirestoreCollection",
 "language": "GDScript",
 "path": "res://addons/godot-firebase/firestore/firestore_collection.gd"
 }, {
-"base": "Node",
+"base": "Reference",
 "class": "FirestoreDocument",
 "language": "GDScript",
 "path": "res://addons/godot-firebase/firestore/firestore_document.gd"
@@ -94,7 +124,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot-firebase/firestore/firestore_query.gd"
 }, {
-"base": "HTTPRequest",
+"base": "Reference",
 "class": "FirestoreTask",
 "language": "GDScript",
 "path": "res://addons/godot-firebase/firestore/firestore_task.gd"
@@ -114,10 +144,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://main/scn/header/interactive/interactive_header.gd"
 }, {
+"base": "DocItem",
+"class": "MethodDocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/method_doc_item.gd"
+}, {
 "base": "PanelContainer",
 "class": "PostContainer",
 "language": "GDScript",
 "path": "res://main/scn/post/post.gd"
+}, {
+"base": "DocItem",
+"class": "PropertyDocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/property_doc_item.gd"
+}, {
+"base": "VBoxContainer",
+"class": "Settings",
+"language": "GDScript",
+"path": "res://main/scn/settings/settings.gd"
+}, {
+"base": "DocItem",
+"class": "SignalDocItem",
+"language": "GDScript",
+"path": "res://addons/silicon.util.custom_docs/doc_item/signal_doc_item.gd"
 }, {
 "base": "Reference",
 "class": "StorageReference",
@@ -135,9 +185,15 @@ _global_script_classes=[ {
 "path": "res://main/scn/app/top_bar.gd"
 } ]
 _global_script_class_icons={
+"ArgumentDocItem": "",
 "ChatNode": "",
 "CircularContainer": "",
+"ClassDocItem": "",
+"CommentContainer": "",
+"ConstantDocItem": "",
 "CustomBaseButton": "",
+"DocExporter": "",
+"DocItem": "",
 "FieldContainer": "",
 "FirebaseAuth": "",
 "FirebaseContainer": "",
@@ -156,7 +212,11 @@ _global_script_class_icons={
 "FirestoreTileMap": "",
 "FriendButton": "",
 "InteractiveHeader": "",
+"MethodDocItem": "",
 "PostContainer": "",
+"PropertyDocItem": "",
+"Settings": "",
+"SignalDocItem": "",
 "StorageReference": "",
 "StorageTask": "",
 "TopBar": ""
@@ -178,6 +238,7 @@ AppSettings="*res://main/scripts/app_settings.gd"
 Activities="*res://main/scripts/activities.gd"
 UserData="*res://main/scripts/user_data.gd"
 Utilities="*res://main/scripts/utilities.gd"
+RequestsManager="*res://main/scripts/requests_manager.gd"
 PostsManager="*res://main/scripts/posts_manager.gd"
 ChatsManager="*res://main/scripts/chats_manager.gd"
 UsersManager="*res://main/scripts/users_manager.gd"
@@ -201,13 +262,13 @@ enabled=PoolStringArray( "godot-firebase" )
 
 [firebase]
 
-environment_variables/apiKey=""
-environment_variables/authDomain=""
-environment_variables/databaseURL=""
-environment_variables/projectId=""
-environment_variables/storageBucket=""
-environment_variables/messagingSenderId=""
-environment_variables/appId=""
+environment_variables/apiKey="AIzaSyCgrmTwdsjR0zY0hHR_WyuSX4cJri1wiBo"
+environment_variables/authDomain="roundtable-5c241.firebaseapp.com"
+environment_variables/databaseURL="https://roundtable-5c241.firebaseio.com"
+environment_variables/projectId="roundtable-5c241"
+environment_variables/storageBucket="roundtable-5c241.appspot.com"
+environment_variables/messagingSenderId="567850593967"
+environment_variables/appId="1:567850593967:web:5395b274d9da6a919f2e5a"
 environment_variables/measurementId=""
 environment_variables/clientId=""
 environment_variables/clientSecret=""

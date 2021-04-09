@@ -1,5 +1,8 @@
 extends Node
 
+signal update_user_name(user_name)
+signal update_user_picture(user_picture)
+
 var user_id : String                setget set_user_id
 var user_email : String             setget set_user_email
 var user_name : String              setget set_user_name
@@ -17,10 +20,12 @@ func set_user_email(email : String):
 
 func set_user_name(_name : String):
     user_name = _name
+    emit_signal("update_user_name", _name)
 #    print(user_name)
 
 func set_user_picture(picture : ImageTexture):
     user_picture = picture
+    emit_signal("update_user_picture", picture)
 #    print(user_picture)
 
 func set_friend_list(list : Array):

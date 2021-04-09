@@ -11,7 +11,7 @@ class Post:
     var image_task : StorageTask
     var timestamp : int
     var likes : Array
-    var comments : Dictionary
+    var comments : Array
     var document_task : FirestoreTask
     var document : FirestoreDocument
 
@@ -39,13 +39,23 @@ class Post:
         emit_signal("update_post", self)
 
     func _on_image_received():
-        if typeof(image_task.data) == TYPE_RAW_ARRAY:
-            image = Utilities.byte2image(image_task.data)
-            emit_signal("update_image", image)
+        image = Utilities.task2image(image_task)
+        emit_signal("update_image", image)
+
+    func add_comment(_comment : Dictionary) -> bool:
+        for comment in comments:
+            if comment.keys()[0] == _comment.keys()[0]:
+                return false
+        comments.append(_comment)
+        return true
+    
+    func add_like(like : String) -> bool:
+        if likes.has(like):
+            likes.erase(like)
+            return false
         else:
-            if image_task.data.has("error") or image_name == "":
-                image = null
-                emit_signal("update_image", image)
+            likes.append(like)
+            return true
 
 var posts : Array = []
 var post_containers : Array = []
@@ -58,22 +68,29 @@ func add_post(id : String, document_task : FirestoreTask = null, image_task : St
     posts.append(post)
     return post
 
+func remove_post(id : String) -> void:
+    var post_to_remove : PanelContainer = get_post_container_by_id(id)
+    post_containers.erase(post_to_remove)
+    post_to_remove.free()
+
 func add_post_from_doc(id : String, doc : FirestoreDocument, image_task : StorageTask = null) -> Post:
     var post : Post
     if image_task == null:
-        if doc.doc_fields.image != "":
-            image_task = Utilities.get_post_image(doc.doc_fields.user_id, id, doc.doc_fields.image)
+        if not doc.doc_fields.image in ["", " "]:
+            image_task = RequestsManager.get_post_image(doc.doc_fields.user_id, id, doc.doc_fields.image)
             post = Post.new(id, null, image_task)
         else:
             post = Post.new(id)
+    else:
+        post = Post.new(id, null, image_task)
     post._on_get_document(doc)
     posts.append(post)
     return post
 
 func add_shared_post(id : String, doc : FirestoreDocument, image : ImageTexture) -> Post:
     var post : Post = Post.new(id)
-    post._on_get_document(doc)
     post.image = image
+    post._on_get_document(doc)
     posts.append(post)
     return post
 
@@ -96,8 +113,9 @@ func add_post_scene(post_scene : PanelContainer):
 
 func has_post_container(id : String) -> bool:
     for post in post_containers:
-        if post.id == id:
-            return true
+        if post:
+            if post.id == id:
+                return true
     return false
 
 func get_post_container_by_id(id : String) -> PanelContainer:
@@ -105,3 +123,8 @@ func get_post_container_by_id(id : String) -> PanelContainer:
         if post.id == id:
             return post
     return null
+
+func remove_posts_from_user(user : UsersManager.User):
+    for post in posts:
+        if post.user_id == user.id:
+            posts.erase(post)

@@ -4,6 +4,8 @@ signal sign_in()
 signal loading(is_loading)
 signal show_error(error)
 
+onready var signin_container : PanelContainer = $SignContainer/VBoxContainer/SignContainer
+
 onready var update_username : LineEdit = $UpdateProfile/VBox/UpdateUsername
 onready var update_picture : TextureRect = $UpdateProfile/VBox/UpdatePicture
 
@@ -12,8 +14,19 @@ var profile_picture : String
 
 var task : int = -1
 
+func _connect_signals():
+    $ChosePicture.connect("file_selected", self, "_on_ChosePicture_file_selected")
+    signin_container.connect("error", self, "_on_SignContainer_error")
+    signin_container.connect("logged", self, "_on_SignContainer_logged")
+    signin_container.connect("logging", self, "_on_SignContainer_logging")
+    signin_container.connect("signed", self, "_on_SignContainer_signed")
+    $UpdateProfile/VBox/UpdatePicture/CameraIcon.connect("pressed", self, "_on_CameraIcon_pressed")
+    $UpdateProfile/VBox/ConfirmBtn.connect("pressed", self, "_on_ConfirmBtn_pressed")
+    
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+    _connect_signals()
     yield(get_tree(), "idle_frame")
     $UpdateProfile.hide()
     animate_SignContainer(true)
@@ -53,12 +66,23 @@ func _on_SignContainer_error(message):
 
 func _on_SignContainer_logged(login):
     Firebase.Auth.save_auth(login)
-    var firestore_task : FirestoreTask = Utilities.get_user(login.localid)
+    var firestore_task : FirestoreTask = RequestsManager.get_user(login.localid)
     var user_doc : FirestoreDocument = yield(firestore_task, "get_document")
-    var picture_task : StorageTask = Utilities.get_profile_picture(user_doc.doc_name)
+    if user_doc.doc_fields.username == "":
+        Firebase.Auth.save_auth(login)
+        UserData.user_id = login.localid
+        UserData.user_email = login.email
+        Activities.loading(false)
+        animate_SignContainer(false)
+        animate_UpdateProfile(true)
+        $UpdateProfile.show()
+        return
+    var picture_task : StorageTask = RequestsManager.get_profile_picture(user_doc.doc_name)
     yield(picture_task,"task_finished")
-    var user_picture : ImageTexture = Utilities.byte2image(picture_task.data)
-    Activities.loading( false)
+    var user_picture : ImageTexture = null
+    if picture_task.data.size() > 0:
+        user_picture = Utilities.task2image(picture_task)
+    Activities.loading(false)
     UserData.map_user(user_doc, user_picture)
     emit_signal("sign_in")
 
@@ -66,7 +90,7 @@ func _on_SignContainer_signed(signup):
     Firebase.Auth.save_auth(signup)
     UserData.user_id = signup.localid
     UserData.user_email = signup.email
-    var user_task : FirestoreTask = Utilities.add_user(UserData.user_id, UserData.user_email)
+    var user_task : FirestoreTask = RequestsManager.add_user(UserData.user_id, UserData.user_email)
     yield(user_task, "add_document")
     Activities.loading( false)
     animate_SignContainer(false)
@@ -96,9 +120,9 @@ func _on_ConfirmBtn_pressed():
     if update_picture.texture != null and not update_username.get_text() in [""," "]:
         Activities.loading( true)
         UserData.user_name = update_username.get_text()
-        var update_task : FirestoreTask = Utilities.update_user()
+        var update_task : FirestoreTask = RequestsManager.update_user()
         yield(update_task, "update_document" )
-        var put_file : StorageTask = Utilities.update_user_picture(profile_picture)
+        var put_file : StorageTask = RequestsManager.update_user_picture(profile_picture)
         yield(put_file, "task_finished")
         animate_UpdateProfile(false)
         Activities.loading( false)

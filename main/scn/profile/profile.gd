@@ -8,9 +8,14 @@ onready var post_container_box : VBoxContainer = $ScrollPost/PostContainer
 var user_id : String
 var user : UsersManager.User
 
-func _ready():
+func _connect_signals():
+    $Header/ConnecBtn.connect("pressed", self, "_on_ConnecBtn_pressed")
+    connect("visibility_changed", self, "_on_Profile_visibility_changed")
     connect("connected", Activities.home, "_on_new_connection")
     connect("disconnect", Activities.home, "_on_removed_connection")
+
+func _ready():
+    _connect_signals()
 
 func load_profile(_id : String, user_name : String):
     if UsersManager.has_user(_id): 
@@ -20,16 +25,16 @@ func load_profile(_id : String, user_name : String):
             user.connect("update_picture", self, "set_user_avatar")
         set_user_avatar(user.picture)
         set_user_name(user.username)
-        var result = yield(Utilities.get_user_posts(user.id), "task_finished")
+        var result = yield(RequestsManager.get_user_posts(user.id), "task_finished")
         if typeof(result) == TYPE_ARRAY:
             load_user_posts(result)
     else:
-        var user_obj : UsersManager.User = UsersManager.add_user(UserData.user_id, Utilities.get_user(UserData.user_id), null)
+        var user_obj : UsersManager.User = UsersManager.add_user(UserData.user_id, RequestsManager.get_user(UserData.user_id), null)
         user_obj.picture = UserData.user_picture 
         self.user = user_obj
         set_user_avatar(user_obj.picture)
         set_user_name(UserData.user_name)
-        var result = yield(Utilities.get_user_posts(UserData.user_id), "task_finished")
+        var result = yield(RequestsManager.get_user_posts(UserData.user_id), "task_finished")
         if typeof(result) == TYPE_ARRAY:
             load_user_posts(result)
     check_friend(_id)
@@ -54,11 +59,11 @@ func set_user_name(user_name : String):
 func load_user_posts(user_posts : Array):
     $ScrollPost.hide()
     for post in post_container_box.get_children():
-        if post is PostContainer: post.queue_free()
+        if post is PostContainer: post_container_box.remove_child(post)
     if ( user_posts.size() == 1 and not user_posts[0].has("document") ) or user_posts.empty():
-        print(user_posts)
         $ScrollPost/PostContainer/Empty.show()
     else:
+        $ScrollPost/PostContainer/Empty.hide()
         for post in user_posts:
             if not post.has("document"):
                 continue
@@ -66,25 +71,25 @@ func load_user_posts(user_posts : Array):
             if PostsManager.has_post(post_info.doc_name):
                 if PostsManager.has_post_container(post_info.doc_name):
                     var post_container : PostContainer = PostsManager.get_post_container_by_id(post_info.doc_name).duplicate()
-                    post_container.set_post(PostsManager.get_post_by_id(post_info.doc_name))
                     post_container_box.add_child(post_container)
+                    post_container.load_post(PostsManager.get_post_by_id(post_info.doc_name))
                 else:
                     var post_container : PostContainer = Activities.post_container_scene.instance()
-                    post_container.load_post(PostsManager.add_post_from_doc(post_info.doc_name, post_info))
                     post_container_box.add_child(post_container)
+                    post_container.load_post(PostsManager.add_post_from_doc(post_info.doc_name, post_info))
             else:
                 var post_obj : PostsManager.Post = PostsManager.add_post_from_doc(
                     post_info.doc_name, 
                     post_info,
-                    Utilities.get_post_image(post_info.doc_fields.user_id, post_info.doc_name, post_info.doc_fields.image))
+                    RequestsManager.get_post_image(post_info.doc_fields.user_id, post_info.doc_name, post_info.doc_fields.image))
                 var post_container : PostContainer = Activities.post_container_scene.instance()
-                post_container.load_post(post_obj)
                 post_container_box.add_child(post_container)
+                post_container.load_post(post_obj)
                 
     $ScrollPost.show()
 
 func _on_ConnecBtn_pressed():
-    var update_task :FirestoreTask = Utilities.update_friend_list(user_id)
+    var update_task :FirestoreTask = RequestsManager.update_friend_list(user_id)
     yield(update_task, "update_document")
     if check_friend(user_id):
         emit_signal("connected", user, $Header/ConnecBtn)

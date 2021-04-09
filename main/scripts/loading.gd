@@ -2,6 +2,12 @@ extends Control
 
 var front : bool = false
 
+func _connect_signals():
+    $Timer.connect("timeout", self, "_on_Timer_timeout")
+
+func _ready():
+    _connect_signals()
+
 func set_loading(is_loading : bool):
     visible = is_loading
     if is_loading:

@@ -8,6 +8,8 @@ var home_scene : PackedScene = preload("res://main/scn/home/home.tscn")
 
 var post_container_scene : PackedScene = preload("res://main/scn/post/post.tscn")
 var chat_node_scene : PackedScene = preload("res://main/scn/chat_node/chat_node.tscn")
+var comment_container : PackedScene = preload("res://main/scn/show_post/comment/comment.tscn")
+
 
 # Particles
 var love_particle_scene : PackedScene = preload("res://main/scn/particles/love_particle/love_particle.tscn")

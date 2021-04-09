@@ -20,8 +20,8 @@ func load_friend_list():
         else:
             var user_friend : UsersManager.User = UsersManager.add_user(
                 friend, 
-                Utilities.get_user(friend), 
-                Utilities.get_profile_picture(friend))
+                RequestsManager.get_user(friend), 
+                RequestsManager.get_profile_picture(friend))
             add_friend(user_friend)
     list.show()
 

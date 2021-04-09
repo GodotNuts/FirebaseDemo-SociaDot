@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://main/res/imgs/Nuovo progetto.svg" type="Texture" id=1]
+[ext_resource path="res://main/res/imgs/avatar.svg" type="Texture" id=1]
 [ext_resource path="res://main/res/shaders/round_avatar.tres" type="Material" id=2]
+[ext_resource path="res://main/scn/header/header.gd" type="Script" id=3]
 
 [node name="Header" type="HBoxContainer"]
-margin_right = 434.0
+margin_right = 168.0
 margin_bottom = 60.0
 size_flags_vertical = 4
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -21,9 +23,10 @@ texture = ExtResource( 1 )
 expand = true
 stretch_mode = 1
 
-[node name="Name" type="Label" parent="."]
-margin_left = 64.0
-margin_top = 23.0
-margin_right = 92.0
-margin_bottom = 37.0
+[node name="Name" type="LinkButton" parent="."]
+margin_left = 68.0
+margin_top = 17.0
+margin_right = 116.0
+margin_bottom = 42.0
+size_flags_vertical = 4
 text = "user"
