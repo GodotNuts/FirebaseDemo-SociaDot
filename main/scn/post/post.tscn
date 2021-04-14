@@ -44,7 +44,7 @@ thickness = 3
 
 [node name="Post" type="PanelContainer"]
 anchor_right = 1.0
-margin_bottom = 224.0
+margin_bottom = 384.0
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
 custom_styles/panel = SubResource( 1 )
@@ -55,7 +55,7 @@ __meta__ = {
 
 [node name="PostContainer" type="VBoxContainer" parent="."]
 margin_right = 1024.0
-margin_bottom = 224.0
+margin_bottom = 384.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 5
@@ -153,7 +153,7 @@ custom_constants/separation = 5
 material = ExtResource( 6 )
 margin_top = 100.0
 margin_right = 1024.0
-margin_bottom = 184.0
+margin_bottom = 344.0
 rect_min_size = Vector2( 64, 64 )
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 7
@@ -163,8 +163,8 @@ expand = true
 stretch_mode = 7
 
 [node name="ActionButtons" parent="PostContainer" instance=ExtResource( 1 )]
-margin_top = 189.0
-margin_bottom = 224.0
+margin_top = 349.0
+margin_bottom = 384.0
 
 [node name="Container" type="PanelContainer" parent="PostContainer"]
 visible = false

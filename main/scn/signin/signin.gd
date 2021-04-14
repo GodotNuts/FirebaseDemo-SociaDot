@@ -12,6 +12,8 @@ onready var update_picture : TextureRect = $UpdateProfile/VBox/UpdatePicture
 var extension : String
 var profile_picture : String
 
+var logged : bool = false
+
 var task : int = -1
 
 func _connect_signals():
@@ -20,6 +22,7 @@ func _connect_signals():
     signin_container.connect("logged", self, "_on_SignContainer_logged")
     signin_container.connect("logging", self, "_on_SignContainer_logging")
     signin_container.connect("signed", self, "_on_SignContainer_signed")
+    Firebase.Auth.connect("token_refresh_succeeded", self, "_on_SignContainer_logged")
     $UpdateProfile/VBox/UpdatePicture/CameraIcon.connect("pressed", self, "_on_CameraIcon_pressed")
     $UpdateProfile/VBox/ConfirmBtn.connect("pressed", self, "_on_ConfirmBtn_pressed")
     
@@ -34,9 +37,7 @@ func _ready():
 #    return
     Firebase.Auth.load_auth()
     if not Firebase.Auth.auth.empty():
-        Activities.loading( true)
-        yield(Firebase.Auth, "token_refresh_succeeded")
-        _on_SignContainer_logged(Firebase.Auth.auth)
+        Activities.loading(true)
 
 func animate_SignContainer(show : bool):
     if show:
@@ -65,6 +66,10 @@ func _on_SignContainer_error(message):
 
 
 func _on_SignContainer_logged(login):
+    if logged:
+        emit_signal("show_error", "User already logged")
+        return
+    logged = true
     Firebase.Auth.save_auth(login)
     var firestore_task : FirestoreTask = RequestsManager.get_user(login.localid)
     var user_doc : FirestoreDocument = yield(firestore_task, "get_document")
@@ -117,7 +122,11 @@ func _on_ChosePicture_file_selected(path):
 
 
 func _on_ConfirmBtn_pressed():
+    if logged:
+        emit_signal("show_error", "User already logged")
+        return
     if update_picture.texture != null and not update_username.get_text() in [""," "]:
+        logged = true
         Activities.loading( true)
         UserData.user_name = update_username.get_text()
         var update_task : FirestoreTask = RequestsManager.update_user()

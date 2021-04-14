@@ -2,7 +2,7 @@ class_name PostContainer
 extends PanelContainer
 
 signal open_post(post)
-signal show_user_profile(user_id, user)
+signal show_user_profile(user_id, user_name)
 
 onready var post_image : TextureRect = $PostContainer/Image
 onready var comments_container : PanelContainer = $PostContainer/Container
@@ -25,7 +25,7 @@ var user : UsersManager.User
 var db_reference : FirebaseDatabaseReference
 
 func _connect_signals():
-    $PostContainer/Image.connect("gui_input", self, "_on_Image_gui_input")
+    post_image.connect("gui_input", self, "_on_Image_gui_input")
     $PostContainer/Header/Username.connect("pressed", self, "_on_Username_pressed")
     $PostContainer/ActionButtons/LikeBtn.connect("pressed", self, "_on_LikeBtn_pressed")
     comments_btn.connect("pressed", self, "_on_CommentsBtn_pressed")
@@ -183,7 +183,7 @@ func _on_db_data(resource : FirebaseResource):
 
 
 func _on_Username_pressed():
-    emit_signal("show_user_profile", user_id, user)
+    emit_signal("show_user_profile", user_id, user_name)
 
 func _on_CommentsBtn_pressed():
     comments_container.visible = not comments_container.visible

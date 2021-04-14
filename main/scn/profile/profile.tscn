@@ -3,10 +3,10 @@
 [ext_resource path="res://main/res/fonts/roboto/Roboto-Black.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://main/res/imgs/avatar.svg" type="Texture" id=2]
 [ext_resource path="res://main/res/shaders/round_avatar.tres" type="Material" id=3]
-[ext_resource path="res://main/res/icons/032-add-user.svg" type="Texture" id=4]
+[ext_resource path="res://main/res/icons/group_add_white_24dp.svg" type="Texture" id=4]
 [ext_resource path="res://main/scn/buttons/normal_btn/button.tscn" type="PackedScene" id=5]
 [ext_resource path="res://main/scn/profile/profile.gd" type="Script" id=6]
-[ext_resource path="res://main/res/icons/015-user-1.svg" type="Texture" id=8]
+[ext_resource path="res://main/res/icons/people_white_24dp.svg" type="Texture" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 25
@@ -73,7 +73,7 @@ size_flags_horizontal = 14
 size_flags_vertical = 4
 text = "Connect"
 icon = ExtResource( 4 )
-texture_active = ExtResource( 8 )
+texture_active = ExtResource( 7 )
 texture_inactive = ExtResource( 4 )
 color = Color( 0.164706, 0.352941, 1, 1 )
 

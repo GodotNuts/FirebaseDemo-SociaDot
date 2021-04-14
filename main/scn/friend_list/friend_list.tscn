@@ -2,7 +2,7 @@
 
 [ext_resource path="res://main/scn/friend_list/friend_list.gd" type="Script" id=1]
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="StyleBoxEmpty" id=7]
 content_margin_left = 7.0
 content_margin_right = 7.0
 
@@ -28,7 +28,7 @@ margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/bg = SubResource( 1 )
+custom_styles/bg = SubResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
