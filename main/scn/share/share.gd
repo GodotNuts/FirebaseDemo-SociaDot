@@ -37,6 +37,13 @@ func _on_files_dropped(files : PoolStringArray, screen : int):
 func set_texture(file_dropped : String):
     var img : Image = Image.new()
     img.load(file_dropped)
+#    resize_image(img)
+    var texture : ImageTexture = ImageTexture.new()
+    texture.create_from_image(img)
+    post_image.set_texture(texture)
+    image = texture
+
+func resize_image(img : Image) -> void:
     var y_img : float = img.get_size().y
     var x_img : float = img.get_size().x
     if y_img > x_img:
@@ -47,10 +54,7 @@ func set_texture(file_dropped : String):
         if x_img > x_limit:
             var aspect_ratio : float = x_limit/x_img
             img.resize(x_limit, y_img*aspect_ratio)
-    var texture : ImageTexture = ImageTexture.new()
-    texture.create_from_image(img)
-    post_image.set_texture(texture)
-    image = texture
+
 
 func _on_AddImageBtn_pressed():
     $FileDialog.popup()

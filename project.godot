@@ -260,6 +260,20 @@ window/stretch/aspect="keep_width"
 
 enabled=PoolStringArray( "godot-firebase" )
 
+[firebase]
+
+environment_variables/apiKey=""
+environment_variables/authDomain=""
+environment_variables/databaseURL=""
+environment_variables/projectId=""
+environment_variables/storageBucket=""
+environment_variables/messagingSenderId=""
+environment_variables/appId=""
+environment_variables/measurementId=""
+environment_variables/clientId=""
+environment_variables/clientSecret=""
+environment_variables/domainUriPrefix=""
+
 [gui]
 
 theme/use_hidpi=true

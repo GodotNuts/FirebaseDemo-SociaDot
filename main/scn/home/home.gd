@@ -3,18 +3,19 @@ extends PanelContainer
 signal show_error()
 signal loading()
 
-onready var posts_section : VBoxContainer = $HomeContainer/Sections/Posts
-onready var post_box : VBoxContainer = posts_section.get_node("ScrollPost/PostContainer")
+onready var sections_container : VBoxContainer = $HomeContainer/Sections
+onready var posts_section : VBoxContainer = sections_container.get_node("Posts")
+onready var users_list_section : VBoxContainer = sections_container.get_node("UsersList")
+onready var settings_section : VBoxContainer = sections_container.get_node("Settings")
+onready var profile_section : VBoxContainer = sections_container.get_node("Profile")
 
-onready var profile_section : VBoxContainer = $HomeContainer/Sections/Profile
+onready var post_box : VBoxContainer = posts_section.get_node("ScrollPost/PostContainer")
 onready var profile_post_container : VBoxContainer = profile_section.get_node("ScrollPost/PostContainer")
 
 onready var menu : VBoxContainer = $HomeContainer/Menu
 onready var side_bar : VBoxContainer = $HomeContainer/SideBar
 onready var friend_list : VBoxContainer = side_bar.get_node("FriendList")
 
-onready var users_list_section : VBoxContainer = $HomeContainer/Sections/UsersList
-onready var settings_section : VBoxContainer = $HomeContainer/Sections/Settings
 
 onready var chat_container : GridContainer = $AspectRatioContainer/ChatContainer
 
@@ -27,6 +28,8 @@ var fr_posts : FirestoreCollection = Firebase.Firestore.collection("posts")
 var friend_posts : Array = []
 
 var posts_db_reference : FirebaseDatabaseReference 
+
+var window_size : Vector2
 
 func _connect_signals():
     connect("item_rect_changed", self, "_on_Home_item_rect_changed")
@@ -173,10 +176,7 @@ func _on_show_user_profile(user_id : String, user_name : String):
     show_section(profile_section)
     profile_section.load_profile(user_id, user_name)
     emit_signal("loading", false)
-    
 
-func display_post(post_document : Dictionary):
-    pass
 
 func _on_ShareBtn_pressed():
     $ShareSomethingContainer.show()
@@ -201,7 +201,7 @@ func _on_show_chat(chat_node : ChatNode):
     
 
 func show_section(section : Control) -> void:
-    for _section in $HomeContainer/Sections.get_children():
+    for _section in sections_container.get_children():
         _section.hide()
     section.show()
 
@@ -234,6 +234,9 @@ func _on_NotificationsBtn_pressed():
     pass
 
 func _on_Home_item_rect_changed():
+    update_chat_container()
+
+func update_chat_container():
     if chat_container == null:
         return
     chat_container.set_columns(floor(rect_size.x / 300))

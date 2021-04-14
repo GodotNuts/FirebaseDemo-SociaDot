@@ -37,13 +37,14 @@ onready var DynamicLinks : FirebaseDynamicLinks = $DynamicLinks
 # These values can be found in your Firebase Project
 # See the README on Github for how to access
 var _config : Dictionary = {
-    "apiKey": "",
-    "authDomain": "",
-    "databaseURL":"",
-    "projectId": "",
-    "storageBucket": "",
-    "messagingSenderId": "",
-    "appId": "",
+    "apiKey": "AIzaSyCgrmTwdsjR0zY0hHR_WyuSX4cJri1wiBo",
+    "authDomain": "roundtable-5c241.firebaseapp.com",
+    "databaseURL": "https://roundtable-5c241.firebaseio.com",
+    "projectId": "roundtable-5c241",
+    "storageBucket": "roundtable-5c241.appspot.com",
+    "messagingSenderId": "567850593967",
+    "appId": "1:567850593967:web:5395b274d9da6a919f2e5a",
+    "measurementId": "",
     "clientId": "",
     "clientSecret": "",
     "domainUriPrefix": "",

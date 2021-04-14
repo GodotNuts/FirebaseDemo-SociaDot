@@ -5,6 +5,7 @@
 export.cfg
 export_presets.cfg
 override.cfg
+addons/
 
 #
 # Mono-specific ignores
