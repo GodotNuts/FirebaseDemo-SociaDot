@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://main/scn/home/home.gd" type="Script" id=1]
 [ext_resource path="res://main/res/fonts/roboto/Roboto-Black.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://main/scn/share/share.tscn" type="PackedScene" id=3]
 [ext_resource path="res://main/scn/header/header.tscn" type="PackedScene" id=4]
+[ext_resource path="res://main/scn/friend_list/friend_list.gd" type="Script" id=5]
 [ext_resource path="res://main/res/icons/history_edu-24px.svg" type="Texture" id=6]
 [ext_resource path="res://main/res/themes/main.tres" type="Theme" id=7]
 [ext_resource path="res://main/res/icons/home-24px.svg" type="Texture" id=8]
@@ -12,7 +13,6 @@
 [ext_resource path="res://main/scn/profile/profile.tscn" type="PackedScene" id=11]
 [ext_resource path="res://main/res/icons/notifications_none_white_24dp.svg" type="Texture" id=12]
 [ext_resource path="res://main/scn/show_post/show_post.tscn" type="PackedScene" id=13]
-[ext_resource path="res://main/scn/friend_list/friend_list.tscn" type="PackedScene" id=14]
 [ext_resource path="res://main/res/icons/groups_white_24dp.svg" type="Texture" id=15]
 [ext_resource path="res://main/res/icons/settings-24px.svg" type="Texture" id=16]
 [ext_resource path="res://main/scn/settings/settings.tscn" type="PackedScene" id=17]
@@ -41,13 +41,20 @@ content_margin_right = 10.0
 content_margin_top = 10.0
 content_margin_bottom = 10.0
 
+[sub_resource type="StyleBoxEmpty" id=7]
+content_margin_left = 7.0
+content_margin_right = 7.0
+
 [node name="Home" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+size_flags_horizontal = 3
 theme = ExtResource( 7 )
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 1 )
 __meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -56,15 +63,15 @@ margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/separation = 20
 alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Menu" type="VBoxContainer" parent="HomeContainer"]
 margin_right = 210.0
 margin_bottom = 600.0
 rect_min_size = Vector2( 210, 0 )
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
 custom_constants/separation = 15
 
 [node name="HSeparator3" type="HSeparator" parent="HomeContainer/Menu"]
@@ -164,23 +171,23 @@ custom_styles/separator = SubResource( 2 )
 custom_constants/separation = 10
 
 [node name="Sections" type="VBoxContainer" parent="HomeContainer"]
-margin_left = 214.0
-margin_right = 790.0
+margin_left = 230.0
+margin_right = 794.0
 margin_bottom = 600.0
-rect_min_size = Vector2( 420, 0 )
+rect_min_size = Vector2( 550, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Posts" type="VBoxContainer" parent="HomeContainer/Sections"]
-margin_right = 576.0
-margin_bottom = 147.0
+margin_right = 564.0
+margin_bottom = 600.0
 size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Home" type="Label" parent="HomeContainer/Sections/Posts"]
-margin_right = 576.0
+margin_right = 564.0
 margin_bottom = 39.0
 custom_fonts/font = SubResource( 5 )
 text = "Home"
@@ -200,8 +207,8 @@ valign = 1
 
 [node name="ScrollPost" type="ScrollContainer" parent="HomeContainer/Sections/Posts"]
 margin_top = 43.0
-margin_right = 576.0
-margin_bottom = 147.0
+margin_right = 564.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/bg = SubResource( 6 )
@@ -210,24 +217,26 @@ scroll_horizontal_enabled = false
 [node name="PostContainer" type="VBoxContainer" parent="HomeContainer/Sections/Posts/ScrollPost"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 566.0
-margin_bottom = 94.0
+margin_right = 554.0
+margin_bottom = 547.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 30
 
 [node name="Profile" parent="HomeContainer/Sections" instance=ExtResource( 11 )]
+visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 151.0
-margin_right = 576.0
-margin_bottom = 298.0
+margin_top = 302.0
+margin_right = 500.0
+margin_bottom = 600.0
 rect_min_size = Vector2( 0, 0 )
 
 [node name="UsersList" type="VBoxContainer" parent="HomeContainer/Sections"]
-margin_top = 302.0
-margin_right = 576.0
-margin_bottom = 449.0
+visible = false
+margin_top = 402.0
+margin_right = 500.0
+margin_bottom = 600.0
 size_flags_vertical = 3
 script = ExtResource( 9 )
 __meta__ = {
@@ -235,7 +244,7 @@ __meta__ = {
 }
 
 [node name="Home" type="Label" parent="HomeContainer/Sections/UsersList"]
-margin_right = 576.0
+margin_right = 500.0
 margin_bottom = 39.0
 custom_fonts/font = SubResource( 5 )
 text = "Users List"
@@ -243,8 +252,8 @@ align = 1
 
 [node name="ScrollUsers" type="ScrollContainer" parent="HomeContainer/Sections/UsersList"]
 margin_top = 43.0
-margin_right = 576.0
-margin_bottom = 147.0
+margin_right = 500.0
+margin_bottom = 198.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/bg = SubResource( 6 )
@@ -253,38 +262,77 @@ scroll_horizontal_enabled = false
 [node name="UsersList" type="VBoxContainer" parent="HomeContainer/Sections/UsersList/ScrollUsers"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 566.0
-margin_bottom = 94.0
+margin_right = 490.0
+margin_bottom = 145.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 30
 
 [node name="Settings" parent="HomeContainer/Sections" instance=ExtResource( 17 )]
+visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 453.0
-margin_right = 576.0
+margin_right = 500.0
 margin_bottom = 600.0
 
 [node name="SideBar" type="VBoxContainer" parent="HomeContainer"]
-margin_left = 794.0
+margin_left = 814.0
 margin_right = 1024.0
 margin_bottom = 600.0
-rect_min_size = Vector2( 230, 0 )
+rect_min_size = Vector2( 210, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
 
-[node name="FriendList" parent="HomeContainer/SideBar" instance=ExtResource( 14 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 230.0
+[node name="FriendList" type="VBoxContainer" parent="HomeContainer/SideBar"]
+margin_right = 210.0
 margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HomeContainer/SideBar/FriendList"]
+margin_right = 210.0
+margin_bottom = 27.0
+text = "Contacts"
+align = 1
+
+[node name="FriendList" type="ScrollContainer" parent="HomeContainer/SideBar/FriendList"]
+margin_top = 31.0
+margin_right = 210.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/bg = SubResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="List" type="VBoxContainer" parent="HomeContainer/SideBar/FriendList/FriendList"]
+margin_left = 7.0
+margin_right = 203.0
+margin_bottom = 569.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="ShareSomethingContainer" parent="." instance=ExtResource( 3 )]
 visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1024.0
+margin_bottom = 600.0
 
 [node name="ShowPost" parent="." instance=ExtResource( 13 )]
 visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_left = 0.0
-margin_right = 0.0
+margin_right = 1024.0
+margin_bottom = 600.0
 
 [node name="Tween" type="Tween" parent="."]
 

@@ -10,8 +10,8 @@ var profile_picture : String = ""
 
 func _connect_signals() -> void:
     $ScrollSettings/SettingsList/Profile/Avatar/UpdatePicture/CameraIcon.connect("pressed", self, "_on_chose_pressed")
-    $ScrollSettings/SettingsList/Profile/ChosePicture.connect("file_selected", self, "_on_file_selected")
-    $ScrollSettings/SettingsList/SaveSettingsBtn.connect("pressed", self, "_on_save_settings")
+    $ScrollSettings/SettingsList/ChosePicture.connect("file_selected", self, "_on_file_selected")
+    $ScrollSettings/SettingsList/Profile/SaveSettingsBtn.connect("pressed", self, "_on_save_settings")
 
 func _ready() -> void:
     _connect_signals()
@@ -25,7 +25,7 @@ func load_user_data():
     avatar_texture.set_texture(UserData.user_picture)
 
 func _on_chose_pressed():
-    $ScrollSettings/SettingsList/Profile/ChosePicture.popup()
+    $ScrollSettings/SettingsList/ChosePicture.popup()
 
 func _on_file_selected(path : String):
     profile_picture = path

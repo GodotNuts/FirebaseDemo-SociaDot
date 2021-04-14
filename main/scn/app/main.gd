@@ -1,11 +1,12 @@
 extends Control
 
-const version : String = "1.3"
+const version : String = "1.4"
 
 onready var activities : Control = $Main/Activities
 onready var topbar : HBoxContainer = $TopBar
 onready var loading : Control = $Main/Loading
-onready var error_lbl : Label = $Main/ERROR
+onready var error_container : AspectRatioContainer = $Main/ErrorContainer
+onready var error_lbl : Label = error_container.get_node("ERROR")
 
 onready var user_id_lbl : Label = $Main/AppInfo/UserId
 onready var version_lbl : Label = $Main/AppInfo/Version
@@ -47,17 +48,17 @@ func _on_signin_completed():
     activities.add_child(Activities.home)
 
 func _on_show_error(error : String):
+    error_container.set_size(Vector2())
     error_lbl.set_text(error)
-    error_lbl.rect_size = error_lbl.rect_min_size
-    animator.interpolate_property(error_lbl, "rect_position", 
-    Vector2(rect_size.x/2 - error_lbl.rect_size.x/2, rect_size.y + 10), 
-    Vector2(rect_size.x/2 - error_lbl.rect_size.x/2, rect_size.y - error_lbl.rect_size.y - 50), 
+    animator.interpolate_property(error_container, "rect_position", 
+    Vector2(rect_size.x/2 - error_container.rect_size.x/2, rect_size.y + 10), 
+    Vector2(rect_size.x/2 - error_container.rect_size.x/2, rect_size.y - error_container.rect_size.y), 
     0.3, Tween.TRANS_QUAD, Tween.EASE_OUT)
     animator.start()
-    yield(get_tree().create_timer(8), "timeout")
-    animator.interpolate_property(error_lbl, "rect_position", 
-    error_lbl.rect_position, 
-    Vector2(rect_size.x/2 - error_lbl.rect_size.x/2, rect_size.y + 10), 
+    yield(get_tree().create_timer(9), "timeout")
+    animator.interpolate_property(error_container, "rect_position", 
+    error_container.rect_position, 
+    Vector2(rect_size.x/2 - error_container.rect_size.x/2, rect_size.y + 10), 
     0.3, Tween.TRANS_QUAD, Tween.EASE_OUT)
     animator.start()
 

@@ -236,5 +236,5 @@ mode = 0
 access = 2
 filters = PoolStringArray( "*.png", "*.jpg" )
 show_hidden_files = true
-current_dir = "/COMPUTER/GodotEngine/GDScript/FirebaseDemo-SociaDot"
-current_path = "/COMPUTER/GodotEngine/GDScript/FirebaseDemo-SociaDot/"
+current_dir = "/COMPUTER/GodotEngine/FirebaseDemo-SociaDot"
+current_path = "/COMPUTER/GodotEngine/FirebaseDemo-SociaDot/"

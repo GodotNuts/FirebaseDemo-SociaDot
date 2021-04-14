@@ -281,18 +281,28 @@ __meta__ = {
 [node name="Timer" type="Timer" parent="MainContainer/Main/Loading"]
 wait_time = 0.7
 
-[node name="ERROR" type="Label" parent="MainContainer/Main"]
+[node name="ErrorContainer" type="AspectRatioContainer" parent="MainContainer/Main"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -330.5
-margin_top = 10.5
-margin_right = 330.5
-margin_bottom = 37.5
+margin_left = -250.0
+margin_top = 8.0
+margin_right = 250.0
+margin_bottom = 40.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+alignment_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ERROR" type="Label" parent="MainContainer/Main/ErrorContainer"]
+margin_right = 500.0
+margin_bottom = 32.0
 grow_horizontal = 2
-grow_vertical = 2
-rect_min_size = Vector2( 400, 0 )
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 3
 custom_styles/normal = SubResource( 9 )
 custom_colors/font_color = Color( 1, 0, 0.235294, 1 )
 align = 1

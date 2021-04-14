@@ -61,7 +61,7 @@ func set_image(img : ImageTexture):
     post_image.set_texture(image)
     var stretch_mode : int
     var expand : bool
-    if img.get_size() >= post_image.get_rect().size :
+    if img.get_size().x >= post_image.get_rect().size.x or img.get_size().y >= post_image.get_rect().size.y :
         stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
         expand = true
     else:
