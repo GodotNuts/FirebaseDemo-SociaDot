@@ -9,9 +9,6 @@ onready var users_list_section : VBoxContainer = sections_container.get_node("Us
 onready var settings_section : VBoxContainer = sections_container.get_node("Settings")
 onready var profile_section : VBoxContainer = sections_container.get_node("Profile")
 
-onready var notifications_section : VBoxContainer = sections_container.get_node("Notifications")
-
-
 onready var post_box : VBoxContainer = posts_section.get_node("ScrollPost/PostContainer")
 onready var profile_post_container : VBoxContainer = profile_section.get_node("ScrollPost/PostContainer")
 
@@ -19,21 +16,18 @@ onready var menu : VBoxContainer = $HomeContainer/Menu
 onready var side_bar : VBoxContainer = $HomeContainer/SideBar
 onready var friend_list : VBoxContainer = side_bar.get_node("FriendList")
 
-onready var notification_lbl : Label = $HomeContainer/Menu/NotificationsBtn/Notification
 
 onready var chat_container : GridContainer = $AspectRatioContainer/ChatContainer
 
 onready var show_post : Control = $ShowPost
 
+onready var notification_lbl : Label = $HomeContainer/Menu/NotificationsBtn/Notification
 
 var fr_posts : FirestoreCollection = Firebase.Firestore.collection("posts")
 
 var friend_posts : Array = []
 
 var posts_db_reference : FirebaseDatabaseReference 
-var notifications_db_reference : FirebaseDatabaseReference
-
-var window_size : Vector2
 
 var window_size : Vector2
 
@@ -49,8 +43,6 @@ func _connect_signals():
     $HomeContainer/Menu/UsersListBtn.connect("pressed", self, "_on_UsersListBtn_pressed")
     $HomeContainer/Menu/NotificationsBtn.connect("pressed", self, "_on_NotificationsBtn_pressed")
     $HomeContainer/Menu/SettingsBtn.connect("pressed", self, "_on_SettingsBtn_pressed")
-    
-    notifications_section.connect("visibility_changed", self, "_on_notification_section_visibility")
 
 func _ready():
     _connect_signals()
@@ -65,7 +57,8 @@ func _ready():
     animate_Home(true)
     load_posts()
     friend_list.load_friend_list()
-    connect_notifications()
+
+
 
 func animate_Home(display : bool):
     if display:
@@ -107,14 +100,6 @@ func load_posts():
         posts_db_reference = Firebase.Database.get_database_reference("sociadot/posts")
         posts_db_reference.connect("new_data_update", self, "_on_new_post")
     
-func connect_notifications() -> void:
-    notifications_db_reference = Firebase.Database.get_database_reference("sociadot/notifications/"+UserData.user_id)
-    notifications_db_reference.connect("new_data_update", self, "_on_new_notification")
-
-func _on_new_notification(notification : FirebaseResource):
-    notifications_section.manage_notification(notification)
-    if not notification.data.viewed:
-        notification_lbl.show()
 
 func check_friend_posts_list(post_doc : FirestoreDocument) -> bool:
     for post in friend_posts:
@@ -246,12 +231,7 @@ func _on_open_post(post : PostsManager.Post):
     show_post.show_post(post, UsersManager.get_user_by_id(post.user_id))
     
 func _on_NotificationsBtn_pressed():
-    show_section(notifications_section)
-    notification_lbl.hide()
-
-func _on_notification_section_visibility():
-    if not notifications_section.visible:
-        notifications_section.view_notifications()
+    pass
 
 func _on_Home_item_rect_changed():
     update_chat_container()

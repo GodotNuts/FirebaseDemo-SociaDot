@@ -6,8 +6,6 @@ class User:
     var email : String
     var chats : Dictionary
     var friend_list : Array
-    var is_logged : bool
-    var last_logged : Dictionary
     var picture : ImageTexture
     var document : FirestoreDocument
     var picture_task : StorageTask
@@ -41,8 +39,6 @@ class User:
         email = doc.doc_fields.email
         chats = doc.doc_fields.chats
         friend_list = doc.doc_fields.friend_list
-        is_logged = doc.doc_fields.is_logged if doc.doc_fields.has("is_logged") else false
-        last_logged = doc.doc_fields.last_logged if doc.doc_fields.has("last_logged") else {}
         emit_signal("update_user", self)
 
     func _on_picture_received():

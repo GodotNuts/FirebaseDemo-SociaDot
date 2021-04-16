@@ -64,7 +64,6 @@ func _on_ConnecBtn_pressed():
     yield(friend_task, "update_document")
     if check_friend():
         emit_signal("connected", user, $ConnecBtn)
-        RequestsManager.send_notification(UserData.user_id, user_id, "connect")
     else:
         emit_signal("disconnect", user)
 
