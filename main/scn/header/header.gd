@@ -1,5 +1,8 @@
 extends HBoxContainer
 
+signal pressed(user_id, user_name)
+
+var user_id : String
 var user_name : String
 var user_picture : ImageTexture
 
@@ -20,9 +23,11 @@ func load_from_user(user_obj : UsersManager.User):
         user_obj.connect("update_picture", self, "set_picture")
     set_picture(user_obj.picture)
     set_user_name(user_obj.username)
+    user_id = user_obj.id
 
 func load_from_document(document : FirestoreDocument):
     set_user_name(document.doc_fields.username)
+    user_id = document.doc_fields.localid
 
 func set_picture(picture : ImageTexture):
     user_picture = picture
@@ -33,3 +38,7 @@ func set_picture(picture : ImageTexture):
 func set_user_name(_name : String):
     user_name = _name
     $Name.set_text(_name)
+
+
+func _on_Name_pressed() -> void:
+    emit_signal("pressed", user_id, user_name)

@@ -64,6 +64,10 @@ func _on_show_error(error : String):
 
 # ..... top bar signals
 func _on_TopBar_close():
+    UserData.is_logged = false
+    UserData.last_logged = OS.get_datetime()
+    loading.set_loading(true)
+    yield(RequestsManager.update_user(), "task_finished")
     get_tree().quit()
 
 func _on_TopBar_minimize():

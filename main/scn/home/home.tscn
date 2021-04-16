@@ -13,23 +13,15 @@
 [ext_resource path="res://main/scn/profile/profile.tscn" type="PackedScene" id=11]
 [ext_resource path="res://main/res/icons/notifications_none_white_24dp.svg" type="Texture" id=12]
 [ext_resource path="res://main/scn/show_post/show_post.tscn" type="PackedScene" id=13]
+[ext_resource path="res://main/scn/notifications/notifications.gd" type="Script" id=14]
 [ext_resource path="res://main/res/icons/groups_white_24dp.svg" type="Texture" id=15]
 [ext_resource path="res://main/res/icons/settings-24px.svg" type="Texture" id=16]
 [ext_resource path="res://main/scn/settings/settings.tscn" type="PackedScene" id=17]
+[ext_resource path="res://main/scn/labels_icons/color_round_s.tscn" type="PackedScene" id=18]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
 [sub_resource type="StyleBoxEmpty" id=2]
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 1, 0.352941, 0.247059, 1 )
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-corner_detail = 20
-
-[sub_resource type="DynamicFont" id=4]
 
 [sub_resource type="DynamicFont" id=5]
 size = 25
@@ -136,19 +128,7 @@ texture_active = ExtResource( 12 )
 texture_inactive = ExtResource( 12 )
 color = Color( 1, 0.627451, 0.294118, 1 )
 
-[node name="Notification" type="Label" parent="HomeContainer/Menu/NotificationsBtn"]
-visible = false
-margin_right = 10.0
-margin_bottom = 10.0
-rect_min_size = Vector2( 10, 10 )
-size_flags_horizontal = 0
-size_flags_vertical = 0
-custom_styles/normal = SubResource( 3 )
-custom_fonts/font = SubResource( 4 )
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Notification" parent="HomeContainer/Menu/NotificationsBtn" instance=ExtResource( 18 )]
 
 [node name="SettingsBtn" parent="HomeContainer/Menu" instance=ExtResource( 10 )]
 margin_left = 15.0
@@ -222,6 +202,42 @@ margin_bottom = 547.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 30
+
+[node name="Notifications" type="VBoxContainer" parent="HomeContainer/Sections"]
+visible = false
+margin_top = 302.0
+margin_right = 564.0
+margin_bottom = 600.0
+size_flags_vertical = 3
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HomeContainer/Sections/Notifications"]
+margin_right = 564.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 5 )
+text = "Notifications"
+align = 1
+
+[node name="ScrollNotifications" type="ScrollContainer" parent="HomeContainer/Sections/Notifications"]
+margin_top = 43.0
+margin_right = 564.0
+margin_bottom = 298.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/bg = SubResource( 6 )
+scroll_horizontal_enabled = false
+
+[node name="NotificationsContainer" type="VBoxContainer" parent="HomeContainer/Sections/Notifications/ScrollNotifications"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 554.0
+margin_bottom = 245.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 5
 
 [node name="Profile" parent="HomeContainer/Sections" instance=ExtResource( 11 )]
 visible = false
