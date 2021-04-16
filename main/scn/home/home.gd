@@ -8,9 +8,7 @@ onready var posts_section : VBoxContainer = sections_container.get_node("Posts")
 onready var users_list_section : VBoxContainer = sections_container.get_node("UsersList")
 onready var settings_section : VBoxContainer = sections_container.get_node("Settings")
 onready var profile_section : VBoxContainer = sections_container.get_node("Profile")
-
 onready var notifications_section : VBoxContainer = sections_container.get_node("Notifications")
-
 
 onready var post_box : VBoxContainer = posts_section.get_node("ScrollPost/PostContainer")
 onready var profile_post_container : VBoxContainer = profile_section.get_node("ScrollPost/PostContainer")
@@ -32,8 +30,6 @@ var friend_posts : Array = []
 
 var posts_db_reference : FirebaseDatabaseReference 
 var notifications_db_reference : FirebaseDatabaseReference
-
-var window_size : Vector2
 
 var window_size : Vector2
 

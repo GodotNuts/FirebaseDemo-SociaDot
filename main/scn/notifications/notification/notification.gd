@@ -23,6 +23,7 @@ func _connect_signals() -> void:
     go_to.connect("pressed", self, "goto_pressed")
 
 func _ready() -> void:
+    $Container/GoTo.hide()
     hide()
     _connect_signals()
 

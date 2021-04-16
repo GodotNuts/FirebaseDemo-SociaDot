@@ -22,7 +22,7 @@ func _connect_signals():
     signin_container.connect("logged", self, "_on_SignContainer_logged")
     signin_container.connect("logging", self, "_on_SignContainer_logging")
     signin_container.connect("signed", self, "_on_SignContainer_signed")
-    Firebase.Auth.connect("token_refresh_succeeded", self, "_on_SignContainer_logged")
+    Firebase.Auth.connect("token_refresh_succeeded", self, "_on_auto_login")
     $UpdateProfile/VBox/UpdatePicture/CameraIcon.connect("pressed", self, "_on_CameraIcon_pressed")
     $UpdateProfile/VBox/ConfirmBtn.connect("pressed", self, "_on_ConfirmBtn_pressed")
     
@@ -64,17 +64,17 @@ func _on_SignContainer_error(message):
     Activities.show_error( message)
     Activities.loading( false)
 
+func _on_auto_login(auth):
+    if not UserData.is_logged:
+        _on_SignContainer_logged(auth)
+
 
 func _on_SignContainer_logged(login):
-    print("logged")
-    if logged:
-        emit_signal("show_error", "User already logged")
-        return
+    UserData.is_logged = true
     Firebase.Auth.save_auth(login)
     var firestore_task : FirestoreTask = RequestsManager.get_user(login.localid)
     var user_doc : FirestoreDocument = yield(firestore_task, "get_document")
     if user_doc.doc_fields.username == "":
-        Firebase.Auth.save_auth(login)
         UserData.user_id = login.localid
         UserData.user_email = login.email
         Activities.loading(false)
@@ -90,7 +90,6 @@ func _on_SignContainer_logged(login):
     Activities.loading(false)
     UserData.map_user(user_doc, user_picture)
     RequestsManager.update_user()
-    logged = true
     emit_signal("sign_in")
 
 func _on_SignContainer_signed(signup):
@@ -125,15 +124,12 @@ func _on_ChosePicture_file_selected(path):
 
 
 func _on_ConfirmBtn_pressed():
-    if logged:
-        emit_signal("show_error", "User already logged")
-        return
     if update_picture.texture != null and not update_username.get_text() in [""," "]:
         logged = true
         Activities.loading( true)
         UserData.user_name = update_username.get_text()
         UserData.last_logged = OS.get_datetime()
-        UserData.is_logged = logged
+        UserData.is_logged = true
         var update_task : FirestoreTask = RequestsManager.update_user()
         yield(update_task, "update_document" )
         var put_file : StorageTask = RequestsManager.update_user_picture(profile_picture)
