@@ -22,6 +22,7 @@ func _connect_signals():
     signin_container.connect("logged", self, "_on_SignContainer_logged")
     signin_container.connect("logging", self, "_on_SignContainer_logging")
     signin_container.connect("signed", self, "_on_SignContainer_signed")
+    Firebase.Auth.connect("token_refresh_succeeded", self, "_on_SignContainer_logged")
     $UpdateProfile/VBox/UpdatePicture/CameraIcon.connect("pressed", self, "_on_CameraIcon_pressed")
     $UpdateProfile/VBox/ConfirmBtn.connect("pressed", self, "_on_ConfirmBtn_pressed")
     
@@ -128,6 +129,7 @@ func _on_ConfirmBtn_pressed():
         emit_signal("show_error", "User already logged")
         return
     if update_picture.texture != null and not update_username.get_text() in [""," "]:
+        logged = true
         Activities.loading( true)
         UserData.user_name = update_username.get_text()
         UserData.last_logged = OS.get_datetime()
