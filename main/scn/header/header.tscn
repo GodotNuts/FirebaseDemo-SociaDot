@@ -8,6 +8,7 @@
 margin_right = 168.0
 margin_bottom = 60.0
 size_flags_vertical = 4
+custom_constants/separation = 15
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -24,9 +25,11 @@ expand = true
 stretch_mode = 1
 
 [node name="Name" type="LinkButton" parent="."]
-margin_left = 68.0
+margin_left = 75.0
 margin_top = 17.0
-margin_right = 116.0
+margin_right = 123.0
 margin_bottom = 42.0
 size_flags_vertical = 4
 text = "user"
+
+[connection signal="pressed" from="Name" to="." method="_on_Name_pressed"]
