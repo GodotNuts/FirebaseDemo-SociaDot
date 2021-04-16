@@ -66,10 +66,10 @@ func _on_SignContainer_error(message):
 
 
 func _on_SignContainer_logged(login):
-    print("logged")
     if logged:
         emit_signal("show_error", "User already logged")
         return
+    logged = true
     Firebase.Auth.save_auth(login)
     var firestore_task : FirestoreTask = RequestsManager.get_user(login.localid)
     var user_doc : FirestoreDocument = yield(firestore_task, "get_document")
@@ -89,12 +89,9 @@ func _on_SignContainer_logged(login):
         user_picture = Utilities.task2image(picture_task)
     Activities.loading(false)
     UserData.map_user(user_doc, user_picture)
-    RequestsManager.update_user()
-    logged = true
     emit_signal("sign_in")
 
 func _on_SignContainer_signed(signup):
-    print("signed")
     Firebase.Auth.save_auth(signup)
     UserData.user_id = signup.localid
     UserData.user_email = signup.email
@@ -132,15 +129,12 @@ func _on_ConfirmBtn_pressed():
         logged = true
         Activities.loading( true)
         UserData.user_name = update_username.get_text()
-        UserData.last_logged = OS.get_datetime()
-        UserData.is_logged = logged
         var update_task : FirestoreTask = RequestsManager.update_user()
         yield(update_task, "update_document" )
         var put_file : StorageTask = RequestsManager.update_user_picture(profile_picture)
         yield(put_file, "task_finished")
         animate_UpdateProfile(false)
         Activities.loading( false)
-        logged = true
         emit_signal("sign_in")
 
 func _on_SignContainer_logging():

@@ -68,8 +68,8 @@ func set_menu(user : String) -> void:
 
 func set_post_id(p : String):
     id = p
-    name = p
-    db_reference = Firebase.Database.get_database_reference("sociadot/posts/"+p)
+    name = id
+    db_reference = Firebase.Database.get_database_reference("sociadot/posts/"+id)
     db_reference.connect("new_data_update", self, "_on_db_data")
     db_reference.connect("patch_data_update", self, "_on_db_data")
 
@@ -161,7 +161,6 @@ func _on_LikeBtn_pressed():
         likes.append(UserData.user_id)
         var love_particle : CPUParticles2D = Activities.love_particle_scene.instance()
         love_particle.add_to_control($PostContainer/ActionButtons/LikeBtn)
-        RequestsManager.send_notification(UserData.user_id, user_id, "like", {post_id = id})
     RequestsManager.update_post_likes(likes, db_reference)
 
 

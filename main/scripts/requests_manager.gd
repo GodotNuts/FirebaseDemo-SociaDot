@@ -10,8 +10,8 @@ func _ready():
     users_collection.connect("error", self, "_show_error")
     posts_collection.connect("error", self, "_show_error")
 
-func _show_error(code, error, message):
-    Activities.show_error(message)
+func _show_error(error : Dictionary):
+    Activities.show_error(JSON.print(error))
 
 func get_all_users() -> FirestoreTask:
     return Firebase.Firestore.list("sociadot/340b3IJqqSEK1kMijHCC/users")
@@ -57,9 +57,7 @@ func update_user() -> FirestoreTask:
         localid = UserData.user_id, 
         email = UserData.user_email,
         friend_list = UserData.friend_list,
-        chats = UserData.user_chats,
-        last_logged = UserData.last_logged,
-        is_logged = UserData.is_logged
+        chats = UserData.user_chats
         })
 
 # Update user friend list
@@ -144,16 +142,3 @@ func delete_post(post_id : String) -> FirestoreTask:
 
 func delete_post_image(user_id : String, post_id : String) -> StorageTask:
     return Firebase.Storage.ref("sociadot/posts/{user_id}/{post_id}".format({user_id = user_id, post_id = post_id})).delete()
-
-
-func send_notification(author : String, recipient : String, action : String, source : Dictionary = {} ) ->void:
-        Firebase.Database.get_database_reference("sociadot/notifications/"+recipient).push({
-            user = author,
-            action = action,
-            source = source,
-            viewed = false
-            })
-
-func view_notification(notification_id : String) -> void:
-    Firebase.Database.get_database_reference("sociadot/notifications/"+UserData.user_id) \
-    .update(notification_id, {viewed = true})

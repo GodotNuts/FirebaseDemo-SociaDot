@@ -9,8 +9,6 @@ var user_name : String              setget set_user_name
 var user_picture : ImageTexture     setget set_user_picture
 var friend_list : Array             setget set_friend_list
 var user_chats : Dictionary = {}    setget set_user_chats
-var last_logged : Dictionary = {}   setget set_last_logged
-var is_logged : bool                setget set_is_logged
 
 func set_user_id(id : String):
     user_id = id
@@ -43,8 +41,6 @@ func map_user(doc : FirestoreDocument, picture : ImageTexture):
     set_user_picture(picture)
     set_friend_list(doc.doc_fields.friend_list)
     set_user_chats(doc.doc_fields.chats)
-    set_last_logged(OS.get_datetime())
-    set_is_logged(true)
 
 func erase_friend(id : String):
     friend_list.erase(id)
@@ -67,8 +63,4 @@ func add_friend_chat(id : String, chat_id : String) -> String:
         user_chats[id] = chat_id
     return user_chats[id]    
 
-func set_last_logged(dict : Dictionary) -> void:
-    last_logged = dict
 
-func set_is_logged(logged : bool) -> void:
-    is_logged = logged
