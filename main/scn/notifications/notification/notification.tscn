@@ -63,9 +63,23 @@ margin_top = 8.0
 margin_right = 1016.0
 margin_bottom = 101.0
 
+[node name="Notification" type="Label" parent="Container"]
+margin_right = 10.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Icon" type="TextureRect" parent="Container"]
+margin_left = 18.0
 margin_top = 26.0
-margin_right = 40.0
+margin_right = 58.0
 margin_bottom = 66.0
 rect_min_size = Vector2( 40, 40 )
 size_flags_horizontal = 4
@@ -74,8 +88,8 @@ expand = true
 stretch_mode = 4
 
 [node name="Header" type="VBoxContainer" parent="Container"]
-margin_left = 48.0
-margin_right = 171.0
+margin_left = 66.0
+margin_right = 189.0
 margin_bottom = 93.0
 
 [node name="UserHeader" parent="Container/Header" instance=ExtResource( 1 )]
@@ -87,25 +101,10 @@ margin_right = 123.0
 margin_bottom = 93.0
 
 [node name="GoTo" type="ToolButton" parent="Container"]
-visible = false
-margin_left = 930.0
-margin_right = 990.0
+margin_left = 948.0
+margin_right = 1008.0
 margin_bottom = 93.0
 size_flags_horizontal = 10
 icon = ExtResource( 6 )
-
-[node name="Notification" type="Label" parent="Container"]
-margin_left = 179.0
-margin_right = 189.0
-margin_bottom = 10.0
-rect_min_size = Vector2( 10, 10 )
-size_flags_horizontal = 8
-size_flags_vertical = 0
-custom_styles/normal = SubResource( 2 )
-custom_fonts/font = SubResource( 3 )
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Tween" type="Tween" parent="."]
