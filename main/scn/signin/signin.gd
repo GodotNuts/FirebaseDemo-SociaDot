@@ -72,6 +72,7 @@ func _on_auto_login(auth):
 func _on_SignContainer_logged(login):
     UserData.is_logged = true
     Firebase.Auth.save_auth(login)
+    UserData.is_logged = true
     var firestore_task : FirestoreTask = RequestsManager.get_user(login.localid)
     var user_doc : FirestoreDocument = yield(firestore_task, "get_document")
     if user_doc.doc_fields.username == "":
