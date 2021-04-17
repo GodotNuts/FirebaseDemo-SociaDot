@@ -252,6 +252,7 @@ UsersManager="*res://main/scripts/users_manager.gd"
 [debug]
 
 gdscript/warnings/enable=false
+gdscript/completion/autocomplete_setters_and_getters=true
 
 [display]
 
@@ -279,6 +280,10 @@ environment_variables/measurementId=""
 environment_variables/clientId=""
 environment_variables/clientSecret=""
 environment_variables/domainUriPrefix=""
+
+[global]
+
+shadow=true
 
 [gui]
 
