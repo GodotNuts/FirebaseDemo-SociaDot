@@ -69,6 +69,8 @@ func set_menu(user : String) -> void:
 func set_post_id(p : String):
     id = p
     name = p
+
+func set_db():
     post_db_reference = Firebase.Database.get_database_reference("sociadot/posts/"+id)
     post_db_reference.connect("new_data_update", self, "_on_db_data")
     post_db_reference.connect("patch_data_update", self, "_on_db_data")
