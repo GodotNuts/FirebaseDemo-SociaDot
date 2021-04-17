@@ -60,8 +60,9 @@ func _ready():
     $HomeContainer/Menu/Header.load_main_user()
     animate_Home(true)
     load_posts()
-    friend_list.load_friend_list()
+    connect_posts()
     connect_notifications()
+    friend_list.load_friend_list()
 
 func animate_Home(display : bool):
     if display:
@@ -99,9 +100,9 @@ func load_posts():
             if post is PostContainer: post.queue_free()
         posts_section.get_node("NoFriends").show()
     
-    if posts_db_reference == null:
-        posts_db_reference = Firebase.Database.get_database_reference("sociadot/posts")
-        posts_db_reference.connect("new_data_update", self, "_on_new_post")
+func connect_posts() -> void:
+    posts_db_reference = Firebase.Database.get_database_reference("sociadot/posts")
+    posts_db_reference.connect("new_data_update", self, "_on_new_post")
     
 func connect_notifications() -> void:
     notifications_db_reference = Firebase.Database.get_database_reference("sociadot/notifications/"+UserData.user_id)
@@ -133,6 +134,7 @@ func check_post_routine(post_doc : FirestoreDocument) -> PostContainer:
         var post_obj : PostsManager.Post = PostsManager.add_post_from_doc(post_doc.doc_name, post_doc)
         add_post(post_container)
         post_container.load_post(post_obj)
+    post_container.set_db()
     return post_container
 
 
@@ -208,7 +210,7 @@ func _on_show_chat(chat_node : ChatNode):
         chat_node.set_visible(true)
     else:
         chat_container.add_child(chat_node)
-        chat_node.set_visible(false)
+        chat_node.set_visible(true)
     
 
 func show_section(section : Control) -> void:

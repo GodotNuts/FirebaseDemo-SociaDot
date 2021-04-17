@@ -1,6 +1,8 @@
 class_name FriendButton
 extends PanelContainer
 
+onready var online_lbl : Label = $Header/Picture/Online
+
 var friend : UsersManager.User
 
 var friend_id : String                      setget set_friend_id
@@ -27,20 +29,21 @@ func load_friend(id : String, _name : String, picture : ImageTexture):
 
 func load_friend_from_obj(user : UsersManager.User):
     friend = user
-    friend.connect("update_picture", self, "set_friend_picture")
-    friend.connect("update_document", self, "load_friend_from_document")
     set_friend_id(user.id)
     set_friend_name(user.username)
     set_friend_picture(user.picture)
     set_friend_document(user.document)
+    set_online(user.is_logged)
+    friend.connect("update_picture", self, "set_friend_picture")
+    friend.connect("update_document", self, "load_friend_from_document")
     show()
 
 
 func load_friend_from_document(document : FirestoreDocument):
-    set_friend_name(document.doc_fields.username)
     set_friend_document(document)
+    set_friend_name(document.doc_fields.username)
+    set_online(document.doc_fields.is_logged)
     show()
-
 
 
 func set_friend_id(id : String):
@@ -57,8 +60,6 @@ func set_friend_picture(picture : ImageTexture):
 
 func set_friend_document(f_doc : FirestoreDocument):
     friend_document = f_doc
-    if friend_document!=null:
-        _on_FriendButton_pressed()
 
 func set_received_messages(messages : int):
     if messages == 0:
@@ -68,13 +69,12 @@ func set_received_messages(messages : int):
         $Header/Messages.set_text(messages as String)
 
 func _on_FriendButton_pressed():
-#    if friend_document.doc_fields.chats.has(UserData.user_id):
-#        pass
-#    else:
-#        friend.update_document()
-#        yield(friend, "update_document")
     ChatsManager.open_chat(friend_document)
+#    UsersManager.get_new_user_doc(friend_id)
 
+
+func set_online(online : bool) -> void:
+    online_lbl.visible = online
 
 func _on_FriendButton_gui_input(event):
     if event is InputEventMouseButton:

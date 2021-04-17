@@ -104,6 +104,7 @@ margin_bottom = 93.0
 margin_left = 948.0
 margin_right = 1008.0
 margin_bottom = 93.0
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 10
 icon = ExtResource( 6 )
 

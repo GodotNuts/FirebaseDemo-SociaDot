@@ -1,5 +1,7 @@
 extends HBoxContainer
 
+onready var online_lbl : Label = $Picture/Online
+
 signal pressed(user_id, user_name)
 
 var user_id : String
@@ -15,6 +17,7 @@ func load_main_user():
     UserData.connect("update_user_picture", self, "set_picture")
     set_user_name(UserData.user_name)
     set_picture(UserData.user_picture)
+    online_lbl.show()
 
 func load_from_user(user_obj : UsersManager.User):
     if not user_obj.is_connected("update_document", self, "load_from_document"):
@@ -23,6 +26,7 @@ func load_from_user(user_obj : UsersManager.User):
         user_obj.connect("update_picture", self, "set_picture")
     set_picture(user_obj.picture)
     set_user_name(user_obj.username)
+    set_online(user_obj.is_logged)
     user_id = user_obj.id
 
 func load_from_document(document : FirestoreDocument):
@@ -39,6 +43,8 @@ func set_user_name(_name : String):
     user_name = _name
     $Name.set_text(_name)
 
+func set_online(online : bool) -> void:
+    online_lbl.visible = online
 
 func _on_Name_pressed() -> void:
     emit_signal("pressed", user_id, user_name)

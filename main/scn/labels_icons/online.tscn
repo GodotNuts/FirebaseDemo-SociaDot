@@ -2,7 +2,7 @@
 
 [sub_resource type="StyleBoxFlat" id=1]
 resource_local_to_scene = true
-bg_color = Color( 1, 0.352941, 0.247059, 1 )
+bg_color = Color( 0.278431, 0.843137, 0.305882, 1 )
 corner_radius_top_left = 40
 corner_radius_top_right = 40
 corner_radius_bottom_right = 40
@@ -11,10 +11,16 @@ corner_detail = 20
 
 [sub_resource type="DynamicFont" id=2]
 
-[node name="Notification" type="Label"]
+[node name="Online" type="Label"]
 visible = false
-margin_right = 10.0
-margin_bottom = 10.0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -15.0
+margin_top = -15.0
+margin_right = -2.0
+margin_bottom = -2.0
 rect_min_size = Vector2( 10, 10 )
 size_flags_horizontal = 0
 size_flags_vertical = 0

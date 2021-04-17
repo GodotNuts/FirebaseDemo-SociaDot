@@ -23,17 +23,17 @@
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=3]
 size = 25
 font_data = ExtResource( 2 )
 
-[sub_resource type="StyleBoxEmpty" id=6]
+[sub_resource type="StyleBoxEmpty" id=4]
 content_margin_left = 10.0
 content_margin_right = 10.0
 content_margin_top = 10.0
 content_margin_bottom = 10.0
 
-[sub_resource type="StyleBoxEmpty" id=7]
+[sub_resource type="StyleBoxEmpty" id=5]
 content_margin_left = 7.0
 content_margin_right = 7.0
 
@@ -63,7 +63,7 @@ margin_right = 210.0
 margin_bottom = 600.0
 rect_min_size = Vector2( 210, 0 )
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
+size_flags_stretch_ratio = 0.2
 custom_constants/separation = 15
 
 [node name="HSeparator3" type="HSeparator" parent="HomeContainer/Menu"]
@@ -157,6 +157,7 @@ margin_bottom = 600.0
 rect_min_size = Vector2( 550, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.6
 
 [node name="Posts" type="VBoxContainer" parent="HomeContainer/Sections"]
 margin_right = 564.0
@@ -169,7 +170,7 @@ __meta__ = {
 [node name="Home" type="Label" parent="HomeContainer/Sections/Posts"]
 margin_right = 564.0
 margin_bottom = 39.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 text = "Home"
 align = 1
 
@@ -191,7 +192,7 @@ margin_right = 564.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/bg = SubResource( 6 )
+custom_styles/bg = SubResource( 4 )
 scroll_horizontal_enabled = false
 
 [node name="PostContainer" type="VBoxContainer" parent="HomeContainer/Sections/Posts/ScrollPost"]
@@ -217,7 +218,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="HomeContainer/Sections/Notifications"]
 margin_right = 564.0
 margin_bottom = 39.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 text = "Notifications"
 align = 1
 
@@ -227,7 +228,7 @@ margin_right = 564.0
 margin_bottom = 298.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/bg = SubResource( 6 )
+custom_styles/bg = SubResource( 4 )
 scroll_horizontal_enabled = false
 
 [node name="NotificationsContainer" type="VBoxContainer" parent="HomeContainer/Sections/Notifications/ScrollNotifications"]
@@ -262,7 +263,7 @@ __meta__ = {
 [node name="Home" type="Label" parent="HomeContainer/Sections/UsersList"]
 margin_right = 500.0
 margin_bottom = 39.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 text = "Users List"
 align = 1
 
@@ -272,7 +273,7 @@ margin_right = 500.0
 margin_bottom = 198.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/bg = SubResource( 6 )
+custom_styles/bg = SubResource( 4 )
 scroll_horizontal_enabled = false
 
 [node name="UsersList" type="VBoxContainer" parent="HomeContainer/Sections/UsersList/ScrollUsers"]
@@ -299,7 +300,7 @@ margin_bottom = 600.0
 rect_min_size = Vector2( 210, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.3
+size_flags_stretch_ratio = 0.2
 
 [node name="FriendList" type="VBoxContainer" parent="HomeContainer/SideBar"]
 margin_right = 210.0
@@ -323,7 +324,7 @@ margin_right = 210.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/bg = SubResource( 7 )
+custom_styles/bg = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

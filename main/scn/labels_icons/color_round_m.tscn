@@ -11,10 +11,9 @@ corner_detail = 20
 
 [sub_resource type="DynamicFont" id=2]
 
-[node name="Notification" type="Label"]
-visible = false
-margin_right = 10.0
-margin_bottom = 10.0
+[node name="ColorIcon" type="Label"]
+margin_right = 15.0
+margin_bottom = 15.0
 rect_min_size = Vector2( 10, 10 )
 size_flags_horizontal = 0
 size_flags_vertical = 0

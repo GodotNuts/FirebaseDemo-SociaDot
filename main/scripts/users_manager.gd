@@ -72,7 +72,10 @@ func update_user(id : String, document : FirestoreDocument = null, picture : Ima
         user._on_get_document(document)
     if picture != null:
         user.update_picture(picture)
-    
+
+func get_new_user_doc(id : String) -> void:
+    var user : User = get_user_by_id(id)
+    user._on_get_document(yield(RequestsManager.get_user(id), "get_document"))
 
 func has_user(id : String) -> bool:
     for user in users:
