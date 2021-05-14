@@ -27,6 +27,7 @@ func create_chat(document : FirestoreDocument):
     chats.append(chat_obj)
 
 func open_chat(document : FirestoreDocument):
+    print(document)
     var chat_to_open : ChatNode
     if has_chat(document.doc_name):
         get_chat(document.doc_name).node.create_chat(document)
