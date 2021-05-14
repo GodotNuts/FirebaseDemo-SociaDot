@@ -27,10 +27,10 @@ socia.dot will never claim to be a social network alternative, exposing any kind
 - [GodotFirebase-UI](https://github.com/GodotNuts/GodotFirebase-UI), a plug'n'play UI components library we developed for Godot which implements GodotFirebase APIs out of the box (Authentication Components, Buttons, etc.)
 
 ## Special Thanks
-• **The whole GodotNuts team**, that helped me a lot during this journey discussing with me on our Discord and testing the app
-• **Fabio (faless) Alessandrelli**, current Godot's HTML5 maintainer, for the amount of work he has done on HTML5 support, and the help he specifically gave us to make this project work also on browser as on any other platform
-• **socia.dot autochthonous community**, which surprisingly showed up in the app itself, sharing a lot of suggestions after the first tweet ever made about this project
-• **Godot Engine**, that made everything of this possible
+• **The whole GodotNuts team**, that helped me a lot during this journey discussing with me on our Discord and testing the app  
+• **Fabio (faless) Alessandrelli**, current Godot's HTML5 maintainer, for the amount of work he has done on HTML5 support, and the help he specifically gave us to make this project work also on browser as on any other platform  
+• **socia.dot autochthonous community**, which surprisingly showed up in the app itself, sharing a lot of suggestions after the first tweet ever made about this project  
+• **Godot Engine**, that made everything of this possible  
 
 
 @ 2021 fenix-hub
