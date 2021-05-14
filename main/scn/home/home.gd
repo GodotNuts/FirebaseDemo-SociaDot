@@ -134,7 +134,6 @@ func check_post_routine(post_doc : FirestoreDocument) -> PostContainer:
         var post_obj : PostsManager.Post = PostsManager.add_post_from_doc(post_doc.doc_name, post_doc)
         add_post(post_container)
         post_container.load_post(post_obj)
-    post_container.set_db()
     return post_container
 
 

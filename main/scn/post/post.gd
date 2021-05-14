@@ -57,7 +57,7 @@ func load_post(post : PostsManager.Post) -> void:
     else:
         if post.image != null:
             set_image(post.image)
-    
+    set_db()
     if not PostsManager.has_post_container(post.id):
         PostsManager.add_post_scene(self)
 

@@ -40,7 +40,7 @@ func suggest_user(user : String):
 func check_friend(user_id : String):
     get_node("UsersBox/UserHeader/ConnecBtn").visible = not (user_id == UserData.user_id)
     get_node("UsersBox/UserHeader/ConnecBtn").activated = (user_id in UserData.friend_list)
-    get_node("UsersBox/UserHeader/ConnecBtn").set_text("Connected" if (user_id in UserData.friend_list) else "Conect")
+    get_node("UsersBox/UserHeader/ConnecBtn").set_text("Connected" if (user_id in UserData.friend_list) else "Connect")
     self.user_id = user_id
 
 func _on_Name_pressed():

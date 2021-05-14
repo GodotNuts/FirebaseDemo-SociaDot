@@ -97,6 +97,7 @@ func _ready():
     _set_size(size)
     set_texture_modulate(modulate_color)
     $Container/Hover.scale = Vector2()
+    editor_description = "AAAAAAAAAH"
 
 func set_texture(_texture : Texture) -> void:
     texture = _texture

@@ -1,9 +1,10 @@
 extends Control
 
-const version : String = "1.4"
+const version : String = "1.5"
 
 onready var activities : Control = $Main/Activities
 onready var topbar : HBoxContainer = $TopBar
+onready var footbar : HBoxContainer = $FootBar
 onready var loading : Control = $Main/Loading
 onready var error_lbl : Label = $Main/ERROR
 
@@ -12,11 +13,13 @@ onready var version_lbl : Label = $Main/AppInfo/Version
 
 onready var animator : Tween = $Main/Tween
 
+onready var about : PanelContainer = $Main/AboutPage
 
 func _title():
     OS.set_window_title("socia.dot v%s"%version)
     $TopBar/Name.set_text("socia.dot")
     version_lbl.set_text("v%s"%version)
+    about.hide()
 
 func _ready():
     _title()
@@ -66,6 +69,10 @@ func _on_show_error(error : String):
     Vector2(rect_size.x/2 - error_lbl.rect_size.x/2, rect_size.y + 10), 
     0.3, Tween.TRANS_QUAD, Tween.EASE_OUT)
     animator.start()
+
+
+func show_about():
+    about.show()
 
 # ..... top bar signals
 func _on_TopBar_close():

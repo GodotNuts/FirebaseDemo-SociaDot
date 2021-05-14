@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "DocItem",
-"class": "ArgumentDocItem",
-"language": "GDScript",
-"path": "res://addons/silicon.util.custom_docs/doc_item/argument_doc_item.gd"
-}, {
 "base": "PanelContainer",
 "class": "ChatNode",
 "language": "GDScript",
@@ -24,35 +19,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://firebase-ui/database_box_containers/base_boxcontainer/CircularContainer.gd"
 }, {
-"base": "DocItem",
-"class": "ClassDocItem",
-"language": "GDScript",
-"path": "res://addons/silicon.util.custom_docs/doc_item/class_doc_item.gd"
-}, {
 "base": "HBoxContainer",
 "class": "CommentContainer",
 "language": "GDScript",
 "path": "res://main/scn/show_post/comment/comment.gd"
 }, {
-"base": "DocItem",
-"class": "ConstantDocItem",
-"language": "GDScript",
-"path": "res://addons/silicon.util.custom_docs/doc_item/constant_doc_item.gd"
-}, {
 "base": "PanelContainer",
 "class": "CustomBaseButton",
 "language": "GDScript",
 "path": "res://firebase-ui/buttons/base_button/base_button.gd"
-}, {
-"base": "Reference",
-"class": "DocExporter",
-"language": "GDScript",
-"path": "res://addons/silicon.util.custom_docs/doc_exporter/doc_exporter.gd"
-}, {
-"base": "Reference",
-"class": "DocItem",
-"language": "GDScript",
-"path": "res://addons/silicon.util.custom_docs/doc_item/doc_item.gd"
 }, {
 "base": "PanelContainer",
 "class": "FieldContainer",
@@ -144,11 +119,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://main/scn/header/interactive/interactive_header.gd"
 }, {
-"base": "DocItem",
-"class": "MethodDocItem",
-"language": "GDScript",
-"path": "res://addons/silicon.util.custom_docs/doc_item/method_doc_item.gd"
-}, {
 "base": "PanelContainer",
 "class": "Notification",
 "language": "GDScript",
@@ -159,20 +129,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://main/scn/post/post.gd"
 }, {
-"base": "DocItem",
-"class": "PropertyDocItem",
-"language": "GDScript",
-"path": "res://addons/silicon.util.custom_docs/doc_item/property_doc_item.gd"
-}, {
 "base": "VBoxContainer",
 "class": "Settings",
 "language": "GDScript",
 "path": "res://main/scn/settings/settings.gd"
-}, {
-"base": "DocItem",
-"class": "SignalDocItem",
-"language": "GDScript",
-"path": "res://addons/silicon.util.custom_docs/doc_item/signal_doc_item.gd"
 }, {
 "base": "Reference",
 "class": "StorageReference",
@@ -190,15 +150,10 @@ _global_script_classes=[ {
 "path": "res://main/scn/app/top_bar.gd"
 } ]
 _global_script_class_icons={
-"ArgumentDocItem": "",
 "ChatNode": "",
 "CircularContainer": "",
-"ClassDocItem": "",
 "CommentContainer": "",
-"ConstantDocItem": "",
 "CustomBaseButton": "",
-"DocExporter": "",
-"DocItem": "",
 "FieldContainer": "",
 "FirebaseAuth": "",
 "FirebaseContainer": "",
@@ -217,12 +172,9 @@ _global_script_class_icons={
 "FirestoreTileMap": "",
 "FriendButton": "",
 "InteractiveHeader": "",
-"MethodDocItem": "",
 "Notification": "",
 "PostContainer": "",
-"PropertyDocItem": "",
 "Settings": "",
-"SignalDocItem": "",
 "StorageReference": "",
 "StorageTask": "",
 "TopBar": ""
@@ -235,7 +187,7 @@ run/main_scene="res://main/scn/app/main.tscn"
 boot_splash/image="res://main/res/imgs/Splashscreen.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 1 )
-config/icon="res://main/res/imgs/Godot_icon.svg"
+config/icon="res://main/res/imgs/Splashscreen.png"
 
 [autoload]
 
@@ -262,10 +214,11 @@ window/per_pixel_transparency/allowed=true
 window/per_pixel_transparency/enabled=true
 window/handheld/orientation="sensor"
 window/stretch/aspect="keep_width"
+window/size/width.mia_feature=1000
 
 [editor_plugins]
 
-enabled=PoolStringArray( "godot-firebase" )
+enabled=PoolStringArray( "res://addons/godot-firebase/plugin.cfg", "res://addons/http-sse-client/plugin.cfg" )
 
 [firebase]
 

@@ -43,7 +43,7 @@ func load_profile(_id : String, user_name : String):
 func check_friend(user_id : String) -> bool:
     get_node("Header/ConnecBtn").visible = not (user_id == UserData.user_id)
     get_node("Header/ConnecBtn").activated = (user_id in UserData.friend_list)
-    get_node("Header/ConnecBtn").set_text("Connected" if (user_id in UserData.friend_list) else "Conect")
+    get_node("Header/ConnecBtn").set_text("Connected" if (user_id in UserData.friend_list) else "Connect")
     self.user_id = user_id
     return (user_id in UserData.friend_list)
 
