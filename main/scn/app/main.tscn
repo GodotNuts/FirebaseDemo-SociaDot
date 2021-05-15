@@ -80,17 +80,17 @@ corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 corner_detail = 20
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=9]
 size = 25
 font_data = ExtResource( 7 )
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=10]
 font_data = ExtResource( 7 )
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=11]
 font_data = ExtResource( 9 )
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=12]
 content_margin_left = 10.0
 content_margin_right = 10.0
 content_margin_top = 7.0
@@ -105,7 +105,7 @@ shadow_color = Color( 0, 0, 0, 0.0392157 )
 shadow_size = 3
 shadow_offset = Vector2( 0, 1 )
 
-[sub_resource type="StyleBoxEmpty" id=10]
+[sub_resource type="StyleBoxEmpty" id=13]
 
 [node name="AppContainer" type="PanelContainer"]
 anchor_right = 1.0
@@ -298,7 +298,7 @@ margin_left = 39.0
 margin_right = 978.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 9 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_y = 2
 text = "About socia.dot"
@@ -311,8 +311,8 @@ margin_bottom = 492.0
 focus_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/bold_font = SubResource( 12 )
-custom_fonts/normal_font = SubResource( 13 )
+custom_fonts/bold_font = SubResource( 10 )
+custom_fonts/normal_font = SubResource( 11 )
 bbcode_enabled = true
 bbcode_text = "[b]socia.dot[/b] is an open-source frontend for a minimalistic \"social netowrk app\" proof-of-concept.
 It was developed as complete showcase for our [url=https://github.com/GodotNuts/GodotFirebase]GodotFirebase addon[/url] for Godot Engine, demonstrating various applications of our APIs to interact with Firebase, such as: User Authentication; User management; Firestore, Realtime Database and Storage management and interaction; Offline and Cache management. All these features are currently available and testable just installing our plugin in your own Godot Engine's project and following our tutorials. You can also see how I implemented them just looking at the source code!
@@ -464,7 +464,7 @@ margin_bottom = 51.0
 grow_horizontal = 2
 rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 3
-custom_styles/normal = SubResource( 9 )
+custom_styles/normal = SubResource( 12 )
 custom_colors/font_color = Color( 1, 0, 0.235294, 1 )
 align = 1
 autowrap = true
@@ -508,7 +508,7 @@ margin_top = 4.0
 margin_right = 559.0
 margin_bottom = 23.0
 mouse_filter = 1
-custom_styles/normal = SubResource( 10 )
+custom_styles/normal = SubResource( 13 )
 text = "developed by: "
 
 [node name="developer" type="LinkButton" parent="MainContainer/FootBar"]
