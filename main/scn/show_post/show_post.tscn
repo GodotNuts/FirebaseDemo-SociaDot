@@ -115,7 +115,7 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="Post"]
 margin_right = 898.0
 margin_bottom = 476.0
-color = Color( 0, 0, 0, 1 )
+color = Color( 0, 0, 0, 0.705882 )
 
 [node name="PostContainer" type="HBoxContainer" parent="Post"]
 margin_right = 898.0
@@ -209,23 +209,22 @@ custom_constants/separation = 0
 [node name="CommentsContainer" type="ScrollContainer" parent="Post/PostContainer/Content/Container"]
 margin_top = 148.0
 margin_right = 280.0
-margin_bottom = 446.0
+margin_bottom = 414.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="CommentsList" type="VBoxContainer" parent="Post/PostContainer/Content/Container/CommentsContainer"]
 margin_right = 280.0
-margin_bottom = 298.0
+margin_bottom = 266.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
 
 [node name="NewCommentContainer" type="HBoxContainer" parent="Post/PostContainer/Content/Container"]
-visible = false
-margin_top = 447.0
+margin_top = 419.0
 margin_right = 280.0
-margin_bottom = 474.0
+margin_bottom = 446.0
 
 [node name="Comment" type="LineEdit" parent="Post/PostContainer/Content/Container/NewCommentContainer"]
 margin_right = 280.0

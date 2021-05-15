@@ -1,11 +1,16 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://main/res/themes/main.tres" type="Theme" id=1]
 [ext_resource path="res://main/scn/app/main.gd" type="Script" id=2]
 [ext_resource path="res://main/scn/app/top_bar.gd" type="Script" id=3]
 [ext_resource path="res://main/res/imgs/Godot_icon.svg" type="Texture" id=4]
 [ext_resource path="res://main/res/imgs/Godot_icon_mini.svg" type="Texture" id=5]
+[ext_resource path="res://main/scn/footbar/footbar.gd" type="Script" id=6]
+[ext_resource path="res://main/res/fonts/roboto/Roboto-Black.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://main/scripts/loading.gd" type="Script" id=8]
+[ext_resource path="res://main/res/fonts/roboto/Roboto-Medium.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://main/scn/about_page/about_page.gd" type="Script" id=10]
+[ext_resource path="res://main/res/icons/arrow_backward_white_36dp.svg" type="Texture" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.14902, 0.14902, 0.14902, 1 )
@@ -15,7 +20,7 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 corner_detail = 20
-shadow_color = Color( 0, 0, 0, 0.0784314 )
+shadow_color = Color( 0, 0, 0, 0.109804 )
 shadow_size = 5
 
 [sub_resource type="StyleBoxFlat" id=2]
@@ -75,7 +80,17 @@ corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 corner_detail = 20
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="DynamicFont" id=9]
+size = 25
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=10]
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=11]
+font_data = ExtResource( 9 )
+
+[sub_resource type="StyleBoxFlat" id=12]
 content_margin_left = 10.0
 content_margin_right = 10.0
 content_margin_top = 7.0
@@ -89,6 +104,8 @@ corner_detail = 20
 shadow_color = Color( 0, 0, 0, 0.0392157 )
 shadow_size = 3
 shadow_offset = Vector2( 0, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=13]
 
 [node name="AppContainer" type="PanelContainer"]
 anchor_right = 1.0
@@ -122,6 +139,7 @@ __meta__ = {
 margin_right = 1008.0
 margin_bottom = 35.0
 rect_min_size = Vector2( 0, 35 )
+mouse_default_cursor_shape = 13
 size_flags_horizontal = 3
 custom_constants/separation = 0
 script = ExtResource( 3 )
@@ -157,6 +175,7 @@ margin_right = 958.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 13, 13 )
 mouse_filter = 1
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_styles/hover = SubResource( 2 )
@@ -180,6 +199,7 @@ margin_right = 978.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 13, 13 )
 mouse_filter = 1
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_styles/hover = SubResource( 5 )
@@ -203,6 +223,7 @@ margin_right = 998.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 13, 13 )
 mouse_filter = 1
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_styles/hover = SubResource( 7 )
@@ -224,7 +245,7 @@ custom_constants/separation = 10
 [node name="Main" type="Control" parent="MainContainer"]
 margin_top = 35.0
 margin_right = 1008.0
-margin_bottom = 584.0
+margin_bottom = 557.0
 rect_clip_content = true
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -234,6 +255,134 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AboutPage" type="PanelContainer" parent="MainContainer/Main"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/Main/AboutPage"]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 993.0
+margin_bottom = 507.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/Main/AboutPage/VBoxContainer"]
+margin_right = 978.0
+margin_bottom = 39.0
+
+[node name="BackBtn" type="ToolButton" parent="MainContainer/Main/AboutPage/VBoxContainer/HBoxContainer"]
+margin_top = 2.0
+margin_right = 35.0
+margin_bottom = 37.0
+rect_min_size = Vector2( 35, 35 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource( 11 )
+expand_icon = true
+
+[node name="Label" type="Label" parent="MainContainer/Main/AboutPage/VBoxContainer/HBoxContainer"]
+margin_left = 39.0
+margin_right = 978.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 9 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_y = 2
+text = "About socia.dot"
+align = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainContainer/Main/AboutPage/VBoxContainer"]
+margin_top = 43.0
+margin_right = 978.0
+margin_bottom = 492.0
+focus_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/bold_font = SubResource( 10 )
+custom_fonts/normal_font = SubResource( 11 )
+bbcode_enabled = true
+bbcode_text = "[b]socia.dot[/b] is an open-source frontend for a minimalistic \"social netowrk app\" proof-of-concept.
+It was developed as complete showcase for our [url=https://github.com/GodotNuts/GodotFirebase]GodotFirebase addon[/url] for Godot Engine, demonstrating various applications of our APIs to interact with Firebase, such as: User Authentication; User management; Firestore, Realtime Database and Storage management and interaction; Offline and Cache management. All these features are currently available and testable just installing our plugin in your own Godot Engine's project and following our tutorials. You can also see how I implemented them just looking at the source code!
+Every single feature of this app is working thanks to the perfect blend of Godot Engine's elasticity in being able to easily create fully customizable and programmable user interface components, and all Firebase backend features exposed by our library and supporting multiple protocols and logics.
+
+socia.dot is:
+• open-source: you can just download the source code from Github and modify it in your own Godot Engine proget just to customize your own frontend;
+• multiplatform: since it is powered with the FOSS game engine [url=https://godotengine.org/]Godot Engine[/url], which allows to officialy export binaries for multiple platforms (Windows, Linux, Mac, Android, iOS, HTML), and considering eventual custom export templates for single boarded devices and private platforms, it could work nearly everywhere;
+• elastic: together with the ability to export with multiple platforms, interfaces are completely adaptable to any device based on its OS or resolution, just using custom logic in GDScript scripting language;
+• serverless: there is no server handling data other than Firebase itself, and being open-sourced socia.dot exposes any information saved on Firebase's databases, from images to chats;
+• modular: as said, Firebase interaction is based on our GodotFirebase library, which is being developed and maintained modular by default. Eventually, this service could be replaced by any other market or custom service/dbms, just replacing the script containing all the REST calls ([url=https://github.com/GodotNuts/FirebaseDemo-SociaDot/blob/main/main/scripts/requests_manager.gd]RequestManager.gd[/url]).
+
+The only purpose of socia.dot was to showcase most of the features implemented by our library, re-creating a real use-case inspired by one of the environments most known to handle sync/async human interactions, data and media content transfers, data storage and events management: social networks.
+Thus, these are the features completely available thanks to GodotFirebase, using Firebase as a backend, and implemented in socia.dot to test:
+- Personal profile creation with an avatar and a email(fake)/password combination
+- Images and text sharing through posts
+- Social networking, \"connecting\" to other users that use the platform and visiting their profile
+- Realtime chat with other users only if \"connected\"
+- Realtime comments and likes on any post on the platform by other users
+
+socia.dot will never claim to be a social network alternative, exposing any kind of perfect social network structure as an app. This is just a proof-of-concept, that was really fun to develop with GodotNuts team, in order to have a little product to expose our work on GodotFirebase addon other than game; and an actual challenge to take, developing this in a couple of weeks in total and having fun polishing it between UIs and logics.
+
+Resources used:
+- [url=https://godotengine.org/]Godot Engine[/url], to build the frontend and implement the backend interactions
+- [url=https://github.com/GodotNuts/GodotFirebase]GodotFirebase[/url], our addon developed for Godot Engine in order to interact with Firebase
+- [url=https://github.com/GodotNuts/GodotFirebase-UI]GodotFirebase-UI[/url], a plug'n'play UI components library we developed for Godot which implements GodotFirebase APIs out of the box (Authentication Components, Buttons, etc.)
+
+[b]Special Thanks[/b]
+• [b]The whole GodotNuts team[/b], that helped me a lot during this journey discussing with me on our Discord and testing the app
+• [b]Fabio (faless) Alessandrelli[/b], current Godot's HTML5 maintainer, for the amount of work he has done on HTML5 support, and the help he specifically gave us to make this project work also on browser as on any other platform
+• [b]socia.dot autochthonous community[/b], which surprisingly showed up in the app itself, sharing a lot of suggestions after the first tweet ever made about this project
+• [b]Godot Engine[/b], that made everything of this possible
+
+
+[center]@ 2021 fenix-hub[/center]"
+text = "socia.dot is an open-source frontend for a minimalistic \"social netowrk app\" proof-of-concept.
+It was developed as complete showcase for our GodotFirebase addon for Godot Engine, demonstrating various applications of our APIs to interact with Firebase, such as: User Authentication; User management; Firestore, Realtime Database and Storage management and interaction; Offline and Cache management. All these features are currently available and testable just installing our plugin in your own Godot Engine's project and following our tutorials. You can also see how I implemented them just looking at the source code!
+Every single feature of this app is working thanks to the perfect blend of Godot Engine's elasticity in being able to easily create fully customizable and programmable user interface components, and all Firebase backend features exposed by our library and supporting multiple protocols and logics.
+
+socia.dot is:
+• open-source: you can just download the source code from Github and modify it in your own Godot Engine proget just to customize your own frontend;
+• multiplatform: since it is powered with the FOSS game engine Godot Engine, which allows to officialy export binaries for multiple platforms (Windows, Linux, Mac, Android, iOS, HTML), and considering eventual custom export templates for single boarded devices and private platforms, it could work nearly everywhere;
+• elastic: together with the ability to export with multiple platforms, interfaces are completely adaptable to any device based on its OS or resolution, just using custom logic in GDScript scripting language;
+• serverless: there is no server handling data other than Firebase itself, and being open-sourced socia.dot exposes any information saved on Firebase's databases, from images to chats;
+• modular: as said, Firebase interaction is based on our GodotFirebase library, which is being developed and maintained modular by default. Eventually, this service could be replaced by any other market or custom service/dbms, just replacing the script containing all the REST calls (RequestManager.gd).
+
+The only purpose of socia.dot was to showcase most of the features implemented by our library, re-creating a real use-case inspired by one of the environments most known to handle sync/async human interactions, data and media content transfers, data storage and events management: social networks.
+Thus, these are the features completely available thanks to GodotFirebase, using Firebase as a backend, and implemented in socia.dot to test:
+- Personal profile creation with an avatar and a email(fake)/password combination
+- Images and text sharing through posts
+- Social networking, \"connecting\" to other users that use the platform and visiting their profile
+- Realtime chat with other users only if \"connected\"
+- Realtime comments and likes on any post on the platform by other users
+
+socia.dot will never claim to be a social network alternative, exposing any kind of perfect social network structure as an app. This is just a proof-of-concept, that was really fun to develop with GodotNuts team, in order to have a little product to expose our work on GodotFirebase addon other than game; and an actual challenge to take, developing this in a couple of weeks in total and having fun polishing it between UIs and logics.
+
+Resources used:
+- Godot Engine, to build the frontend and implement the backend interactions
+- GodotFirebase, our addon developed for Godot Engine in order to interact with Firebase
+- GodotFirebase-UI, a plug'n'play UI components library we developed for Godot which implements GodotFirebase APIs out of the box (Authentication Components, Buttons, etc.)
+
+Special Thanks
+• The whole GodotNuts team, that helped me a lot during this journey discussing with me on our Discord and testing the app
+• Fabio (faless) Alessandrelli, current Godot's HTML5 maintainer, for the amount of work he has done on HTML5 support, and the help he specifically gave us to make this project work also on browser as on any other platform
+• socia.dot autochthonous community, which surprisingly showed up in the app itself, sharing a lot of suggestions after the first tweet ever made about this project
+• Godot Engine, that made everything of this possible
+
+
+@ 2021 fenix-hub"
+selection_enabled = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -281,6 +430,7 @@ __meta__ = {
 wait_time = 0.7
 
 [node name="AppInfo" type="HBoxContainer" parent="MainContainer/Main"]
+visible = false
 modulate = Color( 1, 1, 1, 0.235294 )
 anchor_top = 1.0
 anchor_right = 1.0
@@ -314,7 +464,7 @@ margin_bottom = 51.0
 grow_horizontal = 2
 rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 3
-custom_styles/normal = SubResource( 9 )
+custom_styles/normal = SubResource( 12 )
 custom_colors/font_color = Color( 1, 0, 0.235294, 1 )
 align = 1
 autowrap = true
@@ -323,3 +473,73 @@ __meta__ = {
 }
 
 [node name="Tween" type="Tween" parent="MainContainer/Main"]
+
+[node name="FootBar" type="HBoxContainer" parent="MainContainer"]
+margin_top = 557.0
+margin_right = 1008.0
+margin_bottom = 584.0
+custom_constants/separation = 0
+alignment = 1
+script = ExtResource( 6 )
+
+[node name="GodotNuts" type="LinkButton" parent="MainContainer/FootBar"]
+margin_left = 305.0
+margin_top = 4.0
+margin_right = 438.0
+margin_bottom = 23.0
+mouse_filter = 1
+size_flags_vertical = 4
+text = "© 2021 GodotNuts"
+
+[node name="Label" type="Label" parent="MainContainer/FootBar"]
+margin_left = 438.0
+margin_right = 458.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 20, 0 )
+mouse_filter = 1
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "•"
+align = 1
+
+[node name="Label2" type="Label" parent="MainContainer/FootBar"]
+margin_left = 458.0
+margin_top = 4.0
+margin_right = 559.0
+margin_bottom = 23.0
+mouse_filter = 1
+custom_styles/normal = SubResource( 13 )
+text = "developed by: "
+
+[node name="developer" type="LinkButton" parent="MainContainer/FootBar"]
+margin_left = 559.0
+margin_top = 4.0
+margin_right = 641.0
+margin_bottom = 23.0
+focus_mode = 2
+mouse_filter = 1
+size_flags_vertical = 4
+text = "@fenix-hub"
+
+[node name="Label3" type="Label" parent="MainContainer/FootBar"]
+margin_left = 641.0
+margin_right = 661.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 20, 0 )
+mouse_filter = 1
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "•"
+align = 1
+
+[node name="About" type="LinkButton" parent="MainContainer/FootBar"]
+margin_left = 661.0
+margin_top = 4.0
+margin_right = 703.0
+margin_bottom = 23.0
+focus_mode = 2
+mouse_filter = 1
+size_flags_vertical = 4
+text = "About"
+
+[node name="Tween" type="Tween" parent="MainContainer/FootBar"]

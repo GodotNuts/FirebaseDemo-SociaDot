@@ -1,9 +1,10 @@
 extends Control
 
-const version : String = "1.4"
+const version : String = "1.5"
 
 onready var activities : Control = $Main/Activities
 onready var topbar : HBoxContainer = $TopBar
+onready var footbar : HBoxContainer = $FootBar
 onready var loading : Control = $Main/Loading
 onready var error_container : AspectRatioContainer = $Main/ErrorContainer
 onready var error_lbl : Label = error_container.get_node("ERROR")
@@ -13,23 +14,28 @@ onready var version_lbl : Label = $Main/AppInfo/Version
 
 onready var animator : Tween = $Main/Tween
 
+onready var about : PanelContainer = $Main/AboutPage
+
 func _title():
     OS.set_window_title("socia.dot v%s"%version)
     $TopBar/Name.set_text("socia.dot")
     version_lbl.set_text("v%s"%version)
+    about.hide()
 
 func _ready():
     _title()
     _connect_signals()
-    get_tree().get_root().set_transparent_background(true)
-    if OS.get_name() in ["Android", "iOS"]:
-        for child in topbar.get_children():
-            if child is Control: child.hide()
-    if OS.get_name() in ["HTML5"]:
-        topbar.hide()
-        get_parent().rect_position = Vector2(0,0)
-        get_parent().rect_size = OS.window_size
-        get_parent().rect_clip_content = true
+    match OS.get_name():
+        "Android", "iOS":
+            for child in topbar.get_children():
+                if child is Control: child.hide()
+        "HTML5":
+            topbar.hide()
+            get_parent().rect_position = Vector2(0,0)
+            get_parent().rect_size = OS.window_size
+            get_parent().rect_clip_content = true
+        _:
+            get_tree().get_root().set_transparent_background(true)
     loading.set_loading(false)
     Activities.signin = Activities.signin_scene.instance()
     activities.add_child(Activities.signin)
@@ -65,12 +71,17 @@ func _on_show_error(error : String):
     0.3, Tween.TRANS_QUAD, Tween.EASE_OUT)
     animator.start()
 
+
+func show_about():
+    about.show()
+
 # ..... top bar signals
 func _on_TopBar_close():
-    UserData.is_logged = false
-    UserData.last_logged = OS.get_datetime()
-    loading.set_loading(true)
-    yield(RequestsManager.update_user(), "task_finished")
+    if UserData.is_logged:
+        UserData.is_logged = false
+        UserData.last_logged = OS.get_datetime()
+        loading.set_loading(true)
+        yield(RequestsManager.update_user(), "task_finished")
     get_tree().quit()
 
 func _on_TopBar_minimize():
@@ -78,11 +89,13 @@ func _on_TopBar_minimize():
 
 func _on_TopBar_resize():
     if OS.get_window_size().x <= 1024:
+        get_tree().get_root().set_transparent_background(false)
         get_parent().rect_position = Vector2(0,0)
         OS.set_window_position(Vector2.ZERO)
         get_parent().rect_size+=Vector2(8,8)*2
         OS.set_window_size(OS.get_screen_size(0) - Vector2(0, 50))
     else:
+        get_tree().get_root().set_transparent_background(true)
         get_parent().rect_position = Vector2(8,8)
         OS.set_window_position(OS.get_screen_size(0)/2 - OS.get_window_size()/2)        
         get_parent().rect_size-=Vector2(8,8)*2
@@ -90,5 +103,5 @@ func _on_TopBar_resize():
 
 func _on_TopBar_moving_from_pos(event_pos : Vector2, offset : Vector2):
     if OS.get_window_size().x > 1024:
-        OS.set_window_size(Vector2(1024, 600))
+        _on_TopBar_resize()
     OS.set_window_position(OS.get_window_position() + event_pos - offset)

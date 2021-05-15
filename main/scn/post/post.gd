@@ -57,7 +57,7 @@ func load_post(post : PostsManager.Post) -> void:
     else:
         if post.image != null:
             set_image(post.image)
-    
+    set_db()
     if not PostsManager.has_post_container(post.id):
         PostsManager.add_post_scene(self)
 
@@ -69,6 +69,8 @@ func set_menu(user : String) -> void:
 func set_post_id(p : String):
     id = p
     name = p
+
+func set_db():
     post_db_reference = Firebase.Database.get_database_reference("sociadot/posts/"+id)
     post_db_reference.connect("new_data_update", self, "_on_db_data")
     post_db_reference.connect("patch_data_update", self, "_on_db_data")

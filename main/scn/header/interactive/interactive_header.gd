@@ -56,7 +56,7 @@ func set_user_id(_id : String):
 func check_friend() -> bool:
     $ConnecBtn.visible = not (user_id == UserData.user_id)
     $ConnecBtn.activated = (user_id in UserData.friend_list)
-    $ConnecBtn.set_text("Connected" if (user_id in UserData.friend_list) else "Conect")
+    $ConnecBtn.set_text("Connected" if (user_id in UserData.friend_list) else "Connect")
     return (user_id in UserData.friend_list)
 
 func _on_ConnecBtn_pressed():

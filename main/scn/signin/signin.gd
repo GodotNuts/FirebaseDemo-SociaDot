@@ -34,7 +34,7 @@ func _ready():
     $UpdateProfile.hide()
     animate_SignContainer(true)
     yield(get_tree(), "idle_frame")
-#    return
+    return
     Firebase.Auth.load_auth()
     if not Firebase.Auth.auth.empty():
         Activities.loading(true)
@@ -93,7 +93,8 @@ func _on_SignContainer_logged(login):
     RequestsManager.update_user()
     emit_signal("sign_in")
 
-func _on_SignContainer_signed(signup):
+func _on_SignContainer_signed(signup : Dictionary):
+    if UserData.user_id == "": return
     print("signed")
     Firebase.Auth.save_auth(signup)
     UserData.user_id = signup.localid

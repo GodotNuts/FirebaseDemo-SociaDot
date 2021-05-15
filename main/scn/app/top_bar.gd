@@ -46,7 +46,7 @@ func _on_Name_gui_input(event : InputEvent):
             offset = Vector2()
     if event is InputEventMouseMotion and offset != Vector2():
         if OS.get_window_size().x > 1024:
-            OS.set_window_size(Vector2(1024, 600))
+            emit_signal("resize")
         OS.set_window_position(OS.get_window_position() + event.get_global_position() - offset)
 
 

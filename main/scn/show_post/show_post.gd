@@ -149,8 +149,13 @@ func _on_ShowPost_gui_input(event):
             db_reference.disconnect("new_data_update", self, "_on_db_data")
             db_reference.disconnect("patch_data_update", self, "_on_db_data")
             clear_comments()
+            clear_likes()
+
+func clear_likes():
+    like_btn.set_text(str(0))
 
 func clear_comments():
+    comments_btn.set_text(str(0))
     for comment in comments_list.get_children():
         comment.queue_free()
 

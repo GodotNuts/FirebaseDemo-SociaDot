@@ -28,3 +28,6 @@ func loading(l : bool):
 
 func show_error(error : String):
     emit_signal("show_error", error)
+
+func on_about() -> void:
+    home.show_about()

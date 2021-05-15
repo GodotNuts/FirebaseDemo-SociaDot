@@ -33,7 +33,9 @@ margin_bottom = -9.8
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_use_anchors_": true
+"_edit_use_anchors_": true,
+"_editor_description_": "This is a basebutton
+"
 }
 texture = null
 modulate_color = Color( 1, 1, 1, 1 )
@@ -63,10 +65,10 @@ size_flags_vertical = 4
 expand = true
 
 [node name="Text" type="Label" parent="Container/ButtonContainer"]
-margin_left = 36.0
-margin_top = 9.0
+margin_left = 40.0
+margin_top = 3.0
 margin_right = 290.0
-margin_bottom = 23.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 align = 1
