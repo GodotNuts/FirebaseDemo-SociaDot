@@ -1,3 +1,5 @@
+![home](./env/screenshots/home.png)
+
 # Sociadot
 
 **socia.dot** is an open-source frontend for a minimalistic "social netowrk app" proof-of-concept.
@@ -33,6 +35,5 @@ socia.dot will never claim to be a social network alternative, exposing any kind
 • **Godot Engine**, that made everything of this possible  
 
 
-@ 2021 fenix-hub
+© 2021 fenix-hub
 
-![home](./env/screenshots/home.png)
