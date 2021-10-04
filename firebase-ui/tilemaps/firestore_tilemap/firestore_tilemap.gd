@@ -41,7 +41,6 @@ func _on_document_received(document) -> void:
     MapName = document.doc_fields["MapName"]
     clear()
     DocumentId = document.doc_name
-    print(DocumentId)
     var cells = JSON.parse(document.doc_fields["Cells"]).result
     for cell in cells.keys():
         set_cellv(str2var(cell), cells[cell])

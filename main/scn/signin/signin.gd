@@ -32,7 +32,6 @@ func _ready():
     $UpdateProfile.hide()
     animate_SignContainer(true)
     yield(get_tree(), "idle_frame")
-    return
     Firebase.Auth.load_auth()
     if not Firebase.Auth.auth.empty():
         Activities.loading(true)
@@ -63,7 +62,7 @@ func _on_SignContainer_error(message):
     Activities.loading( false)
 
 func _on_auto_login(auth):
-    if not UserData.is_logged:
+    if not UserData.is_logged and not UserData.user_id:
         _on_SignContainer_logged(auth)
 
 
@@ -71,7 +70,7 @@ func _on_SignContainer_logged(login):
     Firebase.Auth.save_auth(login)
     UserData.is_logged = true
     var firestore_task : FirestoreTask = RequestsManager.get_user(login.localid)
-    var user_doc : FirestoreDocument = yield(firestore_task, "get_document")
+    var user_doc = yield(firestore_task, "task_finished")
     if user_doc.doc_fields.username == "":
         UserData.user_id = login.localid
         UserData.user_email = login.email
@@ -91,7 +90,7 @@ func _on_SignContainer_logged(login):
     emit_signal("sign_in")
 
 func _on_SignContainer_signed(signup : Dictionary):
-    if UserData.user_id == "": return
+    if UserData.user_id != "": return
     print("signed")
     Firebase.Auth.save_auth(signup)
     UserData.user_id = signup.localid
