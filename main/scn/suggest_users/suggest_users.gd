@@ -31,8 +31,6 @@ func suggest_user(user : String):
                 var profile_task : StorageTask = RequestsManager.get_profile_picture(user_doc.doc_name)
                 PostsManager.add_profile(profile_task)
                 yield(profile_task, "task_finished")
-                if typeof(profile_task.data) != TYPE_RAW_ARRAY:
-                    print(profile_task.data)
                 $UsersBox/UserHeader/Picture.set_texture(Utilities.task2image(profile_task))
             $UsersBox/UserHeader/Name.set_text(user_name)
             check_friend(user_id)
