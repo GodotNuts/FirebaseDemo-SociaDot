@@ -21,13 +21,13 @@ var home : Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    pass # Replace with function body.
+	pass # Replace with function body.
 
 func loading(l : bool):
-    emit_signal("loading", l)
+	emit_signal("loading", l)
 
 func show_error(error : String):
-    emit_signal("show_error", error)
+	emit_signal("show_error", error)
 
 func on_about() -> void:
-    home.show_about()
+	home.show_about()
