@@ -12,6 +12,8 @@ onready var update_picture : TextureRect = $UpdateProfile/VBox/UpdatePicture
 var extension : String
 var profile_picture : String
 
+var logged : bool = false
+
 var task : int = -1
 
 func _connect_signals():
@@ -67,6 +69,7 @@ func _on_auto_login(auth):
 
 
 func _on_SignContainer_logged(login):
+    UserData.is_logged = true
     Firebase.Auth.save_auth(login)
     UserData.is_logged = true
     var firestore_task : FirestoreTask = RequestsManager.get_user(login.localid)
@@ -123,6 +126,7 @@ func _on_ChosePicture_file_selected(path):
 
 func _on_ConfirmBtn_pressed():
     if update_picture.texture != null and not update_username.get_text() in [""," "]:
+        logged = true
         Activities.loading( true)
         UserData.user_name = update_username.get_text()
         UserData.last_logged = OS.get_datetime()
@@ -133,6 +137,7 @@ func _on_ConfirmBtn_pressed():
         yield(put_file, "task_finished")
         animate_UpdateProfile(false)
         Activities.loading( false)
+        logged = true
         emit_signal("sign_in")
 
 func _on_SignContainer_logging():
