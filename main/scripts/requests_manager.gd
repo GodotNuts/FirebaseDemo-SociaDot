@@ -162,14 +162,6 @@ func is_user_online(id : String) -> FirestoreTask:
 				.where("is_logged", FirestoreQuery.OPERATOR.EQUAL, true)
 			)
 
-func is_user_online(id : String) -> FirestoreTask:
-    return Firebase.Firestore.query(
-                FirestoreQuery.new() \
-                .from("users") \
-                .where("user_id", FirestoreQuery.OPERATOR.EQUAL, id, FirestoreQuery.OPERATOR.AND) \
-                .where("is_logged", FirestoreQuery.OPERATOR.EQUAL, true)
-            )
-
 func view_notification(notification_id : String) -> void:
 	Firebase.Database.get_database_reference("sociadot/notifications/"+UserData.user_id) \
 	.update(notification_id, {viewed = true})
