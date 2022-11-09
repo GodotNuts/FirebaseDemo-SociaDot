@@ -76,10 +76,6 @@ func _on_show_error(error : String):
 func show_about():
 	about.show()
 
-
-func show_about():
-    about.show()
-
 # ..... top bar signals
 func _on_TopBar_close():
 	if UserData.is_logged:
