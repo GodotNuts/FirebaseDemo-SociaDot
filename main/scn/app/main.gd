@@ -6,7 +6,7 @@ onready var activities : Control = $Main/Activities
 onready var topbar : HBoxContainer = $TopBar
 onready var footbar : HBoxContainer = $FootBar
 onready var loading : Control = $Main/Loading
-onready var error_container : AspectRatioContainer = $Main/ErrorContainer
+onready var error_container : Control = $Main
 onready var error_lbl : Label = error_container.get_node("ERROR")
 
 onready var user_id_lbl : Label = $Main/AppInfo/UserId
